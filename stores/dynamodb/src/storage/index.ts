@@ -1,29 +1,32 @@
 import { DynamoDBClient, DescribeTableCommand } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
-import type { MastraMessageContentV2 } from '@mastra/core/agent';
-import { MessageList } from '@mastra/core/agent';
-import type { StorageThreadType, MastraMessageV2, MastraMessageV1 } from '@mastra/core/memory';
+import type {
+  StorageThreadType,
+  MastraMessageV2,
+  MastraMessageV1,
+  EvalRow,
+  StorageGetMessagesArg,
+  WorkflowRun,
+  WorkflowRuns,
+  StorageGetTracesArg,
+  PaginationInfo,
+  StorageColumn,
+  WorkflowRunState,
+} from '@mastra/core';
 
+import type { MastraMessageContentV2 } from '@mastra/core/agent';
+import type { TABLE_NAMES } from '@mastra/core/storage';
+import type { Trace } from '@mastra/core/telemetry';
+
+import { MastraStorage } from '@mastra/core/storage';
+import { MessageList } from '@mastra/core/agent';
 import {
-  MastraStorage,
   TABLE_THREADS,
   TABLE_MESSAGES,
   TABLE_WORKFLOW_SNAPSHOT,
   TABLE_EVALS,
   TABLE_TRACES,
 } from '@mastra/core/storage';
-import type {
-  EvalRow,
-  StorageGetMessagesArg,
-  WorkflowRun,
-  WorkflowRuns,
-  TABLE_NAMES,
-  StorageGetTracesArg,
-  PaginationInfo,
-  StorageColumn,
-} from '@mastra/core/storage';
-import type { Trace } from '@mastra/core/telemetry';
-import type { WorkflowRunState } from '@mastra/core/workflows';
 import type { Service } from 'electrodb';
 import { getElectroDbService } from '../entities';
 
