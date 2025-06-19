@@ -102,14 +102,18 @@ function runTests() {
   }
 }
 
-function preparePackagesForRelease(version) {
+function preparePackagesForRelease(version, createTag = true) {
   log(`Preparing packages for release ${version}...`, 'build');
 
   // Run the existing prepare script
   runCommand('node scripts/prepare-github-release.js');
 
-  // Update dependencies to use the new tag
-  runCommand(`node scripts/update-dependencies-to-tag.js update ${version}`);
+  // Update dependencies to use the new tag only if we're creating a tag
+  if (createTag) {
+    runCommand(`node scripts/update-dependencies-to-tag.js update ${version}`);
+  } else {
+    log('Skipping dependency update to tag (--no-tag flag used)', 'info');
+  }
 
   log('Packages prepared for release', 'success');
 }
@@ -377,7 +381,7 @@ function main() {
     }
 
     // Prepare packages for release
-    preparePackagesForRelease(normalizedVersion);
+    preparePackagesForRelease(normalizedVersion, !noTag);
 
     // Update lockfile after dependency changes
     log('Updating lockfile after dependency changes...', 'build');
