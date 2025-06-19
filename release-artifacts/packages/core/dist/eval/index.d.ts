@@ -1,0 +1,41 @@
+import { M as Metric, T as TestInfo, E as EvaluationResult } from '../types-Bo1uigWx.js';
+export { a as MetricResult } from '../types-Bo1uigWx.js';
+import { A as Agent } from '../base-CWUtFPZY.js';
+import 'ai';
+import '../base-DCIyondy.js';
+import '../logger-DtVDdb81.js';
+import '../error/index.js';
+import 'stream';
+import '@opentelemetry/api';
+import '@opentelemetry/sdk-trace-base';
+import 'zod';
+import 'json-schema';
+import '../tts/index.js';
+import '../vector/index.js';
+import '../vector/filter/index.js';
+import 'sift';
+import '../runtime-context/index.js';
+import 'xstate';
+import 'node:events';
+import 'node:http';
+import 'hono';
+import 'events';
+import '../workflows/constants.js';
+import 'ai/test';
+import '../deployer/index.js';
+import '../bundler/index.js';
+import 'hono/cors';
+import 'hono-openapi';
+
+declare function evaluate<T extends Agent>({ agentName, input, metric, output, runId, globalRunId, testInfo, instructions, }: {
+    agentName: string;
+    input: Parameters<T['generate']>[0];
+    metric: Metric;
+    output: string;
+    globalRunId: string;
+    runId?: string;
+    testInfo?: TestInfo;
+    instructions: string;
+}): Promise<EvaluationResult>;
+
+export { EvaluationResult, Metric, TestInfo, evaluate };

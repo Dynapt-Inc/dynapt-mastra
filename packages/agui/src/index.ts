@@ -80,7 +80,7 @@ export class AGUIAdapter extends AbstractAgent {
           ),
           runtimeContext: this.runtimeContext,
         })
-        .then(response => {
+        .then((response: any) => {
           let messageId = randomUUID();
           let assistantMessage: AssistantMessage = {
             id: messageId,
@@ -163,7 +163,7 @@ export class AGUIAdapter extends AbstractAgent {
             },
           });
         })
-        .catch(error => {
+        .catch((error: any) => {
           console.error('error', error);
           // Handle error
           subscriber.error(error);
@@ -238,7 +238,7 @@ export function getAGUI({
   const networks = mastra.getNetworks() || [];
 
   const networkAGUI = networks.reduce(
-    (acc, network) => {
+    (acc: Record<string, AbstractAgent>, network: any) => {
       acc[network.name!] = new AGUIAdapter({
         agentId: network.name!,
         agent: network as unknown as Agent,
@@ -334,10 +334,10 @@ export function registerCopilotKit<T extends Record<string, any> | unknown = unk
     }>,
     runtimeContext: RuntimeContext<T>,
   ) => void | Promise<void>;
-}) {
+}): any {
   return registerApiRoute(path, {
     method: `ALL`,
-    handler: async c => {
+    handler: async (c: Context<{ Variables: { mastra: Mastra } }>) => {
       const mastra = c.get('mastra');
 
       const runtimeContext = new RuntimeContext<T>();
