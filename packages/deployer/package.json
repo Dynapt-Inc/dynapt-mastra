@@ -94,7 +94,7 @@
   "dependencies": {
     "@babel/core": "^7.27.4",
     "@babel/helper-module-imports": "^7.27.1",
-    "@mastra/server": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/server": "workspace:^",
     "@neon-rs/load": "^0.1.82",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.5",
@@ -120,8 +120,9 @@
   "devDependencies": {
     "@hono/node-server": "^1.14.4",
     "@hono/swagger-ui": "^0.5.2",
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
-    "@mastra/mcp": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@internal/lint": "workspace:*",
+    "@mastra/core": "workspace:*",
+    "@mastra/mcp": "workspace:^",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/babel__core": "^7.20.5",
     "@types/babel__helper-module-imports": "^7.18.3",

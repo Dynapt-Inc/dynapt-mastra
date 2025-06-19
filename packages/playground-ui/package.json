@@ -14,21 +14,17 @@
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.es.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs.js"
       }
     },
     "./style.css": "./dist/style.css",
     "./tokens": {
       "import": {
-        "default": "./dist/tokens.es.js",
-        "types": "./dist/tokens.d.ts"
+        "types": "./dist/tokens.d.ts",
+        "default": "./dist/tokens.es.js"
       },
       "require": {
-        "types": "./dist/tokens.d.ts",
-        "default": "./dist/tokens.cjs.js"
+        "default": "./dist/tokens.cjs.js",
+        "types": "./dist/tokens.d.ts"
       }
     }
   },
@@ -113,7 +109,7 @@
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/core": "workspace:*",
     "@types/node": "^20.19.0",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",

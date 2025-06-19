@@ -76,7 +76,8 @@
   },
   "devDependencies": {
     "@ai-sdk/openai": "latest",
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@internal/lint": "workspace:*",
+    "@mastra/core": "workspace:*",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/difflib": "^0.2.7",
     "@types/fs-extra": "^11.0.4",

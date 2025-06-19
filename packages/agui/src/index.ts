@@ -30,18 +30,18 @@ import { RuntimeContext } from '@mastra/core/runtime-context';
 import { randomUUID } from 'crypto';
 import { Observable } from 'rxjs';
 
-interface MastraAgentConfig<T = unknown> extends AgentConfig {
+interface MastraAgentConfig extends AgentConfig {
   agent: Agent;
   agentId: string;
   resourceId?: string;
-  runtimeContext?: RuntimeContext<T>;
+  runtimeContext?: RuntimeContext;
 }
 
-export class AGUIAdapter<T = unknown> extends AbstractAgent {
+export class AGUIAdapter extends AbstractAgent {
   agent: Agent;
   resourceId?: string;
-  runtimeContext?: RuntimeContext<T>;
-  constructor({ agent, agentId, resourceId, runtimeContext, ...rest }: MastraAgentConfig<T>) {
+  runtimeContext?: RuntimeContext;
+  constructor({ agent, agentId, resourceId, runtimeContext, ...rest }: MastraAgentConfig) {
     super({
       agentId,
       ...rest,
@@ -78,7 +78,7 @@ export class AGUIAdapter<T = unknown> extends AbstractAgent {
             },
             {} as Record<string, any>,
           ),
-          runtimeContext: this.runtimeContext as RuntimeContext,
+          runtimeContext: this.runtimeContext,
         })
         .then(response => {
           let messageId = randomUUID();
@@ -225,21 +225,21 @@ export function convertMessagesToMastraMessages(messages: Message[]): CoreMessag
   return result;
 }
 
-export function getAGUI<T = unknown>({
+export function getAGUI({
   mastra,
   resourceId,
   runtimeContext,
 }: {
   mastra: Mastra;
   resourceId?: string;
-  runtimeContext?: RuntimeContext<T>;
+  runtimeContext?: RuntimeContext;
 }) {
   const agents = mastra.getAgents() || {};
   const networks = mastra.getNetworks() || [];
 
   const networkAGUI = networks.reduce(
     (acc, network) => {
-      acc[network.name!] = new AGUIAdapter<T>({
+      acc[network.name!] = new AGUIAdapter({
         agentId: network.name!,
         agent: network as unknown as Agent,
         resourceId,
@@ -252,7 +252,7 @@ export function getAGUI<T = unknown>({
 
   const agentAGUI = Object.entries(agents).reduce(
     (acc, [agentId, agent]) => {
-      acc[agentId] = new AGUIAdapter<T>({
+      acc[agentId] = new AGUIAdapter({
         agentId,
         agent,
         resourceId,
@@ -334,7 +334,7 @@ export function registerCopilotKit<T extends Record<string, any> | unknown = unk
     }>,
     runtimeContext: RuntimeContext<T>,
   ) => void | Promise<void>;
-}): any {
+}) {
   return registerApiRoute(path, {
     method: `ALL`,
     handler: async c => {

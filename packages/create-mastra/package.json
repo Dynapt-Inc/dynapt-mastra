@@ -45,6 +45,7 @@
     "prettier": "^3.5.3"
   },
   "devDependencies": {
+    "@internal/lint": "workspace:*",
     "@microsoft/api-extractor": "^7.52.8",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-json": "^6.1.0",
@@ -53,7 +54,7 @@
     "@types/node": "^20.19.0",
     "esbuild": "^0.25.5",
     "eslint": "^9.28.0",
-    "mastra": "github:Dynapt-Inc/dynapt-mastra#main",
+    "mastra": "workspace:^",
     "rollup": "^4.42.0",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-node-externals": "^8.0.0",
