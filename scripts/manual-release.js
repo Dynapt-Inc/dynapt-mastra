@@ -140,10 +140,21 @@ function createReleaseArchives(version) {
     if (fs.existsSync(srcPath)) {
       // Use robocopy on Windows for better handling of symlinks and node_modules
       if (process.platform === 'win32') {
-        runCommand(
-          `robocopy "${srcPath}" "${destPath}" /E /XD node_modules /XF "*.log" /NFL /NDL /NJH /NJS /NC /NS /NP`,
-          { stdio: 'ignore' },
-        );
+        try {
+          execSync(
+            `robocopy "${srcPath}" "${destPath}" /E /XD node_modules /XF "*.log" /NFL /NDL /NJH /NJS /NC /NS /NP`,
+            {
+              cwd: rootDir,
+              stdio: 'ignore',
+            },
+          );
+        } catch (error) {
+          // Robocopy exit codes: 0 = no files, 1 = files copied, 2 = extra files/dirs
+          // Only treat codes > 7 as actual errors
+          if (error.status > 7) {
+            throw error;
+          }
+        }
       } else {
         runCommand(`cp -r ${srcPath} ${destPath}`);
       }
