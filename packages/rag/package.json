@@ -41,7 +41,7 @@
   "devDependencies": {
     "@ai-sdk/cohere": "latest",
     "@ai-sdk/openai": "latest",
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/core": "workspace:*",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/big.js": "^6.2.2",
     "@types/node": "^20.19.0",

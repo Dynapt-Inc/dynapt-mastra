@@ -55,7 +55,7 @@
     "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/core": "workspace:*",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/node": "^20.19.0",
     "eslint": "^9.28.0",

@@ -113,7 +113,7 @@
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
-    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/core": "workspace:*",
     "@types/node": "^20.19.0",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
