@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/pg",
+  "name": "@dynapt-mastra/pg",
   "version": "0.11.1-alpha.0",
   "description": "Postgres provider for Mastra - includes both vector and db storage capabilities",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/deployer-vercel",
+  "name": "@dynapt-mastra/deployer-vercel",
   "version": "0.10.7-alpha.0",
   "description": "",
   "type": "module",

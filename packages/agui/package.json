@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/agui",
+  "name": "@dynapt-mastra/agui",
   "version": "1.0.3",
   "description": "AGUI protocol helpers for Mastra",
   "type": "module",

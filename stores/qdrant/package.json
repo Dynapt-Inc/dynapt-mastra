@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/qdrant",
+  "name": "@dynapt-mastra/qdrant",
   "version": "0.10.3",
   "description": "Qdrant vector store provider for Mastra",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/memory-integration-tests",
+  "name": "@dynapt-mastra/memory-integration-tests",
   "private": true,
   "version": "0.1.0",
   "scripts": {

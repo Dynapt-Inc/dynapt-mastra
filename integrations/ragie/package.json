@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/ragie",
+  "name": "@dynapt-mastra/ragie",
   "version": "1.2.3",
   "description": "",
   "main": "dist/index.js",

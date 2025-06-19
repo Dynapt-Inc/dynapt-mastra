@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/auth-firebase",
+  "name": "@dynapt-mastra/auth-firebase",
   "version": "0.10.0",
   "description": "Mastra Firebase Auth integration",
   "type": "module",

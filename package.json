@@ -1,5 +1,5 @@
 {
-  "name": "mastra-turbo",
+  "name": "@dynapt/mastra",
   "version": "0.1.11",
   "type": "module",
   "devDependencies": {

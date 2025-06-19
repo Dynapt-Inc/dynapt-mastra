@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/dane",
+  "name": "@dynapt-mastra/dane",
   "version": "0.0.28-alpha.0",
   "main": "dist/index.js",
   "type": "module",

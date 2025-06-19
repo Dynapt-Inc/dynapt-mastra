@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/voice-murf",
+  "name": "@dynapt-mastra/voice-murf",
   "version": "0.10.3",
   "description": "Mastra Murf voice integration",
   "type": "module",

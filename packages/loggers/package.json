@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/loggers",
+  "name": "@dynapt-mastra/loggers",
   "version": "0.10.2",
   "description": "",
   "type": "module",

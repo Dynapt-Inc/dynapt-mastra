@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/auth-clerk",
+  "name": "@dynapt-mastra/auth-clerk",
   "version": "0.10.1",
   "description": "Mastra Clerk Auth integration",
   "type": "module",

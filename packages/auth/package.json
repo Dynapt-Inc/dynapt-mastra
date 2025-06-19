@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/auth",
+  "name": "@dynapt-mastra/auth",
   "version": "0.1.0",
   "description": "",
   "type": "module",

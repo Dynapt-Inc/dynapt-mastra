@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/cloudflare",
+  "name": "@dynapt-mastra/cloudflare",
   "version": "0.10.5-alpha.0",
   "description": "Cloudflare provider for Mastra - includes db storage capabilities",
   "type": "module",

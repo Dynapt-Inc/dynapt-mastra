@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/auth-workos",
+  "name": "@dynapt-mastra/auth-workos",
   "version": "0.10.1",
   "description": "Mastra WorkOS Auth integration",
   "type": "module",

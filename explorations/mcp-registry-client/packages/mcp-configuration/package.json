@@ -1,5 +1,5 @@
 {
-	"name": "@mastra/mcp-configuration",
+	"name": "@dynapt-mastra/mcp-configuration",
 	"version": "1.0.0",
 	"description": "MCP Configuration Manager",
 	"type": "module",

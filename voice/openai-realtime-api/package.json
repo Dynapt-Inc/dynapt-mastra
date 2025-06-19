@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/voice-openai-realtime",
+  "name": "@dynapt-mastra/voice-openai-realtime",
   "version": "0.10.2",
   "description": "Mastra OpenAI Realtime API integration",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@mastra/playground",
+  "name": "@dynapt-mastra/playground",
   "private": true,
   "version": "0.0.2",
   "type": "module",
