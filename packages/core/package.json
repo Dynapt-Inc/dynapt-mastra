@@ -80,6 +80,16 @@
         "default": "./dist/base.cjs"
       }
     },
+    "./bundler": {
+      "import": {
+        "types": "./dist/bundler/index.d.ts",
+        "default": "./dist/bundler/index.js"
+      },
+      "require": {
+        "types": "./dist/bundler/index.d.cts",
+        "default": "./dist/bundler/index.cjs"
+      }
+    },
     "./telemetry/otel-vendor": {
       "import": {
         "types": "./dist/telemetry/otel-vendor.d.ts",

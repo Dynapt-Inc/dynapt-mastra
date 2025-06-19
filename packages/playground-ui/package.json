@@ -14,17 +14,21 @@
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs.js"
       }
     },
     "./style.css": "./dist/style.css",
     "./tokens": {
       "import": {
-        "types": "./dist/tokens.d.ts",
-        "default": "./dist/tokens.es.js"
+        "default": "./dist/tokens.es.js",
+        "types": "./dist/tokens.d.ts"
       },
       "require": {
-        "default": "./dist/tokens.cjs.js",
-        "types": "./dist/tokens.d.ts"
+        "types": "./dist/tokens.d.ts",
+        "default": "./dist/tokens.cjs.js"
       }
     }
   },
