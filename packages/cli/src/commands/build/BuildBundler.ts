@@ -32,7 +32,7 @@ export class BuildBundler extends Bundler {
   }
 
   async bundle(entryFile: string, outputDirectory: string, toolsPaths: string[]): Promise<void> {
-    return this._bundle(this.getEntry(), entryFile, outputDirectory, toolsPaths);
+    return super._bundle(this.getEntry(), entryFile, outputDirectory, toolsPaths);
   }
 
   protected getEntry(): string {
