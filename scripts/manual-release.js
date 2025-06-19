@@ -70,8 +70,14 @@ function validateVersion(version) {
 function buildAllPackages() {
   log('Building all packages...', 'build');
 
+  // Build packages in the correct dependency order
   const buildCommands = [
-    'pnpm run build:packages',
+    // Build core dependencies first
+    'pnpm --filter @mastra/core run build',
+    'pnpm --filter @mastra/schema-compat run build',
+    'pnpm --filter @mastra/fastembed run build',
+    // Then build the rest with proper dependencies
+    'pnpm turbo build --filter "./packages/*" --force',
     'pnpm run build:integrations',
     'pnpm run build:combined-stores',
     'pnpm run build:deployers',
