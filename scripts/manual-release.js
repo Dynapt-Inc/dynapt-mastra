@@ -138,7 +138,15 @@ function createReleaseArchives(version) {
     const destPath = path.join(releaseDir, dir);
 
     if (fs.existsSync(srcPath)) {
-      runCommand(`cp -r ${srcPath} ${destPath}`);
+      // Use robocopy on Windows for better handling of symlinks and node_modules
+      if (process.platform === 'win32') {
+        runCommand(
+          `robocopy "${srcPath}" "${destPath}" /E /XD node_modules /XF "*.log" /NFL /NDL /NJH /NJS /NC /NS /NP`,
+          { stdio: 'ignore' },
+        );
+      } else {
+        runCommand(`cp -r ${srcPath} ${destPath}`);
+      }
       log(`Copied ${dir} to release artifacts`, 'info');
     }
   });
@@ -157,7 +165,14 @@ function createReleaseArchives(version) {
   });
 
   // Create main tarball
-  runCommand(`tar -czf release-artifacts-${version}.tar.gz -C release-artifacts .`);
+  if (process.platform === 'win32') {
+    // Use PowerShell to create zip on Windows
+    runCommand(
+      `powershell -Command "Compress-Archive -Path 'release-artifacts\\*' -DestinationPath 'release-artifacts-${version}.zip' -Force"`,
+    );
+  } else {
+    runCommand(`tar -czf release-artifacts-${version}.tar.gz -C release-artifacts .`);
+  }
 
   // Create individual package archives
   const packagesDir = path.join(rootDir, 'packages');
@@ -167,7 +182,13 @@ function createReleaseArchives(version) {
     packages.forEach(pkg => {
       const packagePath = path.join(packagesDir, pkg);
       if (fs.statSync(packagePath).isDirectory()) {
-        runCommand(`tar -czf ${pkg}-${version}.tar.gz -C packages ${pkg}`);
+        if (process.platform === 'win32') {
+          runCommand(
+            `powershell -Command "Compress-Archive -Path 'packages\\${pkg}\\*' -DestinationPath '${pkg}-${version}.zip' -Force"`,
+          );
+        } else {
+          runCommand(`tar -czf ${pkg}-${version}.tar.gz -C packages ${pkg}`);
+        }
         log(`Created archive for ${pkg}`, 'info');
       }
     });
