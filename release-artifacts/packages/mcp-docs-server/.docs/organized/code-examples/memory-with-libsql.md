@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "memory-with-libsql",
@@ -28,10 +27,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### chat.ts
-
 ```typescript
 import { randomUUID } from 'crypto';
 import Readline from 'readline';
@@ -92,10 +91,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### index.ts
-
 ```typescript
 import { randomUUID } from 'crypto';
 
@@ -162,10 +161,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -196,10 +195,10 @@ export const memoryAgent = new Agent({
   model: openai('gpt-4o'),
   memory,
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 
@@ -208,4 +207,5 @@ import { chefAgent, memoryAgent } from './agents';
 export const mastra = new Mastra({
   agents: { chefAgent, memoryAgent },
 });
+
 ```

@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "memory-with-processors",
@@ -31,10 +30,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### forgetful-interviewer.ts
-
 ```typescript
 import 'dotenv/config';
 
@@ -148,10 +147,10 @@ while (true) {
 
   await send(prompt);
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { createTool } from '@mastra/core';
@@ -254,10 +253,10 @@ export const interviewerAgent = new Agent({
   model: openai('gpt-4o'),
   memory: interviewMemory,
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 
@@ -266,10 +265,10 @@ import { supportAgent, interviewerAgent } from './agents';
 export const mastra = new Mastra({
   agents: { supportAgent, interviewerAgent },
 });
+
 ```
 
 ### processor-example.ts
-
 ```typescript
 import 'dotenv/config';
 import { openai } from '@ai-sdk/openai';
@@ -453,10 +452,10 @@ async function main() {
 }
 
 main().catch(console.error);
+
 ```
 
 ### support-agent.ts
-
 ```typescript
 import 'dotenv/config';
 import { makeSend, searchTool } from './utils';
@@ -524,10 +523,10 @@ await send(
 await send(
   'Can you remind me what was the first thing you suggested I should check? Also, do you think a cooling pad would help with my issue?',
 );
+
 ```
 
 ### utils.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -607,4 +606,5 @@ export const searchTool = createTool({
     return `Not much found unfortunately. You'll probably have to turn it off an on again.`;
   },
 });
+
 ```

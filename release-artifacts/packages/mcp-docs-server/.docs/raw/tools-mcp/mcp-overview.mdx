@@ -1,9 +1,9 @@
 ---
-title: 'MCP Overview | Tools & MCP | Mastra Docs'
+title: "MCP Overview | Tools & MCP | Mastra Docs"
 description: Learn about the Model Context Protocol (MCP), how to use third-party tools via MCPClient, connect to registries, and share your own tools using MCPServer.
 ---
 
-import { Tabs } from 'nextra/components';
+import { Tabs } from "nextra/components";
 
 # MCP Overview
 
@@ -28,8 +28,8 @@ npm install @mastra/mcp@latest
 Register your MCP server with Mastra to enable logging and access to configured tools and integrations:
 
 ```ts showLineNumbers filename="src/mastra/index.ts" copy
-import { Mastra } from '@mastra/core';
-import { myMcpServer } from './mcpServers';
+import { Mastra } from "@mastra/core";
+import { myMcpServer } from "./mcpServers";
 
 export const mastra = new Mastra({
   mcpServers: { myMcpServer },
@@ -41,21 +41,21 @@ export const mastra = new Mastra({
 You configure `MCPClient` with a map of servers you want to connect to. It supports connections via subprocess (Stdio) or HTTP (Streamable HTTP with SSE fallback).
 
 ```typescript
-import { MCPClient } from '@mastra/mcp';
+import { MCPClient } from "@mastra/mcp";
 
 const mcp = new MCPClient({
   servers: {
     // Stdio example
     sequential: {
-      command: 'npx',
-      args: ['-y', '@modelcontextprotocol/server-sequential-thinking'],
+      command: "npx",
+      args: ["-y", "@modelcontextprotocol/server-sequential-thinking"],
     },
     // HTTP example
     weather: {
-      url: new URL('http://localhost:8080/mcp'),
+      url: new URL("http://localhost:8080/mcp"),
       requestInit: {
         headers: {
-          Authorization: 'Bearer your-token',
+          Authorization: "Bearer your-token",
         },
       },
     },
@@ -80,7 +80,7 @@ For detailed configuration options, see the [`MCPClient` reference documentation
   [Reference: `getTools()`](/reference/tools/mcp-client#gettools)
 
   ```typescript
-  import { Agent } from '@mastra/core/agent';
+  import { Agent } from "@mastra/core/agent";
   // ... mcp client setup
 
   const agent = new Agent({
@@ -93,7 +93,7 @@ For detailed configuration options, see the [`MCPClient` reference documentation
   [Reference: `getToolsets()`](/reference/tools/mcp-client#gettoolsets)
 
   ```typescript
-  import { Agent } from '@mastra/core/agent';
+  import { Agent } from "@mastra/core/agent";
   // ... agent setup without tools initially
 
   async function handleRequest(userPrompt: string, userApiKey: string) {
@@ -114,12 +114,13 @@ For detailed configuration options, see the [`MCPClient` reference documentation
 
 MCP servers can be discovered through registries. Here's how to connect to some popular ones using `MCPClient`:
 
-{/_
+
+{/*
 LLM CONTEXT: This Tabs component shows how to connect to different MCP (Model Context Protocol) registries.
 Each tab demonstrates the configuration for a specific MCP registry service (mcp.run, Composio.dev, Smithery.ai).
 The tabs help users understand how to connect to various MCP server providers and their different authentication methods.
 Each tab shows the specific URL patterns and configuration needed for that registry service.
-_/}
+*/}
 
 <Tabs items={["mcp.run", "Composio.dev", "Smithery.ai", "Ampersand"]}>
   <Tabs.Tab>
@@ -215,7 +216,7 @@ _/}
     <Tabs.Tab>
 
     [Ampersand](https://withampersand.com?utm_source=mastra-docs) offers an [MCP Server](https://docs.withampersand.com/mcp) that allows you to connect your agent to 150+ integrations with SaaS products like Salesforce, Hubspot, and Zendesk.
-
+    
 
     ```typescript
 
@@ -237,7 +238,7 @@ _/}
 
     ```typescript
     // If you prefer to run the MCP server locally:
-
+    
     import { MCPClient } from "@mastra/mcp";
 
     // MCPClient with Ampersand MCP Server using stdio transport
@@ -283,16 +284,16 @@ This allows others to use your tools, agents, and workflows without needing dire
 You initialize `MCPServer` with a name, version, and the Mastra tools, agents, and/or workflows you want to share.
 
 ```typescript
-import { MCPServer } from '@mastra/mcp';
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
-import { weatherTool } from './tools'; // Your Mastra tool
-import { weatherAgent } from './agents'; // Your Mastra Agent
-import { dataWorkflow } from './workflows'; // Your Mastra Workflow
+import { MCPServer } from "@mastra/mcp";
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
+import { weatherTool } from "./tools"; // Your Mastra tool
+import { weatherAgent } from "./agents"; // Your Mastra Agent
+import { dataWorkflow } from "./workflows"; // Your Mastra Workflow
 
 const server = new MCPServer({
-  name: 'My Custom Server',
-  version: '1.0.0',
+  name: "My Custom Server",
+  version: "1.0.0",
   tools: { weatherTool }, // Provide your tool(s) here
   agents: { weatherAgent }, // Provide your agent(s) here
   workflows: { dataWorkflow }, // Provide your workflow(s) here

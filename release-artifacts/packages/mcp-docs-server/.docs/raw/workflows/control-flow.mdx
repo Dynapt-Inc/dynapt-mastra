@@ -1,6 +1,6 @@
 ---
-title: 'Branching, Merging, Conditions | Workflows | Mastra Docs'
-description: 'Control flow in Mastra workflows allows you to manage branching, merging, and conditions to construct workflows that meet your logic requirements.'
+title: "Branching, Merging, Conditions | Workflows | Mastra Docs"
+description: "Control flow in Mastra workflows allows you to manage branching, merging, and conditions to construct workflows that meet your logic requirements."
 ---
 
 # Control Flow
@@ -79,6 +79,7 @@ To ensure compatibility, the loop’s initial input must either:
 - Match the shape of the previous step’s output, or
 - Be explicitly transformed using the `map` function.
 
+
 ### Dowhile
 
 Executes a step repeatedly while a condition is true.
@@ -109,6 +110,7 @@ export const testWorkflow = createWorkflow({...})
   .commit();
 ```
 
+
 ### Foreach
 
 Sequentially executes the same step for each item from the `inputSchema`.
@@ -129,12 +131,12 @@ export const testWorkflow = createWorkflow({...})
 The following example demonstrates how to start a run with multiple inputs. Each input will pass through the `mapStep` sequentially.
 
 ```typescript {6} filename="src/test-workflow.ts" showLineNumbers copy
-import { mastra } from './mastra';
+import { mastra } from "./mastra";
 
-const run = mastra.getWorkflow('testWorkflow').createRun();
+const run = mastra.getWorkflow("testWorkflow").createRun();
 
 const result = await run.start({
-  inputData: [{ number: 10 }, { number: 100 }, { number: 200 }],
+  inputData: [{ number: 10 }, { number: 100 }, { number: 200 }]
 });
 ```
 
@@ -181,6 +183,7 @@ Parallel steps receive previous step results as input. Their outputs are passed 
 
 In the example below, `nestedWorkflow` is used as a step within `testWorkflow`. The `testWorkflow` uses `step1` whilst the `nestedWorkflow` composes `step2` and `step3`
 
+
 ```typescript {4,7} filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
 import { createWorkflow, createStep } from "@mastra/core/workflows";
 import { z } from "zod";
@@ -193,6 +196,7 @@ export const testWorkflow = createWorkflow({...})
 ```
 
 When using `.branch()` or `.parallel()` to build more complex control flows, executing more than one step requires wrapping those steps in a nested workflow, along with a clear definition of how they should be executed.
+
 
 ## Cloned Workflows
 

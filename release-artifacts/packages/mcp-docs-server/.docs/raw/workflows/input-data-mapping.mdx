@@ -1,6 +1,6 @@
 ---
-title: 'Input Data Mapping with Workflow | Mastra Docs'
-description: 'Learn how to use workflow input mapping to create more dynamic data flows in your Mastra workflows.'
+title: "Input Data Mapping with Workflow | Mastra Docs"
+description: "Learn how to use workflow input mapping to create more dynamic data flows in your Mastra workflows."
 ---
 
 # Input Data Mapping
@@ -98,20 +98,22 @@ You can rename workflow outputs by using **referential composition**. This invol
 
 ```typescript {12, 16} showLineNumbers
 export const testWorkflow = createWorkflow({
-  id: 'test-workflow',
+  id: "test-workflow",
   description: 'Test workflow',
   inputSchema: z.object({
-    input: z.string(),
+    input: z.string()
   }),
   outputSchema: z.object({
-    output: z.string(),
-  }),
+    output: z.string()
+  })
 });
 
-testWorkflow.then(cityCoordinatesStep).map({
-  details: {
-    initData: testWorkflow,
-    path: 'value',
-  },
-});
+testWorkflow
+  .then(cityCoordinatesStep)
+  .map({
+    details: {
+      initData: testWorkflow,
+      path: "value"
+    }
+  })
 ```

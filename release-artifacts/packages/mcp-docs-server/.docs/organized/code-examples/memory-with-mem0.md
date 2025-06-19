@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "memory-with-mem0",
@@ -34,10 +33,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -51,10 +50,10 @@ export const mem0Agent = new Agent({
   model: openai('gpt-4o'),
   tools: { mem0RememberTool, mem0MemorizeTool },
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
@@ -68,10 +67,10 @@ export const mastra = new Mastra({
     level: 'error',
   }),
 });
+
 ```
 
 ### mastra\integrations\index.ts
-
 ```typescript
 import { Mem0Integration } from '@mastra/mem0';
 
@@ -81,10 +80,10 @@ export const mem0 = new Mem0Integration({
     user_id: 'alice',
   },
 });
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -125,4 +124,5 @@ export const mem0MemorizeTool = createTool({
     return { success: true };
   },
 });
+
 ```

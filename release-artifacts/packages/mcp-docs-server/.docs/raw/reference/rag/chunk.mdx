@@ -1,5 +1,5 @@
 ---
-title: 'Reference: .chunk() | Document Processing | RAG | Mastra Docs'
+title: "Reference: .chunk() | Document Processing | RAG | Mastra Docs"
 description: Documentation for the chunk function in Mastra, which splits documents into smaller segments using various strategies.
 ---
 
@@ -10,7 +10,7 @@ The `.chunk()` function splits documents into smaller segments using various str
 ## Example
 
 ```typescript
-import { MDocument } from '@mastra/rag';
+import { MDocument } from "@mastra/rag";
 
 const doc = MDocument.fromMarkdown(`
 # Introduction
@@ -28,10 +28,10 @@ const chunks = await doc.chunk();
 
 // Markdown-specific chunking with header extraction
 const chunksWithMetadata = await doc.chunk({
-  strategy: 'markdown',
+  strategy: "markdown",
   headers: [
-    ['#', 'title'],
-    ['##', 'section'],
+    ["#", "title"],
+    ["##", "section"],
   ],
   extract: {
     summary: true, // Extract summaries with default settings
@@ -45,51 +45,54 @@ const chunksWithMetadata = await doc.chunk({
 <PropertiesTable
   content={[
     {
-      name: 'strategy',
+      name: "strategy",
       type: "'recursive' | 'character' | 'token' | 'markdown' | 'html' | 'json' | 'latex'",
       isOptional: true,
       description:
         "The chunking strategy to use. If not specified, defaults based on document type. Depending on the chunking strategy, there are additional optionals. Defaults: .md files → 'markdown', .html/.htm → 'html', .json → 'json', .tex → 'latex', others → 'recursive'",
     },
     {
-      name: 'size',
-      type: 'number',
+      name: "size",
+      type: "number",
       isOptional: true,
-      defaultValue: '512',
-      description: 'Maximum size of each chunk',
+      defaultValue: "512",
+      description: "Maximum size of each chunk",
     },
     {
-      name: 'overlap',
-      type: 'number',
+      name: "overlap",
+      type: "number",
       isOptional: true,
-      defaultValue: '50',
-      description: 'Number of characters/tokens that overlap between chunks.',
+      defaultValue: "50",
+      description: "Number of characters/tokens that overlap between chunks.",
     },
     {
-      name: 'separator',
-      type: 'string',
+      name: "separator",
+      type: "string",
       isOptional: true,
-      defaultValue: '\\n\\n',
-      description: 'Character(s) to split on. Defaults to double newline for text content.',
+      defaultValue: "\\n\\n",
+      description:
+        "Character(s) to split on. Defaults to double newline for text content.",
     },
     {
-      name: 'isSeparatorRegex',
-      type: 'boolean',
+      name: "isSeparatorRegex",
+      type: "boolean",
       isOptional: true,
-      defaultValue: 'false',
-      description: 'Whether the separator is a regex pattern',
+      defaultValue: "false",
+      description: "Whether the separator is a regex pattern",
     },
     {
-      name: 'keepSeparator',
+      name: "keepSeparator",
       type: "'start' | 'end'",
       isOptional: true,
-      description: 'Whether to keep the separator at the start or end of chunks',
+      description:
+        "Whether to keep the separator at the start or end of chunks",
     },
     {
-      name: 'extract',
-      type: 'ExtractParams',
+      name: "extract",
+      type: "ExtractParams",
       isOptional: true,
-      description: 'Metadata extraction configuration. See [ExtractParams reference](./extract-params) for details.',
+      description:
+        "Metadata extraction configuration. See [ExtractParams reference](./extract-params) for details.",
     },
   ]}
 />
@@ -101,21 +104,21 @@ Strategy-specific options are passed as top-level parameters alongside the strat
 ```typescript showLineNumbers copy
 // HTML strategy example
 const chunks = await doc.chunk({
-  strategy: 'html',
+  strategy: "html",
   headers: [
-    ['h1', 'title'],
-    ['h2', 'subtitle'],
+    ["h1", "title"],
+    ["h2", "subtitle"],
   ], // HTML-specific option
-  sections: [['div.content', 'main']], // HTML-specific option
+  sections: [["div.content", "main"]], // HTML-specific option
   size: 500, // general option
 });
 
 // Markdown strategy example
 const chunks = await doc.chunk({
-  strategy: 'markdown',
+  strategy: "markdown",
   headers: [
-    ['#', 'title'],
-    ['##', 'section'],
+    ["#", "title"],
+    ["##", "section"],
   ], // Markdown-specific option
   stripHeaders: true, // Markdown-specific option
   overlap: 50, // general option
@@ -123,9 +126,9 @@ const chunks = await doc.chunk({
 
 // Token strategy example
 const chunks = await doc.chunk({
-  strategy: 'token',
-  encodingName: 'gpt2', // Token-specific option
-  modelName: 'gpt-3.5-turbo', // Token-specific option
+  strategy: "token",
+  encodingName: "gpt2", // Token-specific option
+  modelName: "gpt-3.5-turbo", // Token-specific option
   size: 1000, // general option
 });
 ```
@@ -137,20 +140,22 @@ The options documented below are passed directly at the top level of the configu
 <PropertiesTable
   content={[
     {
-      name: 'headers',
-      type: 'Array<[string, string]>',
-      description: 'Array of [selector, metadata key] pairs for header-based splitting',
+      name: "headers",
+      type: "Array<[string, string]>",
+      description:
+        "Array of [selector, metadata key] pairs for header-based splitting",
     },
     {
-      name: 'sections',
-      type: 'Array<[string, string]>',
-      description: 'Array of [selector, metadata key] pairs for section-based splitting',
+      name: "sections",
+      type: "Array<[string, string]>",
+      description:
+        "Array of [selector, metadata key] pairs for section-based splitting",
     },
     {
-      name: 'returnEachLine',
-      type: 'boolean',
+      name: "returnEachLine",
+      type: "boolean",
       isOptional: true,
-      description: 'Whether to return each line as a separate chunk',
+      description: "Whether to return each line as a separate chunk",
     },
   ]}
 />
@@ -160,21 +165,21 @@ The options documented below are passed directly at the top level of the configu
 <PropertiesTable
   content={[
     {
-      name: 'headers',
-      type: 'Array<[string, string]>',
-      description: 'Array of [header level, metadata key] pairs',
+      name: "headers",
+      type: "Array<[string, string]>",
+      description: "Array of [header level, metadata key] pairs",
     },
     {
-      name: 'stripHeaders',
-      type: 'boolean',
+      name: "stripHeaders",
+      type: "boolean",
       isOptional: true,
-      description: 'Whether to remove headers from the output',
+      description: "Whether to remove headers from the output",
     },
     {
-      name: 'returnEachLine',
-      type: 'boolean',
+      name: "returnEachLine",
+      type: "boolean",
       isOptional: true,
-      description: 'Whether to return each line as a separate chunk',
+      description: "Whether to return each line as a separate chunk",
     },
   ]}
 />
@@ -184,16 +189,16 @@ The options documented below are passed directly at the top level of the configu
 <PropertiesTable
   content={[
     {
-      name: 'encodingName',
-      type: 'string',
+      name: "encodingName",
+      type: "string",
       isOptional: true,
-      description: 'Name of the token encoding to use',
+      description: "Name of the token encoding to use",
     },
     {
-      name: 'modelName',
-      type: 'string',
+      name: "modelName",
+      type: "string",
       isOptional: true,
-      description: 'Name of the model for tokenization',
+      description: "Name of the model for tokenization",
     },
   ]}
 />
@@ -203,27 +208,27 @@ The options documented below are passed directly at the top level of the configu
 <PropertiesTable
   content={[
     {
-      name: 'maxSize',
-      type: 'number',
-      description: 'Maximum size of each chunk',
+      name: "maxSize",
+      type: "number",
+      description: "Maximum size of each chunk",
     },
     {
-      name: 'minSize',
-      type: 'number',
+      name: "minSize",
+      type: "number",
       isOptional: true,
-      description: 'Minimum size of each chunk',
+      description: "Minimum size of each chunk",
     },
     {
-      name: 'ensureAscii',
-      type: 'boolean',
+      name: "ensureAscii",
+      type: "boolean",
       isOptional: true,
-      description: 'Whether to ensure ASCII encoding',
+      description: "Whether to ensure ASCII encoding",
     },
     {
-      name: 'convertLists',
-      type: 'boolean',
+      name: "convertLists",
+      type: "boolean",
       isOptional: true,
-      description: 'Whether to convert lists in the JSON',
+      description: "Whether to convert lists in the JSON",
     },
   ]}
 />

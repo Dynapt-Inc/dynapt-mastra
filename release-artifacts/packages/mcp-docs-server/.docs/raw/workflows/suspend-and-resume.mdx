@@ -1,11 +1,12 @@
 ---
-title: 'Suspend & Resume Workflows | Human-in-the-Loop | Mastra Docs'
-description: 'Suspend and resume in Mastra workflows allows you to pause execution while waiting for external input or resources.'
+title: "Suspend & Resume Workflows | Human-in-the-Loop | Mastra Docs"
+description: "Suspend and resume in Mastra workflows allows you to pause execution while waiting for external input or resources."
 ---
 
 # Suspend & Resume
 
 Workflows can be paused at any step, with their current state persisted as a snapshot in storage. Execution can then be resumed from this saved snapshot when ready. Persisting the snapshot ensures the workflow state is maintained across sessions, deployments, and server restarts, essential for workflows that may remain suspended while awaiting external input or resources.
+
 
 Common scenarios for suspending workflows include:
 
@@ -30,16 +31,16 @@ When the state is `suspended`, you can identify any and all steps that have been
 
 ```typescript {17} filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
 const step1 = createStep({
-  id: 'step-1',
-  description: 'Test suspend',
+  id: "step-1",
+  description: "Test suspend",
   inputSchema: z.object({
-    input: z.array(z.string()),
+    input: z.array(z.string())
   }),
   resumeSchema: z.object({
-    city: z.string(),
+    city: z.string()
   }),
   outputSchema: z.object({
-    output: z.string(),
+    output: z.string()
   }),
   execute: async ({ resumeData, suspend }) => {
     const { city } = resumeData ?? {};
@@ -47,17 +48,19 @@ const step1 = createStep({
     if (!city) {
       await suspend({});
       return {
-        outcome: '',
+        outcome: ""
       };
     }
 
     return {
-      output: '',
+      output: ""
     };
-  },
+  }
 });
 
-export const testWorkflow = createWorkflow({}).then(step1).commit();
+export const testWorkflow = createWorkflow({})
+  .then(step1)
+  .commit();
 ```
 
 > See [Define Suspendable workflow](/examples/workflows/human-in-the-loop#define-suspendable-workflow) for more information.
@@ -67,20 +70,20 @@ export const testWorkflow = createWorkflow({}).then(step1).commit();
 A workflow can be resumed by calling `resume` and providing the required `resumeData`.
 
 ```typescript {6,12,13,14} filename="src/test-workflow.ts" showLineNumbers copy
-import { mastra } from './mastra';
+import { mastra } from "./mastra";
 
-const run = mastra.getWorkflow('testWorkflow').createRun();
+const run = mastra.getWorkflow("testWorkflow").createRun();
 
 const result = await run.start({
-  inputData: { suggestions: ['London', 'Paris', 'New York'] },
+  inputData: { suggestions: ["London", "Paris", "New York"] }
 });
 
 console.log(JSON.stringify(result, null, 2));
 
-if (result.status === 'suspended') {
+if (result.status === "suspended") {
   const resumedResult = await run.resume({
     step: 'step-1',
-    resumeData: { city: 'New York' },
+    resumeData: { city: "New York" }
   });
 
   console.log(JSON.stringify(resumedResult, null, 2));
@@ -128,7 +131,7 @@ const dowhileWorkflow = createWorkflow({
 const run = dowhileWorkflow.createRun();
 const result = await run.start({ inputData: { value: 0 } });
 
-if (result.status === 'suspended') {
+if (result.status === "suspended") {
   const resumedResult = await run.resume({
     resumeData: { value: 2 },
     step: ['simple-resume-workflow', 'resume'],
@@ -144,22 +147,22 @@ When using suspend/resume with `RuntimeContext`, you can create the instance you
 `RuntimeContext` is not automatically shared on a workflow run.
 
 ```typescript {1,4,9,16} filename="src/test-workflow.ts" showLineNumbers copy
-import { RuntimeContext } from '@mastra/core/di';
-import { mastra } from './mastra';
+import { RuntimeContext } from "@mastra/core/di";
+import { mastra } from "./mastra";
 
 const runtimeContext = new RuntimeContext();
-const run = mastra.getWorkflow('testWorkflow').createRun();
+const run = mastra.getWorkflow("testWorkflow").createRun();
 
 const result = await run.start({
-  inputData: { suggestions: ['London', 'Paris', 'New York'] },
-  runtimeContext,
+  inputData: { suggestions: ["London", "Paris", "New York"] },
+  runtimeContext
 });
 
-if (result.status === 'suspended') {
+if (result.status === "suspended") {
   const resumedResult = await run.resume({
     step: 'step-1',
-    resumeData: { city: 'New York' },
-    runtimeContext,
+    resumeData: { city: "New York" },
+    runtimeContext
   });
 }
 ```

@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-bird-checker-with-nextjs",
@@ -47,18 +46,18 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### lib\mastra\actions.ts
-
 ```typescript
-'use server';
+"use server";
 
-import { mastra } from '@/mastra';
-import { getRandomImage, Image, ImageResponse } from './system-tools';
-import { z } from 'zod';
+import { mastra } from "@/mastra";
+import { getRandomImage, Image, ImageResponse } from "./system-tools";
+import { z } from "zod";
 
-export type ImageQuery = 'wildlife' | 'feathers' | 'flying' | 'birds';
+export type ImageQuery = "wildlife" | "feathers" | "flying" | "birds";
 
 export type BirdResponse = {
   bird: boolean;
@@ -66,8 +65,12 @@ export type BirdResponse = {
   location: string;
 };
 
-export const getImage = async ({ query }: { query: ImageQuery }): Promise<ImageResponse<Image, string>> => {
-  console.log('get image ============', 'got here');
+export const getImage = async ({
+  query,
+}: {
+  query: ImageQuery;
+}): Promise<ImageResponse<Image, string>> => {
+  console.log("get image ============", "got here");
   const response = await getRandomImage({ query });
 
   return response as ImageResponse<Image, string>;
@@ -79,21 +82,21 @@ export const promptClaude = async ({
   imageUrl: string;
 }): Promise<ImageResponse<BirdResponse, string>> => {
   try {
-    const birdAgent = mastra.getAgent('birdAgent');
+    const birdAgent = mastra.getAgent("birdAgent");
 
-    console.log('calling bird checker agent');
+    console.log("calling bird checker agent");
 
     const response = await birdAgent.generate(
       [
         {
-          role: 'user',
+          role: "user",
           content: [
             {
-              type: 'image',
+              type: "image",
               image: imageUrl,
             },
             {
-              type: 'text',
+              type: "text",
               text: "view this image and let me know if it's a bird or not, and the scientific name of the bird without any explanation. Also summarize the location for this picture in one or two short sentences understandable by a high school student",
             },
           ],
@@ -110,18 +113,18 @@ export const promptClaude = async ({
 
     const { object } = response;
 
-    console.log('prompt claude response====', JSON.stringify(object, null, 2));
+    console.log("prompt claude response====", JSON.stringify(object, null, 2));
 
     return { ok: true, data: object as BirdResponse };
   } catch (err) {
-    console.error('Error prompting claude:', err);
-    return { ok: false, error: 'Could not fetch image metadata' };
+    console.error("Error prompting claude:", err);
+    return { ok: false, error: "Could not fetch image metadata" };
   }
 };
+
 ```
 
 ### lib\mastra\system-tools.ts
-
 ```typescript
 export type Image = {
   alt_description: string;
@@ -147,27 +150,34 @@ export type ImageResponse<T, K> =
       error: K;
     };
 
-export type ImageQuery = 'wildlife' | 'feathers' | 'flying' | 'birds';
+export type ImageQuery = "wildlife" | "feathers" | "flying" | "birds";
 
-export const getRandomImage = async ({ query }: { query: ImageQuery }): Promise<ImageResponse<Image, string>> => {
+export const getRandomImage = async ({
+  query,
+}: {
+  query: ImageQuery;
+}): Promise<ImageResponse<Image, string>> => {
   const page = Math.floor(Math.random() * 20);
-  const order_by = Math.random() < 0.5 ? 'relevant' : 'latest';
+  const order_by = Math.random() < 0.5 ? "relevant" : "latest";
   try {
-    const res = await fetch(`https://api.unsplash.com/search/photos?query=${query}&page=${page}&order_by=${order_by}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
-        'Accept-Version': 'v1',
+    const res = await fetch(
+      `https://api.unsplash.com/search/photos?query=${query}&page=${page}&order_by=${order_by}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
+          "Accept-Version": "v1",
+        },
+        cache: "no-store",
       },
-      cache: 'no-store',
-    });
+    );
 
-    console.log('res in get_random_image api executor===', res);
+    console.log("res in get_random_image api executor===", res);
 
     if (!res.ok) {
       return {
         ok: false,
-        error: 'Failed to fetch image',
+        error: "Failed to fetch image",
       };
     }
 
@@ -175,73 +185,74 @@ export const getRandomImage = async ({ query }: { query: ImageQuery }): Promise<
       results: Array<Image>;
     };
     const randomNo = Math.floor(Math.random() * data.results.length);
-    console.log('data ====', JSON.stringify(data.results[randomNo], null, 2));
+    console.log("data ====", JSON.stringify(data.results[randomNo], null, 2));
 
     return {
       ok: true,
       data: data.results[randomNo] as Image,
     };
   } catch (err) {
-    console.log('Error in get_random_image api executor===', err);
+    console.log("Error in get_random_image api executor===", err);
     return {
       ok: false,
-      error: 'Error fetching image',
+      error: "Error fetching image",
     };
   }
 };
+
 ```
 
 ### lib\utils.ts
-
 ```typescript
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
-import { anthropic } from '@ai-sdk/anthropic';
-import { Agent } from '@mastra/core/agent';
+import { anthropic } from "@ai-sdk/anthropic";
+import { Agent } from "@mastra/core/agent";
 
 export const birdAgent = new Agent({
-  name: 'Bird checker',
+  name: "Bird checker",
   instructions:
-    'You can view an image and figure out if it is a bird or not. You can also figure out the species of the bird and where the picture was taken.',
-  model: anthropic('claude-3-haiku-20240307'),
+    "You can view an image and figure out if it is a bird or not. You can also figure out the species of the bird and where the picture was taken.",
+  model: anthropic("claude-3-haiku-20240307"),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
-import { Mastra } from '@mastra/core';
-import { birdAgent } from './agents';
+import { Mastra } from "@mastra/core";
+import { birdAgent } from "./agents";
 
 export const mastra = new Mastra({
   agents: { birdAgent },
 });
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
-import { getRandomImage } from '@/lib/mastra/system-tools';
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
+import { getRandomImage } from "@/lib/mastra/system-tools";
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
 
 export const getRandomImageTool = createTool({
-  id: 'Get a random image from unsplash',
-  description: 'Gets a random image from unsplash based on the selected option',
+  id: "Get a random image from unsplash",
+  description: "Gets a random image from unsplash based on the selected option",
   inputSchema: z.object({
-    query: z.enum(['wildlife', 'feathers', 'flying', 'birds']),
+    query: z.enum(["wildlife", "feathers", "flying", "birds"]),
   }),
   execute: async ({ context }) => {
     return getRandomImage(context);
   },
 });
+
 ```

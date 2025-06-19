@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-openapi-spec-writer",
@@ -64,24 +63,26 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### lib\hooks\useCopyToClipboard.ts
-
 ```typescript
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface useCopyToClipboardProps {
   timeout?: number;
 }
 
-export function useCopyToClipboard({ timeout = 2000 }: useCopyToClipboardProps) {
+export function useCopyToClipboard({
+  timeout = 2000,
+}: useCopyToClipboardProps) {
   const [isCopied, setIsCopied] = React.useState<Boolean>(false);
 
   const copyToClipboard = (value: string) => {
-    if (typeof window === 'undefined' || !navigator.clipboard?.writeText) {
+    if (typeof window === "undefined" || !navigator.clipboard?.writeText) {
       return;
     }
 
@@ -100,46 +101,46 @@ export function useCopyToClipboard({ timeout = 2000 }: useCopyToClipboardProps) 
 
   return { isCopied, copyToClipboard };
 }
+
 ```
 
 ### lib\utils.ts
-
 ```typescript
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
 
 export const agentOne = new Agent({
-  name: 'openapi-spec-gen-agent',
+  name: "openapi-spec-gen-agent",
   instructions:
-    'You are an expert Open API spec writer. You can take markdown documentation and extract all the information you can to generate an amazing Open API spec. You are also able to merge multiple fragmented Open API specs from the same source into a single compliant spec.',
-  model: openai('gpt-3.5-turbo'),
+    "You are an expert Open API spec writer. You can take markdown documentation and extract all the information you can to generate an amazing Open API spec. You are also able to merge multiple fragmented Open API specs from the same source into a single compliant spec.",
+  model: openai("gpt-3.5-turbo"),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
-import { PinoLogger } from '@mastra/loggers';
-import { Mastra } from '@mastra/core/mastra';
-import { UpstashTransport } from '@mastra/loggers/upstash';
-import { agentOne } from './agents';
-import { makePRToMastraWorkflow, openApiSpecGenWorkflow } from './workflows';
+import { PinoLogger } from "@mastra/loggers";
+import { Mastra } from "@mastra/core/mastra";
+import { UpstashTransport } from "@mastra/loggers/upstash";
+import { agentOne } from "./agents";
+import { makePRToMastraWorkflow, openApiSpecGenWorkflow } from "./workflows";
 
 export const mastra = new Mastra({
   logger: new PinoLogger({
-    name: 'OPENAPI_SPEC_WRITER',
-    level: 'debug',
+    name: "OPENAPI_SPEC_WRITER",
+    level: "debug",
     transports: {
       upstash: new UpstashTransport({
         upstashToken: process.env.UPSTASH_API_KEY!,
@@ -147,15 +148,15 @@ export const mastra = new Mastra({
       }),
     },
   }),
-  agents: { 'openapi-spec-gen-agent': agentOne },
+  agents: { "openapi-spec-gen-agent": agentOne },
   telemetry: {
-    serviceName: 'mastra-vnext',
+    serviceName: "mastra-vnext",
     sampling: {
-      type: 'always_on',
+      type: "always_on",
     },
     enabled: true,
     export: {
-      type: 'otlp',
+      type: "otlp",
     },
   },
   workflows: {
@@ -163,44 +164,44 @@ export const mastra = new Mastra({
     makePRToMastraWorkflow,
   },
 });
+
 ```
 
 ### mastra\integrations\index.ts
-
 ```typescript
-import { GithubIntegration } from '@mastra/github';
-import { FirecrawlIntegration } from '@mastra/firecrawl';
+import { GithubIntegration } from "@mastra/github";
+import { FirecrawlIntegration } from "@mastra/firecrawl";
 
 export const github = new GithubIntegration({
   config: {
     PERSONAL_ACCESS_TOKEN: process.env.GITHUB_API_KEY!,
   },
-});
+})
 
 export const firecrawl = new FirecrawlIntegration({
   config: {
     API_KEY: process.env.FIRECRAWL_API_KEY!,
   },
-});
+})
+
 ```
 
 ### mastra\tools\index.ts
-
-````typescript
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
-import { firecrawl, github } from '../integrations';
-import { randomUUID } from 'crypto';
+```typescript
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
+import { firecrawl, github } from "../integrations";
+import { randomUUID } from "crypto";
 
 export const siteCrawlTool = createTool({
-  id: 'site-crawl',
-  label: 'Site Crawl',
+  id: "site-crawl",
+  label: "Site Crawl",
   inputSchema: z.object({
     url: z.string(),
     pathRegex: z.string(),
     limit: z.number(),
   }),
-  description: 'Crawl a website and extract the markdown content',
+  description: "Crawl a website and extract the markdown content",
   outputSchema: z.object({
     success: z.boolean(),
     crawlData: z.array(
@@ -209,14 +210,14 @@ export const siteCrawlTool = createTool({
         metadata: z.object({
           sourceURL: z.string(),
         }),
-      }),
+      })
     ),
     entityType: z.string(),
   }),
   execute: async ({ context }) => {
     const client = await firecrawl.getApiClient();
 
-    console.log('Starting crawl', context.url);
+    console.log("Starting crawl", context.url);
 
     const res = await client.crawlUrls({
       body: {
@@ -224,9 +225,16 @@ export const siteCrawlTool = createTool({
         limit: context.limit || 3,
         includePaths: [context.pathRegex],
         scrapeOptions: {
-          formats: ['markdown'],
-          includeTags: ['main'],
-          excludeTags: ['img', 'footer', 'nav', 'header', '#navbar', '.table-of-contents-content'],
+          formats: ["markdown"],
+          includeTags: ["main"],
+          excludeTags: [
+            "img",
+            "footer",
+            "nav",
+            "header",
+            "#navbar",
+            ".table-of-contents-content",
+          ],
           onlyMainContent: true,
         },
       },
@@ -245,8 +253,8 @@ export const siteCrawlTool = createTool({
       },
     });
 
-    while (crawl.data?.status === 'scraping') {
-      await new Promise(resolve => setTimeout(resolve, 5000));
+    while (crawl.data?.status === "scraping") {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       crawl = await client.getCrawlStatus({
         path: {
@@ -259,10 +267,10 @@ export const siteCrawlTool = createTool({
 
     return {
       success: true,
-      crawlData: (crawl?.data?.data || []).map(item => ({
-        markdown: item.markdown || '',
+      crawlData: (crawl?.data?.data || []).map((item) => ({
+        markdown: item.markdown || "",
         metadata: {
-          sourceURL: item?.metadata?.sourceURL || '',
+          sourceURL: item?.metadata?.sourceURL || "",
           ...item.metadata,
         },
       })),
@@ -272,8 +280,8 @@ export const siteCrawlTool = createTool({
 });
 
 export const generateSpecTool = createTool({
-  id: 'generate-spec',
-  label: 'Generate Spec',
+  id: "generate-spec",
+  label: "Generate Spec",
   inputSchema: z.object({
     mastra_entity_type: z.string(),
   }),
@@ -281,54 +289,63 @@ export const generateSpecTool = createTool({
     success: z.boolean(),
     mergedSpec: z.string(),
   }),
-  description: 'Generate a spec from a website',
+  description: "Generate a spec from a website",
   execute: async ({ context, runId, mastra }) => {
     const crawledData =
-      context?.steps?.['site-crawl']?.status === 'success' ? context?.steps?.['site-crawl']?.output?.crawlData : [];
+      context?.steps?.["site-crawl"]?.status === "success"
+        ? context?.steps?.["site-crawl"]?.output?.crawlData
+        : [];
 
     if (!crawledData) {
-      throw new Error('No crawled data found');
+      throw new Error("No crawled data found");
     }
 
-    const agent = mastra?.agents?.['openapi-spec-gen-agent'];
+    const agent = mastra?.agents?.["openapi-spec-gen-agent"];
 
     if (!agent) {
-      throw new Error('Agent not found');
+      throw new Error("Agent not found");
     }
 
     const openapiResponses = [];
-    let mergedSpecAnswer = '';
+    let mergedSpecAnswer = "";
 
     for (const d of crawledData) {
       const data = await agent.generate(
         `I wrote another page of docs, turn this into an Open API spec: ${d.data.markdown}`,
-        { runId },
+        { runId }
       );
 
       openapiResponses.push(data.text);
     }
 
-    console.log('inspect this, openapiResponses used to come back in structured output yaml');
+    console.log(
+      "inspect this, openapiResponses used to come back in structured output yaml"
+    );
 
     const mergedSpec = await agent?.generate(
       `I have generated the following Open API specs: ${openapiResponses
-        .map(r => r)
-        .join('\n\n')} - merge them into a single spec,
+        .map((r) => r)
+        .join("\n\n")} - merge them into a single spec,
           `,
-      { runId },
+      { runId }
     );
 
-    mergedSpecAnswer = mergedSpec.text.replace(/```yaml/g, '').replace(/```/g, '');
+    mergedSpecAnswer = mergedSpec.text
+      .replace(/```yaml/g, "")
+      .replace(/```/g, "");
 
-    console.log('MERGED SPEC ==================', JSON.stringify(mergedSpecAnswer, null, 2));
+    console.log(
+      "MERGED SPEC ==================",
+      JSON.stringify(mergedSpecAnswer, null, 2)
+    );
 
     return { success: true, mergedSpec: mergedSpecAnswer };
   },
 });
 
 export const addToGitHubTool = createTool({
-  id: 'add-to-github',
-  label: 'Add to Git',
+  id: "add-to-github",
+  label: "Add to Git",
   inputSchema: z.object({
     yaml: z.string(),
     integration_name: z.string(),
@@ -340,41 +357,42 @@ export const addToGitHubTool = createTool({
     success: z.boolean(),
     pr_url: z.string().optional(),
   }),
-  description: 'Commit the spec to GitHub',
+  description: "Commit the spec to GitHub",
   execute: async ({ context, runId, mastra }) => {
     const client = await github.getApiClient();
 
     const content = context.yaml;
     const integrationName = context.integration_name.toLowerCase();
 
-    console.log('Writing to Github for', context.integration_name);
-    const agent = mastra?.agents?.['openapi-spec-gen-agent'];
+    console.log("Writing to Github for", context.integration_name);
+    const agent = mastra?.agents?.["openapi-spec-gen-agent"];
 
-    const d = await agent?.generate(`Can you take this text blob and format it into proper YAML? ${content}`, {
-      runId,
-    });
+    const d = await agent?.generate(
+      `Can you take this text blob and format it into proper YAML? ${content}`,
+      { runId }
+    );
 
     if (!d) {
-      console.error('Agent failed to process the text blob');
+      console.error("Agent failed to process the text blob");
       return { success: false };
     }
 
     if (Array.isArray(d.toolCalls)) {
       const answer = d.text;
-      const strippedYaml = answer.replace(/```yaml/g, '').replace(/```/g, '');
+      const strippedYaml = answer.replace(/```yaml/g, "").replace(/```/g, "");
 
-      const base64Content = Buffer.from(strippedYaml).toString('base64');
+      const base64Content = Buffer.from(strippedYaml).toString("base64");
 
       const reposPathMap = {
         [`integrations-next/${integrationName}/openapi.yaml`]: base64Content,
         [`integrations-next/${integrationName}/README.md`]: Buffer.from(
-          `# ${integrationName}\n\nThis repo contains the Open API spec for the ${integrationName} integration`,
-        ).toString('base64'),
+          `# ${integrationName}\n\nThis repo contains the Open API spec for the ${integrationName} integration`
+        ).toString("base64"),
       };
 
       const mainRef = await client.gitGetRef({
         path: {
-          ref: 'heads/main',
+          ref: "heads/main",
           owner: context.owner,
           repo: context.repo,
         },
@@ -384,11 +402,11 @@ export const addToGitHubTool = createTool({
 
       const mainSha = mainRef.data?.object?.sha;
 
-      console.log('Main SHA', mainSha);
+      console.log("Main SHA", mainSha);
 
       const branchName = `open-api-spec-writer/${integrationName}-${randomUUID()}`;
 
-      console.log('Branch name', branchName);
+      console.log("Branch name", branchName);
 
       if (mainSha) {
         await client.gitCreateRef({
@@ -422,7 +440,7 @@ export const addToGitHubTool = createTool({
           body: {
             title: `Add open api spec from ${context.site_url} for ${integrationName}`,
             head: branchName,
-            base: 'main',
+            base: "main",
           },
           path: {
             owner: context.owner,
@@ -437,18 +455,18 @@ export const addToGitHubTool = createTool({
     return { success: true };
   },
 });
-````
+
+```
 
 ### mastra\workflows\index.ts
-
 ```typescript
-import { Workflow, Step } from '@mastra/core/workflows';
-import { z } from 'zod';
-import { addToGitHubTool, generateSpecTool, siteCrawlTool } from '../tools';
+import { Workflow, Step } from "@mastra/core/workflows";
+import { z } from "zod";
+import { addToGitHubTool, generateSpecTool, siteCrawlTool } from "../tools";
 // import { MDocument } from "@mastra/rag";
 
 const syncStep = new Step({
-  id: 'site-crawl-sync-step',
+  id: "site-crawl-sync-step",
   outputSchema: z.object({
     success: z.boolean(),
     crawlData: z.array(
@@ -457,11 +475,12 @@ const syncStep = new Step({
         metadata: z.object({
           sourceURL: z.string(),
         }),
-      }),
+      })
     ),
     entityType: z.string(),
   }),
-  description: 'Crawl a website and extract the markdown content and sync it to the database',
+  description:
+    "Crawl a website and extract the markdown content and sync it to the database",
   execute: async ({ context, runId, suspend }) => {
     const toolResult = await siteCrawlTool.execute({
       context: context?.triggerData,
@@ -475,7 +494,7 @@ const syncStep = new Step({
       return {
         success: false,
         crawlData: [],
-        entityType: '',
+        entityType: "",
       };
     }
 
@@ -508,21 +527,21 @@ const syncStep = new Step({
 });
 
 export const openApiSpecGenWorkflow = new Workflow({
-  name: 'openApiSpecGenWorkflow',
+  name: "openApiSpecGenWorkflow",
   triggerSchema: z.object({
-    url: z.string().describe('The URL of the website to crawl'),
-    pathRegex: z.string().optional().describe('The regex to match the paths'),
+    url: z.string().describe("The URL of the website to crawl"),
+    pathRegex: z.string().optional().describe("The regex to match the paths"),
   }),
 })
   .step(syncStep, {
     variables: {
       pathRegex: {
-        path: 'pathRegex',
-        step: 'trigger',
+        path: "pathRegex",
+        step: "trigger",
       },
       url: {
-        path: 'url',
-        step: 'trigger',
+        path: "url",
+        step: "trigger",
       },
     },
   })
@@ -530,7 +549,7 @@ export const openApiSpecGenWorkflow = new Workflow({
     variables: {
       mastra_entity_type: {
         step: syncStep,
-        path: 'entityType',
+        path: "entityType",
       },
     },
   });
@@ -538,30 +557,31 @@ export const openApiSpecGenWorkflow = new Workflow({
 openApiSpecGenWorkflow.commit();
 
 export const makePRToMastraWorkflow = new Workflow({
-  name: 'makePRToMastra',
+  name: "makePRToMastra",
   triggerSchema: z.object({
     integration_name: z.string(),
-    site_url: z.string().describe('The URL of the website to crawl'),
-    owner: z.string().describe('Owner of the repo'),
-    repo: z.string().describe('Name of the repo'),
-    yaml: z.string().describe('The Open API spec in YAML format'),
+    site_url: z.string().describe("The URL of the website to crawl"),
+    owner: z.string().describe("Owner of the repo"),
+    repo: z.string().describe("Name of the repo"),
+    yaml: z.string().describe("The Open API spec in YAML format"),
   }),
 }).step(addToGitHubTool, {
   variables: {
     yaml: {
-      path: 'yaml',
-      step: 'trigger',
+      path: "yaml",
+      step: "trigger",
     },
     integration_name: {
-      path: 'integration_name',
-      step: 'trigger',
+      path: "integration_name",
+      step: "trigger",
     },
     site_url: {
-      path: 'site_url',
-      step: 'trigger',
+      path: "site_url",
+      step: "trigger",
     },
   },
 });
 
 makePRToMastraWorkflow.commit();
+
 ```

@@ -1,10 +1,10 @@
 ---
-title: 'Inspecting agents and workflows with mastra dev | Mastra Local Dev Docs'
+title: "Inspecting agents and workflows with mastra dev | Mastra Local Dev Docs"
 description: Documentation for the Mastra local development environment for Mastra applications.
 ---
 
-import YouTube from '@/components/youtube';
-import { Tabs, Tab } from '@/components/tabs';
+import YouTube from "@/components/youtube";
+import { Tabs, Tab } from "@/components/tabs";
 
 # Playground
 
@@ -12,9 +12,17 @@ Mastra provides a local development environment where you can test your agents, 
 
 Start the local development server by running:
 
-<Tabs items={['npm', 'Mastra CLI']}>
-  <Tab>```bash copy npm run dev ```</Tab>
-  <Tab>```bash copy mastra dev ```</Tab>
+<Tabs items={["npm", "Mastra CLI"]}>
+  <Tab>
+    ```bash copy
+    npm run dev
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    mastra dev
+    ```
+  </Tab>
 </Tabs>
 
 The local development server provides access to the following interfaces:
@@ -28,7 +36,7 @@ The local development server provides access to the following interfaces:
 
 The Playground lets you interact with your agents, workflows, and tools. It provides dedicated interfaces for testing each component of your Mastra application during development and is available at: [http://localhost:4111/](http://localhost:4111/).
 
-<YouTube id="spGlcTEjuXY" startTime={126} />
+<YouTube id="spGlcTEjuXY" startTime={126}/>
 
 ### Agents
 
@@ -70,6 +78,7 @@ Key features:
 - **Input & Responses**: Send sample inputs to see how the tool responds.
 - **Tool Usage**: Find out which agents rely on this tool and how they’re using it.
 
+
 ### MCP Servers
 
 Explore connection details, tool usage, and IDE configuration for local MCP server development.
@@ -79,8 +88,9 @@ Explore connection details, tool usage, and IDE configuration for local MCP serv
 Key features:
 
 - **Connection Details**: Access the endpoints and config needed to wire up your MCP environment.
-- **Available Tools**: See all tools currently published, including their names, versions, and which agents use them.
+- **Available Tools**:  See all tools currently published, including their names, versions, and which agents use them.
 - **IDE Configuration**: Grab ready-to-use config you can drop into your local setup for testing and publishing tools.
+
 
 ## REST API Endpoints
 
@@ -95,14 +105,14 @@ The local development server includes an OpenAPI specification available at: [ht
 To include OpenAPI documentation in your production server, enable it in the Mastra instance:
 
 ```typescript {7} filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core/mastra';
+import { Mastra } from "@mastra/core/mastra";
 
 export const mastra = new Mastra({
   // ...
   server: {
     build: {
-      openAPIDocs: true,
-    },
+      openAPIDocs: true
+    }
   },
 });
 ```
@@ -114,13 +124,13 @@ The local development server includes an interactive Swagger UI - API explorer a
 To include Swagger UI in your production server, enable it in the Mastra instance:
 
 ```typescript {7} filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core/mastra';
+import { Mastra } from "@mastra/core/mastra";
 
 export const mastra = new Mastra({
   // ...
   server: {
     build: {
-      swaggerUI: true,
+      swaggerUI: true
     },
   },
 });
@@ -141,16 +151,17 @@ This setup lets you start developing immediately with production-like behavior, 
 By default, the server runs on port `4111`. You can customize the host and port through the Mastra server configuration.
 
 ```typescript {6,7} filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core/mastra';
+import { Mastra } from "@mastra/core/mastra";
 
 export const mastra = new Mastra({
   // ...
   server: {
     port: 8080,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
   },
 });
 ```
+
 
 ## Next steps
 

@@ -1,9 +1,9 @@
 ---
-title: 'Getting started with Mastra and Express | Mastra Guides'
+title: "Getting started with Mastra and Express | Mastra Guides"
 description: A step-by-step guide to integrating Mastra with an Express backend.
 ---
 
-import { Callout, Steps, Tabs, FileTree } from 'nextra/components';
+import { Callout, Steps, Tabs, FileTree } from "nextra/components";
 
 # Integrate Mastra in your Express project
 
@@ -29,11 +29,27 @@ Type compatibility in 5.x can be inconsistent while `express` and `@types/expres
 
 Install the required Mastra packages:
 
-<Tabs items={['npm', 'yarn', 'pnpm', 'bun']}>
-  <Tabs.Tab>```bash copy npm install mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy bun add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
+<Tabs items={["npm", "yarn", "pnpm", "bun"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm install mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    bun add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 ## Integrate Mastra
@@ -107,9 +123,17 @@ OPENAI_API_KEY=<your-api-key>
 
 Start the Mastra dev server to expose your agents as REST endpoints:
 
-<Tabs items={['npm', 'CLI']}>
-  <Tabs.Tab>```bash copy npm run dev ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy mastra dev ```</Tabs.Tab>
+<Tabs items={["npm", "CLI"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm run dev
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    mastra dev
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 > Once running, your agents are available locally. See [Local Development Environment](/docs/local-dev/mastra-dev) for more information.
@@ -119,29 +143,29 @@ Start the Mastra dev server to expose your agents as REST endpoints:
 This example creates an `/api/weather` endpoint that expects a `city` query parameter.
 
 ```typescript filename="src/server.ts" showLineNumbers copy
-import 'dotenv/config';
-import express, { Request, Response } from 'express';
+import "dotenv/config";
+import express, { Request, Response } from "express";
 
-import { mastra } from './mastra';
+import { mastra } from "./mastra";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
 
-app.get('/api/weather', async (req: Request, res: Response) => {
+app.get("/api/weather", async (req: Request, res: Response) => {
   const { city } = req.query as { city?: string };
 
   if (!city) {
     return res.status(400).send("Missing 'city' query parameter");
   }
 
-  const agent = mastra.getAgent('weatherAgent');
+  const agent = mastra.getAgent("weatherAgent");
 
   try {
     const result = await agent.generate(`What's the weather like in ${city}?`);
     res.send(result.text);
   } catch (error) {
-    console.error('Agent error:', error);
-    res.status(500).send('An error occurred while processing your request');
+    console.error("Agent error:", error);
+    res.status(500).send("An error occurred while processing your request");
   }
 });
 
@@ -158,9 +182,17 @@ npx tsx --watch src/server.ts --watch-dir src
 
 You can now make a request to the endpoint using one of the following:
 
-<Tabs items={['http', 'curl']}>
-  <Tabs.Tab>```bash copy http://localhost:3000/api/weather?city=London ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy curl "http://localhost:3000/api/weather?city=London" ```</Tabs.Tab>
+<Tabs items={["http", "curl"]}>
+  <Tabs.Tab>
+    ```bash copy
+    http://localhost:3000/api/weather?city=London
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl "http://localhost:3000/api/weather?city=London"
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 You should see output similar to the below:

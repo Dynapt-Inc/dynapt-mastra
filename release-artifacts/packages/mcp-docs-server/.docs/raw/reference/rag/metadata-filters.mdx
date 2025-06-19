@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Metadata Filters | Metadata Filtering | RAG | Mastra Docs'
+title: "Reference: Metadata Filters | Metadata Filtering | RAG | Mastra Docs"
 description: Documentation for metadata filtering capabilities in Mastra, which allow for precise querying of vector search results across different vector stores.
 ---
 
@@ -10,18 +10,18 @@ Mastra provides a unified metadata filtering syntax across all vector stores, ba
 ## Basic Example
 
 ```typescript
-import { PgVector } from '@mastra/pg';
+import { PgVector } from "@mastra/pg";
 
 const store = new PgVector({ connectionString });
 
 const results = await store.query({
-  indexName: 'my_index',
+  indexName: "my_index",
   queryVector: queryVector,
   topK: 10,
   filter: {
-    category: 'electronics', // Simple equality
+    category: "electronics", // Simple equality
     price: { $gt: 100 }, // Numeric comparison
-    tags: { $in: ['sale', 'new'] }, // Array membership
+    tags: { $in: ["sale", "new"] }, // Array membership
   },
 });
 ```
@@ -32,40 +32,40 @@ const results = await store.query({
   title="Basic Comparison"
   operators={[
     {
-      name: '$eq',
-      description: 'Matches values equal to specified value',
-      example: '{ age: { $eq: 25 } }',
-      supportedBy: ['All except Couchbase'],
+      name: "$eq",
+      description: "Matches values equal to specified value",
+      example: "{ age: { $eq: 25 } }",
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$ne',
-      description: 'Matches values not equal',
+      name: "$ne",
+      description: "Matches values not equal",
       example: "{ status: { $ne: 'inactive' } }",
-      supportedBy: ['All except Couchbase'],
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$gt',
-      description: 'Greater than',
-      example: '{ price: { $gt: 100 } }',
-      supportedBy: ['All except Couchbase'],
+      name: "$gt",
+      description: "Greater than",
+      example: "{ price: { $gt: 100 } }",
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$gte',
-      description: 'Greater than or equal',
-      example: '{ rating: { $gte: 4.5 } }',
-      supportedBy: ['All except Couchbase'],
+      name: "$gte",
+      description: "Greater than or equal",
+      example: "{ rating: { $gte: 4.5 } }",
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$lt',
-      description: 'Less than',
-      example: '{ stock: { $lt: 20 } }',
-      supportedBy: ['All except Couchbase'],
+      name: "$lt",
+      description: "Less than",
+      example: "{ stock: { $lt: 20 } }",
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$lte',
-      description: 'Less than or equal',
-      example: '{ priority: { $lte: 3 } }',
-      supportedBy: ['All except Couchbase'],
+      name: "$lte",
+      description: "Less than or equal",
+      example: "{ priority: { $lte: 3 } }",
+      supportedBy: ["All except Couchbase"],
     },
   ]}
 />
@@ -74,28 +74,28 @@ const results = await store.query({
   title="Array Operators"
   operators={[
     {
-      name: '$in',
-      description: 'Matches any value in array',
+      name: "$in",
+      description: "Matches any value in array",
       example: '{ category: { $in: ["A", "B"] } }',
-      supportedBy: ['All except Couchbase'],
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$nin',
-      description: 'Matches none of the values',
+      name: "$nin",
+      description: "Matches none of the values",
       example: '{ status: { $nin: ["deleted", "archived"] } }',
-      supportedBy: ['All except Couchbase'],
+      supportedBy: ["All except Couchbase"],
     },
     {
-      name: '$all',
-      description: 'Matches arrays containing all elements',
+      name: "$all",
+      description: "Matches arrays containing all elements",
       example: '{ tags: { $all: ["urgent", "high"] } }',
-      supportedBy: ['Astra', 'Pinecone', 'Upstash', 'MongoDB'],
+      supportedBy: ["Astra", "Pinecone", "Upstash", "MongoDB"],
     },
     {
-      name: '$elemMatch',
-      description: 'Matches array elements meeting criteria',
-      example: '{ scores: { $elemMatch: { $gt: 80 } } }',
-      supportedBy: ['LibSQL', 'PgVector', 'MongoDB'],
+      name: "$elemMatch",
+      description: "Matches array elements meeting criteria",
+      example: "{ scores: { $elemMatch: { $gt: 80 } } }",
+      supportedBy: ["LibSQL", "PgVector", "MongoDB"],
     },
   ]}
 />
@@ -104,28 +104,35 @@ const results = await store.query({
   title="Logical Operators"
   operators={[
     {
-      name: '$and',
-      description: 'Logical AND',
-      example: '{ $and: [{ price: { $gt: 100 } }, { stock: { $gt: 0 } }] }',
-      supportedBy: ['All except Vectorize, Couchbase'],
+      name: "$and",
+      description: "Logical AND",
+      example: "{ $and: [{ price: { $gt: 100 } }, { stock: { $gt: 0 } }] }",
+      supportedBy: ["All except Vectorize, Couchbase"],
     },
     {
-      name: '$or',
-      description: 'Logical OR',
+      name: "$or",
+      description: "Logical OR",
       example: '{ $or: [{ status: "active" }, { priority: "high" }] }',
-      supportedBy: ['All except Vectorize, Couchbase'],
+      supportedBy: ["All except Vectorize, Couchbase"],
     },
     {
-      name: '$not',
-      description: 'Logical NOT',
-      example: '{ price: { $not: { $lt: 100 } } }',
-      supportedBy: ['Astra', 'Qdrant', 'Upstash', 'PgVector', 'LibSQL', 'MongoDB'],
+      name: "$not",
+      description: "Logical NOT",
+      example: "{ price: { $not: { $lt: 100 } } }",
+      supportedBy: [
+        "Astra",
+        "Qdrant",
+        "Upstash",
+        "PgVector",
+        "LibSQL",
+        "MongoDB",
+      ],
     },
     {
-      name: '$nor',
-      description: 'Logical NOR',
+      name: "$nor",
+      description: "Logical NOR",
       example: '{ $nor: [{ status: "deleted" }, { archived: true }] }',
-      supportedBy: ['Qdrant', 'Upstash', 'PgVector', 'LibSQL', 'MongoDB'],
+      supportedBy: ["Qdrant", "Upstash", "PgVector", "LibSQL", "MongoDB"],
     },
   ]}
 />
@@ -134,10 +141,10 @@ const results = await store.query({
   title="Element Operators"
   operators={[
     {
-      name: '$exists',
-      description: 'Matches documents with field',
-      example: '{ rating: { $exists: true } }',
-      supportedBy: ['All except Vectorize, Chroma, Couchbase'],
+      name: "$exists",
+      description: "Matches documents with field",
+      example: "{ rating: { $exists: true } }",
+      supportedBy: ["All except Vectorize, Chroma, Couchbase"],
     },
   ]}
 />
@@ -146,46 +153,46 @@ const results = await store.query({
   title="Custom Operators"
   operators={[
     {
-      name: '$contains',
-      description: 'Text contains substring',
+      name: "$contains",
+      description: "Text contains substring",
       example: '{ description: { $contains: "sale" } }',
-      supportedBy: ['Upstash', 'LibSQL', 'PgVector'],
+      supportedBy: ["Upstash", "LibSQL", "PgVector"],
     },
     {
-      name: '$regex',
-      description: 'Regular expression match',
+      name: "$regex",
+      description: "Regular expression match",
       example: '{ name: { $regex: "^test" } }',
-      supportedBy: ['Qdrant', 'PgVector', 'Upstash', 'MongoDB'],
+      supportedBy: ["Qdrant", "PgVector", "Upstash", "MongoDB"],
     },
     {
-      name: '$size',
-      description: 'Array length check',
-      example: '{ tags: { $size: { $gt: 2 } } }',
-      supportedBy: ['Astra', 'LibSQL', 'PgVector', 'MongoDB'],
+      name: "$size",
+      description: "Array length check",
+      example: "{ tags: { $size: { $gt: 2 } } }",
+      supportedBy: ["Astra", "LibSQL", "PgVector", "MongoDB"],
     },
     {
-      name: '$geo',
-      description: 'Geospatial query',
+      name: "$geo",
+      description: "Geospatial query",
       example: '{ location: { $geo: { type: "radius", ... } } }',
-      supportedBy: ['Qdrant'],
+      supportedBy: ["Qdrant"],
     },
     {
-      name: '$datetime',
-      description: 'Datetime range query',
+      name: "$datetime",
+      description: "Datetime range query",
       example: '{ created: { $datetime: { range: { gt: "2024-01-01" } } } }',
-      supportedBy: ['Qdrant'],
+      supportedBy: ["Qdrant"],
     },
     {
-      name: '$hasId',
-      description: 'Vector ID existence check',
+      name: "$hasId",
+      description: "Vector ID existence check",
       example: '{ $hasId: ["id1", "id2"] }',
-      supportedBy: ['Qdrant'],
+      supportedBy: ["Qdrant"],
     },
     {
-      name: '$hasVector',
-      description: 'Vector existence check',
-      example: '{ $hasVector: true }',
-      supportedBy: ['Qdrant'],
+      name: "$hasVector",
+      description: "Vector existence check",
+      example: "{ $hasVector: true }",
+      supportedBy: ["Qdrant"],
     },
   ]}
 />
@@ -310,7 +317,6 @@ const results = await store.query({
 - Indexing metadata fields is recommended for optimal performance
 
 ### Couchbase
-
 - Currently does not have support for metadata filters. Filtering must be done client-side after retrieving results or by using the Couchbase SDK's Search capabilities directly for more complex queries.
 
 ## Related

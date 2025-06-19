@@ -1,9 +1,9 @@
 ---
-title: 'Logging | Mastra Observability Documentation'
+title: "Logging | Mastra Observability Documentation"
 description: Documentation on effective logging in Mastra, crucial for understanding application behavior and improving AI accuracy.
 ---
 
-import Image from 'next/image';
+import Image from "next/image";
 
 # Logging
 
@@ -14,14 +14,14 @@ In Mastra, logs can detail when certain functions run, what input data they rece
 Here's a minimal example that sets up a **console logger** at the `INFO` level. This will print out informational messages and above (i.e., `DEBUG`, `INFO`, `WARN`, `ERROR`) to the console.
 
 ```typescript filename="mastra.config.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core';
-import { PinoLogger } from '@mastra/loggers';
+import { Mastra } from "@mastra/core";
+import { PinoLogger } from "@mastra/loggers";
 
 export const mastra = new Mastra({
   // Other Mastra configuration...
   logger: new PinoLogger({
-    name: 'Mastra',
-    level: 'info',
+    name: "Mastra",
+    level: "info",
   }),
 });
 ```

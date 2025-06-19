@@ -1,5 +1,5 @@
 ---
-title: 'Using Agent Memory | Agents | Mastra Docs'
+title: "Using Agent Memory | Agents | Mastra Docs"
 description: Documentation on how agents in Mastra use memory to store conversation history and contextual information.
 ---
 
@@ -16,21 +16,21 @@ npm install @mastra/memory@latest @mastra/libsql@latest
 ```
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { Memory } from '@mastra/memory';
-import { LibSQLStore } from '@mastra/libsql';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { Memory } from "@mastra/memory";
+import { LibSQLStore } from "@mastra/libsql";
+import { openai } from "@ai-sdk/openai";
 
 const memory = new Memory({
   storage: new LibSQLStore({
-    url: 'file:../../memory.db',
+    url: "file:../../memory.db",
   }),
 });
 
 const agent = new Agent({
-  name: 'MyMemoryAgent',
-  instructions: 'You are a helpful assistant with memory.',
-  model: openai('gpt-4o'),
+  name: "MyMemoryAgent",
+  instructions: "You are a helpful assistant with memory.",
+  model: openai("gpt-4o"),
   memory, // Attach the memory instance
 });
 ```
@@ -46,15 +46,15 @@ To utilize memory during interactions, you **must** provide `resourceId` and `th
 
 ```typescript
 // Example agent call using memory
-await agent.stream('Remember my favorite color is blue.', {
-  resourceId: 'user_alice',
-  threadId: 'preferences_thread',
+await agent.stream("Remember my favorite color is blue.", {
+  resourceId: "user_alice",
+  threadId: "preferences_thread",
 });
 
 // Later in the same thread...
 const response = await agent.stream("What's my favorite color?", {
-  resourceId: 'user_alice',
-  threadId: 'preferences_thread',
+  resourceId: "user_alice",
+  threadId: "preferences_thread",
 });
 // Agent will use memory to recall the favorite color.
 ```

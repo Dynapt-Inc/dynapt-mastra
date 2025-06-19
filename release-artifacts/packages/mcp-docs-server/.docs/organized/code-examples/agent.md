@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-agent",
@@ -45,10 +44,10 @@
   "license": "MIT",
   "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
 }
+
 ```
 
 ### client.ts
-
 ```typescript
 import { MCPClient } from '@mastra/mcp';
 
@@ -66,10 +65,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### index.ts
-
 ```typescript
 import { z } from 'zod';
 import { mastra } from './mastra';
@@ -351,10 +350,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { jsonSchema, tool } from 'ai';
@@ -456,10 +455,10 @@ export const chefAgentResponses = new Agent({
     myWorkflow,
   },
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 import { PinoLogger } from '@mastra/loggers';
@@ -491,10 +490,10 @@ export const mastra = new Mastra({
     },
   ],
 });
+
 ```
 
 ### mastra\mcp\server.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { MCPServer, MCPServerResources } from '@mastra/mcp';
@@ -692,10 +691,10 @@ export const simulateResourceListChange = async () => {
   await myMcpServerTwo.resources.notifyListChanged();
   console.log('[Example] Notification sent for resource list change.');
 };
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -714,10 +713,10 @@ export const cookingTool = createTool({
     return 'My tool result';
   },
 });
+
 ```
 
 ### mastra\workflows\index.ts
-
 ```typescript
 import { createStep, createWorkflow } from '@mastra/core/workflows';
 import { z } from 'zod';
@@ -768,4 +767,5 @@ const step2 = createStep({
 });
 
 myWorkflow.then(step).then(step2).commit();
+
 ```

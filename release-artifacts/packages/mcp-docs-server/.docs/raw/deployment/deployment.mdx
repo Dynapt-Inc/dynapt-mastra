@@ -1,6 +1,6 @@
 ---
-title: 'Serverless Deployment'
-description: 'Build and deploy Mastra applications using platform-specific deployers or standard HTTP servers'
+title: "Serverless Deployment"
+description: "Build and deploy Mastra applications using platform-specific deployers or standard HTTP servers"
 ---
 
 # Serverless Deployment
@@ -26,6 +26,7 @@ Before you begin, ensure you have:
 
 Specifically, ensure you've removed it from both `src/mastra/index.ts` and `src/mastra/agents/weather-agent.ts`:
 
+
 ```diff filename="src/mastra/index.ts" showLineNumbers
 export const mastra = new Mastra({
   // ...
@@ -36,7 +37,7 @@ export const mastra = new Mastra({
 });
 ```
 
-```diff filename="src/mastra/agents/weather-agent.ts" showLineNumbers
+``` diff filename="src/mastra/agents/weather-agent.ts" showLineNumbers
 export const weatherAgent = new Agent({
   // ..
 -  memory: new Memory({

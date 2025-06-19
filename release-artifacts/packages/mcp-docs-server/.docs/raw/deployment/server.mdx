@@ -1,6 +1,6 @@
 ---
-title: 'Creating A Mastra Server'
-description: 'Configure and customize the Mastra server with middleware and other options'
+title: "Creating A Mastra Server"
+description: "Configure and customize the Mastra server with middleware and other options"
 ---
 
 # Creating A Mastra Server
@@ -30,7 +30,7 @@ adding additional server behaviour.
 You can configure server `port` and `timeout` in the Mastra instance.
 
 ```typescript copy showLineNumbers
-import { Mastra } from '@mastra/core';
+import { Mastra } from "@mastra/core";
 
 export const mastra = new Mastra({
   server: {
@@ -49,14 +49,14 @@ invoked for any HTTP method that matches the path.
 Mastra allows you to configure CORS (Cross-Origin Resource Sharing) settings for your server.
 
 ```typescript copy showLineNumbers
-import { Mastra } from '@mastra/core';
+import { Mastra } from "@mastra/core";
 
 export const mastra = new Mastra({
   server: {
     cors: {
-      origin: ['https://example.com'], // Allow specific origins or '*' for all
-      allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      allowHeaders: ['Content-Type', 'Authorization'],
+      origin: ["https://example.com"], // Allow specific origins or '*' for all
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"],
       credentials: false,
     },
   },

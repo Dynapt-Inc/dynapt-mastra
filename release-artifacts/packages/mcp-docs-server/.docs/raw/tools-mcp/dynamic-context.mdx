@@ -1,17 +1,18 @@
 ---
-title: 'Dynamic Tool Context | Tools & MCP | Mastra Docs'
+title: "Dynamic Tool Context | Tools & MCP | Mastra Docs"
 description: Learn how to use Mastra's RuntimeContext to provide dynamic, request-specific configuration to tools.
 ---
 
-import { Callout } from 'nextra/components';
+import { Callout } from "nextra/components";
 
 # Dynamic Tool Context
 
 Mastra provides `RuntimeContext`, a system based on dependency injection, that allows you to pass dynamic, request-specific configuration to your tools during execution. This is useful when a tool's behavior needs to change based on user identity, request headers, or other runtime factors, without altering the tool's core code.
 
 <Callout>
-  **Note:** `RuntimeContext` is primarily used for passing data *into* tool executions. It's distinct from agent memory,
-  which handles conversation history and state persistence across multiple calls.
+  **Note:** `RuntimeContext` is primarily used for passing data *into* tool
+  executions. It's distinct from agent memory, which handles conversation
+  history and state persistence across multiple calls.
 </Callout>
 
 ## Basic Usage
@@ -19,17 +20,17 @@ Mastra provides `RuntimeContext`, a system based on dependency injection, that a
 To use `RuntimeContext`, first define a type structure for your dynamic configuration. Then, create an instance of `RuntimeContext` typed with your definition and set the desired values. Finally, include the `runtimeContext` instance in the options object when calling `agent.generate()` or `agent.stream()`.
 
 ```typescript
-import { RuntimeContext } from '@mastra/core/di';
+import { RuntimeContext } from "@mastra/core/di";
 // Assume 'agent' is an already defined Mastra Agent instance
 
 // Define the context type
 type WeatherRuntimeContext = {
-  'temperature-scale': 'celsius' | 'fahrenheit';
+  "temperature-scale": "celsius" | "fahrenheit";
 };
 
 // Instantiate RuntimeContext and set values
 const runtimeContext = new RuntimeContext<WeatherRuntimeContext>();
-runtimeContext.set('temperature-scale', 'celsius');
+runtimeContext.set("temperature-scale", "celsius");
 
 // Pass to agent call
 const response = await agent.generate("What's the weather like today?", {
@@ -44,27 +45,30 @@ console.log(response.text);
 Tools receive the `runtimeContext` as part of the second argument to their `execute` function. You can then use the `.get()` method to retrieve values.
 
 ```typescript filename="src/mastra/tools/weather-tool.ts"
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
 // Assume WeatherRuntimeContext is defined as above and accessible here
 
 // Dummy fetch function
-async function fetchWeather(location: string, options: { temperatureUnit: 'celsius' | 'fahrenheit' }): Promise<any> {
+async function fetchWeather(
+  location: string,
+  options: { temperatureUnit: "celsius" | "fahrenheit" },
+): Promise<any> {
   console.log(`Fetching weather for ${location} in ${options.temperatureUnit}`);
   // Replace with actual API call
-  return { temperature: options.temperatureUnit === 'celsius' ? 20 : 68 };
+  return { temperature: options.temperatureUnit === "celsius" ? 20 : 68 };
 }
 
 export const weatherTool = createTool({
-  id: 'getWeather',
-  description: 'Get the current weather for a location',
+  id: "getWeather",
+  description: "Get the current weather for a location",
   inputSchema: z.object({
-    location: z.string().describe('The location to get weather for'),
+    location: z.string().describe("The location to get weather for"),
   }),
   // The tool's execute function receives runtimeContext
   execute: async ({ context, runtimeContext }) => {
     // Type-safe access to runtimeContext variables
-    const temperatureUnit = runtimeContext.get('temperature-scale');
+    const temperatureUnit = runtimeContext.get("temperature-scale");
 
     // Use the context value in the tool logic
     const weather = await fetchWeather(context.location, {
@@ -72,7 +76,7 @@ export const weatherTool = createTool({
     });
 
     return {
-      result: `The temperature is ${weather.temperature}°${temperatureUnit === 'celsius' ? 'C' : 'F'}`,
+      result: `The temperature is ${weather.temperature}°${temperatureUnit === "celsius" ? "C" : "F"}`,
     };
   },
 });
@@ -87,13 +91,13 @@ In server environments (like Express or Next.js), you can use middleware to auto
 Here's an example using Mastra's built-in server middleware support (which uses Hono internally) to set the temperature scale based on the Cloudflare `CF-IPCountry` header:
 
 ```typescript filename="src/mastra/index.ts"
-import { Mastra } from '@mastra/core';
-import { RuntimeContext } from '@mastra/core/di';
-import { weatherAgent } from './agents/weather'; // Assume agent is defined elsewhere
+import { Mastra } from "@mastra/core";
+import { RuntimeContext } from "@mastra/core/di";
+import { weatherAgent } from "./agents/weather"; // Assume agent is defined elsewhere
 
 // Define RuntimeContext type
 type WeatherRuntimeContext = {
-  'temperature-scale': 'celsius' | 'fahrenheit';
+  "temperature-scale": "celsius" | "fahrenheit";
 };
 
 export const mastra = new Mastra({
@@ -104,13 +108,17 @@ export const mastra = new Mastra({
     middleware: [
       async (c, next) => {
         // Get the RuntimeContext instance
-        const runtimeContext = c.get<RuntimeContext<WeatherRuntimeContext>>('runtimeContext');
+        const runtimeContext =
+          c.get<RuntimeContext<WeatherRuntimeContext>>("runtimeContext");
 
         // Get country code from request header
-        const country = c.req.header('CF-IPCountry');
+        const country = c.req.header("CF-IPCountry");
 
         // Set temperature scale based on country
-        runtimeContext.set('temperature-scale', country === 'US' ? 'fahrenheit' : 'celsius');
+        runtimeContext.set(
+          "temperature-scale",
+          country === "US" ? "fahrenheit" : "celsius",
+        );
 
         // Continue request processing
         await next();

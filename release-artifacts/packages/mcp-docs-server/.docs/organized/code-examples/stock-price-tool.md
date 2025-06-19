@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-stock-price-tool",
@@ -34,10 +33,10 @@
   "version": "0.0.1",
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### index.ts
-
 ```typescript
 import { mastra } from './mastra';
 
@@ -53,10 +52,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -72,10 +71,10 @@ export const stockAgent = new Agent({
     stockPrices,
   },
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 
@@ -84,10 +83,10 @@ import { stockAgent } from './agents';
 export const mastra = new Mastra({
   agents: { stockAgent },
 });
+
 ```
 
 ### mastra\tools\stock-price.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -111,10 +110,10 @@ export const stockPrices = createTool({
     };
   },
 });
+
 ```
 
 ### mastra\tools\tools.test.ts
-
 ```typescript
 import { describe, it, expect } from 'vitest';
 
@@ -128,4 +127,5 @@ describe('Test Tools', () => {
     expect(result).toBeDefined();
   });
 });
+
 ```

@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-client-side-tools",
@@ -41,10 +40,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -54,10 +53,10 @@ export const agent = new Agent({
   instructions: 'You are a browser client agent. You execute tools in the browser.',
   model: openai('gpt-4o'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core/mastra';
 import { agent } from './agents';
@@ -67,10 +66,11 @@ export const mastra = new Mastra({
     agent,
   },
 });
+
 ```
 
 ### vite-env.d.ts
-
 ```typescript
 /// <reference types="vite/client" />
+
 ```

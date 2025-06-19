@@ -1,6 +1,6 @@
 ---
-title: 'Reference: Agent.getModel() | Agents | Mastra Docs'
-description: 'Documentation for the `.getModel()` method in Mastra agents, which retrieves the language model that powers the agent.'
+title: "Reference: Agent.getModel() | Agents | Mastra Docs"
+description: "Documentation for the `.getModel()` method in Mastra agents, which retrieves the language model that powers the agent."
 ---
 
 # Agent.getModel()
@@ -19,10 +19,11 @@ getModel({ runtimeContext = new RuntimeContext() }: { runtimeContext?: RuntimeCo
 <PropertiesTable
   content={[
     {
-      name: 'runtimeContext',
-      type: 'RuntimeContext',
+      name: "runtimeContext",
+      type: "RuntimeContext",
       isOptional: true,
-      description: 'Runtime context for dependency injection and contextual information.',
+      description:
+        "Runtime context for dependency injection and contextual information.",
     },
   ]}
 />
@@ -46,14 +47,14 @@ The language model is a crucial component of an agent as it determines:
 ### Basic Usage
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
 
 // Create an agent with a static model
 const agent = new Agent({
-  name: 'assistant',
-  instructions: 'You are a helpful assistant.',
-  model: openai('gpt-4o'),
+  name: "assistant",
+  instructions: "You are a helpful assistant.",
+  model: openai("gpt-4o"),
 });
 
 // Get the model
@@ -64,33 +65,35 @@ console.log(model.id); // "gpt-4o"
 ### Using with RuntimeContext
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { RuntimeContext } from '@mastra/core/runtime-context';
-import { openai } from '@ai-sdk/openai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { Agent } from "@mastra/core/agent";
+import { RuntimeContext } from "@mastra/core/runtime-context";
+import { openai } from "@ai-sdk/openai";
+import { anthropic } from "@ai-sdk/anthropic";
 
 // Create an agent with dynamic model selection
 const agent = new Agent({
-  name: 'dynamic-model-assistant',
-  instructions: 'You are a helpful assistant.',
+  name: "dynamic-model-assistant",
+  instructions: "You are a helpful assistant.",
   model: ({ runtimeContext }) => {
     // Dynamic model selection based on runtime context
-    const preferredProvider = runtimeContext.get('preferredProvider');
-    const highQuality = runtimeContext.get('highQuality') === true;
+    const preferredProvider = runtimeContext.get("preferredProvider");
+    const highQuality = runtimeContext.get("highQuality") === true;
 
-    if (preferredProvider === 'anthropic') {
-      return highQuality ? anthropic('claude-3-opus') : anthropic('claude-3-sonnet');
+    if (preferredProvider === "anthropic") {
+      return highQuality
+        ? anthropic("claude-3-opus")
+        : anthropic("claude-3-sonnet");
     }
 
     // Default to OpenAI
-    return highQuality ? openai('gpt-4o') : openai('gpt-3.5-turbo');
+    return highQuality ? openai("gpt-4o") : openai("gpt-3.5-turbo");
   },
 });
 
 // Create a runtime context with preferences
 const context = new RuntimeContext();
-context.set('preferredProvider', 'anthropic');
-context.set('highQuality', true);
+context.set("preferredProvider", "anthropic");
+context.set("highQuality", true);
 
 // Get the model using the runtime context
 const model = await agent.getModel({ runtimeContext: context });

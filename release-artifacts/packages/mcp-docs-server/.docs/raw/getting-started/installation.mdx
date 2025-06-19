@@ -1,16 +1,17 @@
 ---
-title: 'Installing Mastra | Getting Started | Mastra Docs'
+title: "Installing Mastra | Getting Started | Mastra Docs"
 description: Guide on installing Mastra and setting up the necessary prerequisites for running it with various LLM providers.
 ---
 
-import { Callout, Steps } from 'nextra/components';
-import { Tabs, Tab } from '@/components/tabs';
+import { Callout, Steps } from "nextra/components";
+import { Tabs, Tab } from "@/components/tabs";
 
 # Install Mastra
 
 To get started with Mastra, you’ll need access to a large language model (LLM). By default, Mastra is set up to work with [OpenAI](https://platform.openai.com/), so you’ll need an API key to begin.
 
 Mastra also supports other LLM providers. For a full list of supported models and setup instructions, see [Model Providers](/docs/getting-started/model-providers).
+
 
 ## Prerequisites
 
@@ -23,20 +24,41 @@ Mastra also supports other LLM providers. For a full list of supported models an
 
 Our CLI is the fastest way to get started with Mastra. Run the following command to start the interactive setup:
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component shows different package manager commands for creating a new Mastra project.
 Each tab displays the equivalent command for that specific package manager (npx, npm, yarn, pnpm, bun).
 This helps users choose their preferred package manager while following the same installation process.
 All commands achieve the same result - creating a new Mastra project with the interactive setup.
-_/}
+*/}
 
-<Tabs items={['npx', 'npm', 'yarn', 'pnpm', 'bun']}>
-  <Tab>```bash copy npx create-mastra@latest ```</Tab>
-  <Tab>```bash copy npm create mastra@latest ```</Tab>
-  <Tab>```bash copy yarn create mastra@latest ```</Tab>
-  <Tab>```bash copy pnpm create mastra@latest ```</Tab>
-  <Tab>```bash copy bun create mastra@latest ```</Tab>
+<Tabs items={["npx", "npm", "yarn", "pnpm", "bun"]}>
+  <Tab>
+    ```bash copy
+    npx create-mastra@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    npm create mastra@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn create mastra@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    pnpm create mastra@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    bun create mastra@latest
+    ```
+  </Tab>
 </Tabs>
+
 
 **Install using CLI flags**
 
@@ -55,7 +77,6 @@ Add your API key to the `.env` file:
 ```bash filename=".env" copy
 OPENAI_API_KEY=<your-api-key>
 ```
-
 > This example uses OpenAI. Each LLM provider uses a unique name. See [Model Capabilities](/docs/getting-started/model-capability) for more information.
 
 You can now launch the [Mastra Development Server](/docs/local-dev/mastra-dev) and test your agent using the Mastra Playground.
@@ -78,12 +99,12 @@ mkdir hello-mastra && cd hello-mastra
 
 Initialize a TypeScript project including the `@mastra/core` package:
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component shows manual installation commands for different package managers.
 Each tab displays the complete setup process for that package manager including project initialization,
 dev dependencies installation, and core Mastra packages installation.
 This helps users manually set up a Mastra project with their preferred package manager.
-_/}
+*/}
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
 
@@ -164,7 +185,9 @@ Add the following configuration:
     "noEmit": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
 ```
 
@@ -197,23 +220,23 @@ mkdir -p src/mastra/tools && touch src/mastra/tools/weather-tool.ts
 Add the following code:
 
 ```ts filename="src/mastra/tools/weather-tool.ts" showLineNumbers copy
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
 
 export const weatherTool = createTool({
-  id: 'get-weather',
-  description: 'Get current weather for a location',
+  id: "get-weather",
+  description: "Get current weather for a location",
   inputSchema: z.object({
-    location: z.string().describe('City name'),
+    location: z.string().describe("City name")
   }),
   outputSchema: z.object({
-    output: z.string(),
+    output: z.string()
   }),
   execute: async () => {
     return {
-      output: 'The weather is sunny',
+      output: "The weather is sunny"
     };
-  },
+  }
 });
 ```
 
@@ -230,9 +253,9 @@ mkdir -p src/mastra/agents && touch src/mastra/agents/weather-agent.ts
 Add the following code:
 
 ```ts filename="src/mastra/agents/weather-agent.ts" showLineNumbers copy
-import { openai } from '@ai-sdk/openai';
-import { Agent } from '@mastra/core/agent';
-import { weatherTool } from '../tools/weather-tool';
+import { openai } from "@ai-sdk/openai";
+import { Agent } from "@mastra/core/agent";
+import { weatherTool } from "../tools/weather-tool";
 
 export const weatherAgent = new Agent({
   name: 'Weather Agent',
@@ -249,7 +272,7 @@ export const weatherAgent = new Agent({
       Use the weatherTool to fetch current weather data.
 `,
   model: openai('gpt-4o-mini'),
-  tools: { weatherTool },
+  tools: { weatherTool }
 });
 ```
 
@@ -264,11 +287,11 @@ touch src/mastra/index.ts
 Add the following code:
 
 ```ts filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core/mastra';
-import { weatherAgent } from './agents/weather-agent';
+import { Mastra } from "@mastra/core/mastra";
+import { weatherAgent } from "./agents/weather-agent";
 
 export const mastra = new Mastra({
-  agents: { weatherAgent },
+  agents: { weatherAgent }
 });
 ```
 
@@ -284,6 +307,7 @@ Mastra can be installed and integrated into a wide range of projects. Below are 
 - [Vite + React](/docs/frameworks/web-frameworks/vite-react)
 - [Astro](/docs/frameworks/web-frameworks/astro)
 - [Express](/docs/frameworks/servers/express)
+
 
 ### `mastra init`
 

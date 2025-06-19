@@ -1,9 +1,9 @@
 ---
-title: 'Getting Started with Mastra and Next.js | Mastra Guides'
+title: "Getting Started with Mastra and Next.js | Mastra Guides"
 description: A step-by-step guide to integrating Mastra with Next.js.
 ---
 
-import { Callout, Steps, Tabs } from 'nextra/components';
+import { Callout, Steps, Tabs } from "nextra/components";
 
 # Integrate Mastra in your Next.js project
 
@@ -19,25 +19,42 @@ Use this guide to scaffold and integrate Mastra with your Next.js project.
   <Tabs.Tab>
 
 <Callout type="warning">
-  This guide assumes you're using the Next.js App Router at the root of your project, e.g., `app` rather than `src/app`.
+  This guide assumes you're using the Next.js App Router at the root of your
+  project, e.g., `app` rather than `src/app`.
 </Callout>
 
   <Steps>
   ## Install Mastra
 
 Install the required Mastra packages:
-{/_
+{/*
 LLM CONTEXT: This Tabs component shows commands for integrating a new Mastra backend project using different package managers.
 Each tab displays the command for that specific package manager to create an integrated Mastra backend service.
 This is part of the "Integrated Backend Integration" approach for Next.js projects.
 All commands create the same Mastra project but use different package manager syntax.
-_/}
+*/}
 
-<Tabs items={['npm', 'yarn', 'pnpm', 'bun']}>
-  <Tabs.Tab>```bash copy npm install mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy bun add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
+<Tabs items={["npm", "yarn", "pnpm", "bun"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm install mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    bun add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 ## Integrate Mastra
@@ -98,10 +115,10 @@ OPENAI_API_KEY=<your-api-key>
 Add to your `next.config.ts`:
 
 ```typescript filename="next.config.ts" showLineNumbers copy
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['@mastra/*'],
+  serverExternalPackages: ["@mastra/*"],
 };
 
 export default nextConfig;
@@ -119,9 +136,17 @@ Add `.mastra` to your `.gitignore` file:
 
 Start the Mastra Dev Server to expose your agents as REST endpoints:
 
-<Tabs items={['npm', 'CLI']}>
-  <Tabs.Tab>```bash copy npm run dev:mastra ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy mastra dev:mastra ```</Tabs.Tab>
+<Tabs items={["npm", "CLI"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm run dev:mastra
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    mastra dev:mastra
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 > Once running, your agents are available locally. See [Local Development Environment](/docs/local-dev/mastra-dev) for more information.
@@ -147,13 +172,13 @@ touch app/test/action.ts
 ```
 
 ```typescript filename="app/test/action.ts" showLineNumbers copy
-'use server';
+"use server";
 
-import { mastra } from '../../mastra';
+import { mastra } from "../../mastra";
 
 export async function getWeatherInfo(formData: FormData) {
-  const city = formData.get('city')?.toString();
-  const agent = mastra.getAgent('weatherAgent');
+  const city = formData.get("city")?.toString();
+  const agent = mastra.getAgent("weatherAgent");
 
   const result = await agent.generate(`What's the weather like in ${city}?`);
 
@@ -238,8 +263,8 @@ Let me know if you need more information!
   <Tabs.Tab>
 
 <Callout type="warning">
-  This guide assumes you're using the Next.js Pages Router at the root of your project, e.g., `pages` rather than
-  `src/pages`.
+  This guide assumes you're using the Next.js Pages Router at the root of your
+  project, e.g., `pages` rather than `src/pages`.
 </Callout>
 
   <Steps>
@@ -247,18 +272,34 @@ Let me know if you need more information!
 ## Install Mastra
 
 Install the required Mastra packages:
-{/_
+{/*
 LLM CONTEXT: This Tabs component shows commands for integrating a new Mastra backend project using different package managers.
 Each tab displays the command for that specific package manager to create an integrated Mastra backend service.
 This is part of the "Integrated Backend Integration" approach for Next.js projects.
 All commands create the same Mastra project but use different package manager syntax.
-_/}
+*/}
 
-<Tabs items={['npm', 'yarn', 'pnpm', 'bun']}>
-  <Tabs.Tab>```bash copy npm install mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy bun add mastra@latest @mastra/core@latest @mastra/libsql@latest ```</Tabs.Tab>
+<Tabs items={["npm", "yarn", "pnpm", "bun"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm install mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    bun add mastra@latest @mastra/core@latest @mastra/libsql@latest
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 ## Integrate Mastra
@@ -319,10 +360,10 @@ OPENAI_API_KEY=<your-api-key>
 Add to your `next.config.ts`:
 
 ```typescript filename="next.config.ts" showLineNumbers copy
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['@mastra/*'],
+  serverExternalPackages: ["@mastra/*"],
 };
 
 export default nextConfig;
@@ -340,9 +381,17 @@ Add `.mastra` to your `.gitignore` file:
 
 Start the Mastra Dev Server to expose your agents as REST endpoints:
 
-<Tabs items={['npm', 'CLI']}>
-  <Tabs.Tab>```bash copy npm run dev:mastra ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy mastra dev:mastra ```</Tabs.Tab>
+<Tabs items={["npm", "CLI"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm run dev:mastra
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    mastra dev:mastra
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 > Once running, your agents are available locally. See [Local Development Environment](/docs/local-dev/mastra-dev) for more information.
@@ -360,13 +409,16 @@ touch pages/api/test.ts
 ```
 
 ```typescript filename="pages/api/test.ts" showLineNumbers copy
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 
-import { mastra } from '../../mastra';
+import { mastra } from "../../mastra";
 
-export default async function getWeatherInfo(req: NextApiRequest, res: NextApiResponse) {
+export default async function getWeatherInfo(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const city = req.body.city;
-  const agent = mastra.getAgent('weatherAgent');
+  const agent = mastra.getAgent("weatherAgent");
 
   const result = await agent.generate(`What's the weather like in ${city}?`);
 

@@ -5,12 +5,12 @@ The `getThreadsByResourceId` function retrieves all threads associated with a sp
 ## Usage Example
 
 ```typescript
-import { Memory } from '@mastra/core/memory';
+import { Memory } from "@mastra/core/memory";
 
 const memory = new Memory(config);
 
 const threads = await memory.getThreadsByResourceId({
-  resourceId: 'resource-123',
+  resourceId: "resource-123",
 });
 ```
 
@@ -19,9 +19,9 @@ const threads = await memory.getThreadsByResourceId({
 <PropertiesTable
   content={[
     {
-      name: 'resourceId',
-      type: 'string',
-      description: 'The ID of the resource whose threads are to be retrieved.',
+      name: "resourceId",
+      type: "string",
+      description: "The ID of the resource whose threads are to be retrieved.",
       isOptional: false,
     },
   ]}
@@ -32,9 +32,10 @@ const threads = await memory.getThreadsByResourceId({
 <PropertiesTable
   content={[
     {
-      name: 'StorageThreadType[]',
-      type: 'Promise',
-      description: 'A promise that resolves to an array of threads associated with the given resource ID.',
+      name: "StorageThreadType[]",
+      type: "Promise",
+      description:
+        "A promise that resolves to an array of threads associated with the given resource ID.",
     },
   ]}
 />

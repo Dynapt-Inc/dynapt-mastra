@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Workflow.resume() | Building Workflows | Mastra Docs'
+title: "Reference: Workflow.resume() | Building Workflows | Mastra Docs"
 description: Documentation for the `.resume()` method in workflows, which resumes a suspended workflow run with new data.
 ---
 
@@ -13,7 +13,7 @@ The `.resume()` method resumes a suspended workflow run with new data, allowing 
 const run = counterWorkflow.createRun();
 const result = await run.start({ inputData: { startValue: 0 } });
 
-if (result.status === 'suspended') {
+if (result.status === "suspended") {
   const resumedResults = await run.resume({
     step: result.suspended[0],
     resumeData: { newValue: 0 },
@@ -26,27 +26,27 @@ if (result.status === 'suspended') {
 <PropertiesTable
   content={[
     {
-      name: 'params',
-      type: 'object',
-      description: 'Configuration object for resuming the workflow run',
+      name: "params",
+      type: "object",
+      description: "Configuration object for resuming the workflow run",
       isOptional: false,
       properties: [
         {
-          name: 'resumeData',
-          type: 'ResumeSchema',
-          description: 'Data for resuming the suspended step',
+          name: "resumeData",
+          type: "ResumeSchema",
+          description: "Data for resuming the suspended step",
           isOptional: true,
         },
         {
-          name: 'step',
-          type: 'Step | Step[] | string | string[]',
-          description: 'The step(s) to resume execution from',
+          name: "step",
+          type: "Step | Step[] | string | string[]",
+          description: "The step(s) to resume execution from",
           isOptional: false,
         },
         {
-          name: 'runtimeContext',
-          type: 'RuntimeContext',
-          description: 'Runtime context data to use when resuming',
+          name: "runtimeContext",
+          type: "RuntimeContext",
+          description: "Runtime context data to use when resuming",
           isOptional: true,
         },
       ],
@@ -59,9 +59,10 @@ if (result.status === 'suspended') {
 <PropertiesTable
   content={[
     {
-      name: 'resumedResults',
-      type: 'Promise<WorkflowResult<TOutput, TSteps>>',
-      description: 'A promise that resolves to the result of the resumed workflow run',
+      name: "resumedResults",
+      type: "Promise<WorkflowResult<TOutput, TSteps>>",
+      description:
+        "A promise that resolves to the result of the resumed workflow run",
     },
   ]}
 />

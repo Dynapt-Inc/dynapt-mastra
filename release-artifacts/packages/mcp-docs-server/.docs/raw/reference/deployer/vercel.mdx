@@ -1,6 +1,6 @@
 ---
-title: 'Vercel Deployer'
-description: 'Documentation for the VercelDeployer class, which deploys Mastra applications to Vercel.'
+title: "Vercel Deployer"
+description: "Documentation for the VercelDeployer class, which deploys Mastra applications to Vercel."
 ---
 
 # VercelDeployer
@@ -16,16 +16,16 @@ npm install @mastra/deployer-vercel@latest
 ## Usage Example
 
 ```typescript filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core';
-import { VercelDeployer } from '@mastra/deployer-vercel';
+import { Mastra } from "@mastra/core";
+import { VercelDeployer } from "@mastra/deployer-vercel";
 
 const mastra = new Mastra({
   // ...
   deployer: new VercelDeployer({
-    teamSlug: 'your-team-slug',
-    projectName: 'your-project-name',
-    token: 'your-vercel-token',
-  }),
+    teamSlug: "your-team-slug",
+    projectName: "your-project-name",
+    token: "your-vercel-token",
+  })
 });
 ```
 
@@ -36,21 +36,22 @@ const mastra = new Mastra({
 <PropertiesTable
   content={[
     {
-      name: 'teamSlug',
-      type: 'string',
-      description: 'Your Vercel team slug',
+      name: "teamSlug",
+      type: "string",
+      description: "Your Vercel team slug",
       isOptional: false,
     },
     {
-      name: 'projectName',
-      type: 'string',
-      description: "Name of your Vercel project (will be created if it doesn't exist).",
+      name: "projectName",
+      type: "string",
+      description:
+        "Name of your Vercel project (will be created if it doesn't exist).",
       isOptional: false,
     },
     {
-      name: 'token',
-      type: 'string',
-      description: 'Your Vercel authentication token.',
+      name: "token",
+      type: "string",
+      description: "Your Vercel authentication token.",
       isOptional: false,
     },
   ]}

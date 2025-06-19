@@ -1,6 +1,6 @@
 ---
-title: 'Reference: Agent.getWorkflows() | Agents | Mastra Docs'
-description: 'Documentation for the `.getWorkflows()` method in Mastra agents, which retrieves the workflows that the agent can execute.'
+title: "Reference: Agent.getWorkflows() | Agents | Mastra Docs"
+description: "Documentation for the `.getWorkflows()` method in Mastra agents, which retrieves the workflows that the agent can execute."
 ---
 
 # Agent.getWorkflows()
@@ -19,10 +19,11 @@ getWorkflows({ runtimeContext = new RuntimeContext() }: { runtimeContext?: Runti
 <PropertiesTable
   content={[
     {
-      name: 'runtimeContext',
-      type: 'RuntimeContext',
+      name: "runtimeContext",
+      type: "RuntimeContext",
       isOptional: true,
-      description: 'Runtime context for dependency injection and contextual information.',
+      description:
+        "Runtime context for dependency injection and contextual information.",
     },
   ]}
 />
@@ -38,38 +39,40 @@ The `getWorkflows()` method is used to access the workflows that an agent can ex
 ## Examples
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { createWorkflow, createStep } from '@mastra/core/workflows';
-import { openai } from '@ai-sdk/openai';
-import { z } from 'zod';
+import { Agent } from "@mastra/core/agent";
+import { createWorkflow, createStep } from "@mastra/core/workflows";
+import { openai } from "@ai-sdk/openai";
+import { z } from "zod";
 
 const generateSuggestionsStep = createStep({
-  id: 'generate-suggestions',
+  id: "generate-suggestions",
   inputSchema: z.object({
-    topic: z.string().describe('The topic to research'),
+    topic: z.string().describe("The topic to research"),
   }),
   outputSchema: z.object({
     summary: z.string(),
   }),
   execute: async ({ inputData, mastra }) => {
-    const researchAgent = mastra?.getAgent('researchAgent');
+    const researchAgent = mastra?.getAgent("researchAgent");
 
     if (!researchAgent) {
-      throw new Error('Research agent is not initialized');
+      throw new Error("Research agent is not initialized");
     }
 
     const { topic } = inputData;
 
-    const result = await researchAgent.generate([{ role: 'assistant', content: topic }]);
+    const result = await researchAgent.generate([
+      { role: "assistant", content: topic },
+    ]);
 
     return { summary: result.text };
   },
 });
 
 const researchWorkflow = createWorkflow({
-  id: 'research-workflow',
+  id: "research-workflow",
   inputSchema: z.object({
-    topic: z.string().describe('The topic to research'),
+    topic: z.string().describe("The topic to research"),
   }),
   outputSchema: z.object({
     summary: z.string(),
@@ -80,9 +83,10 @@ researchWorkflow.then(generateSuggestionsStep).commit();
 
 // Create an agent with the workflow
 const agent = new Agent({
-  name: 'research-organizer',
-  instructions: 'You are a research organizer that can delegate tasks to gather information and create summaries.',
-  model: openai('gpt-4o'),
+  name: "research-organizer",
+  instructions:
+    "You are a research organizer that can delegate tasks to gather information and create summaries.",
+  model: openai("gpt-4o"),
   workflows: {
     research: researchWorkflow,
   },

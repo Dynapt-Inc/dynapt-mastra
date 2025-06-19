@@ -1,6 +1,6 @@
 ---
-title: 'Netlify Deployer'
-description: 'Documentation for the NetlifyDeployer class, which deploys Mastra applications to Netlify Functions.'
+title: "Netlify Deployer"
+description: "Documentation for the NetlifyDeployer class, which deploys Mastra applications to Netlify Functions."
 ---
 
 # NetlifyDeployer
@@ -16,16 +16,16 @@ npm install @mastra/deployer-netlify@latest
 ## Usage Example
 
 ```typescript filename="src/mastra/index.ts" showLineNumbers copy
-import { Mastra } from '@mastra/core';
-import { NetlifyDeployer } from '@mastra/deployer-netlify';
+import { Mastra } from "@mastra/core";
+import { NetlifyDeployer } from "@mastra/deployer-netlify";
 
 const mastra = new Mastra({
   // ...
   deployer: new NetlifyDeployer({
-    scope: 'your-team-slug',
-    projectName: 'your-project-name',
-    token: 'your-netlify-token',
-  }),
+    scope: "your-team-slug",
+    projectName: "your-project-name",
+    token: "your-netlify-token",
+  })
 });
 ```
 
@@ -36,21 +36,22 @@ const mastra = new Mastra({
 <PropertiesTable
   content={[
     {
-      name: 'scope',
-      type: 'string',
-      description: 'Your Netlify team slug or ID.',
+      name: "scope",
+      type: "string",
+      description: "Your Netlify team slug or ID.",
       isOptional: false,
     },
     {
-      name: 'projectName',
-      type: 'string',
-      description: "Name of your Netlify site (will be created if it doesn't exist).",
+      name: "projectName",
+      type: "string",
+      description:
+        "Name of your Netlify site (will be created if it doesn't exist).",
       isOptional: false,
     },
     {
-      name: 'token',
-      type: 'string',
-      description: 'Your Netlify authentication token.',
+      name: "token",
+      type: "string",
+      description: "Your Netlify authentication token.",
       isOptional: false,
     },
   ]}
@@ -120,18 +121,20 @@ After building, you can deploy your Mastra application `.mastra/output` to Netli
 
 2. **Netlify Dashboard**: Connect your Git repository or drag-and-drop the build output through the Netlify dashboard
 
-When connecting a Mastra project Git repository to Netlify, use these recommended build settings since Netlify resolves paths relative to the project root:
+  When connecting a Mastra project Git repository to Netlify, use these recommended build settings since Netlify resolves paths relative to the project root:
 
-```bash
-# Build command
-npm run build
+   ```bash
+   # Build command
+   npm run build
 
-# Publish directory
-.mastra/output
+   # Publish directory 
+   .mastra/output
 
-# Functions directory
-.mastra/output/netlify/functions
-```
+   # Functions directory
+   .mastra/output/netlify/functions
+   ```
+
+
 
 3. **Netlify Dev**: Run your Mastra application locally with Netlify's development environment
 

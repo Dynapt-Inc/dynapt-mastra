@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-bird-checker-with-express",
@@ -38,10 +37,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### index.ts
-
 ```typescript
 import { config } from 'dotenv';
 import express, { Request, Response } from 'express';
@@ -135,10 +134,10 @@ app.post('/api/image-metadata', async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
 ```
 
 ### lib\utils.ts
-
 ```typescript
 export type ImageQuery = 'wildlife' | 'feathers' | 'flying' | 'birds';
 
@@ -187,10 +186,10 @@ export const getRandomImage = async ({ query }: { query: ImageQuery }) => {
     };
   }
 };
+
 ```
 
 ### mastra\agents\agent.ts
-
 ```typescript
 import { anthropic } from '@ai-sdk/anthropic';
 import { Agent } from '@mastra/core/agent';
@@ -201,10 +200,10 @@ export const birdCheckerAgent = new Agent({
     'You can view an image and figure out if it is a bird or not. You can also figure out the species of the bird and where the picture was taken.',
   model: anthropic('claude-3-haiku-20240307'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { PinoLogger } from '@mastra/loggers';
 import { Mastra } from '@mastra/core';
@@ -218,10 +217,10 @@ export const mastra = new Mastra({
     level: 'info',
   }),
 });
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -238,4 +237,5 @@ export const getRandomImageTool = createTool({
     return getRandomImage(context);
   },
 });
+
 ```

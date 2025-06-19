@@ -1,5 +1,5 @@
 ---
-title: 'Creating and Calling Agents | Agent Documentation | Mastra'
+title: "Creating and Calling Agents | Agent Documentation | Mastra"
 description: Overview of agents in Mastra, detailing their capabilities and how they interact with tools, workflows, and external systems.
 ---
 
@@ -14,13 +14,13 @@ Agents are like employees who can be used for ongoing projects. They have names,
 To create an agent in Mastra, you use the `Agent` class and define its properties:
 
 ```ts showLineNumbers filename="src/mastra/agents/index.ts" copy
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
 
 export const myAgent = new Agent({
-  name: 'My Agent',
-  instructions: 'You are a helpful assistant.',
-  model: openai('gpt-4o-mini'),
+  name: "My Agent",
+  instructions: "You are a helpful assistant.",
+  model: openai("gpt-4o-mini"),
 });
 ```
 
@@ -41,8 +41,8 @@ npm install @mastra/core@latest
 Register your agent with Mastra to enable logging and access to configured tools and integrations:
 
 ```ts showLineNumbers filename="src/mastra/index.ts" copy
-import { Mastra } from '@mastra/core';
-import { myAgent } from './agents';
+import { Mastra } from "@mastra/core";
+import { myAgent } from "./agents";
 
 export const mastra = new Mastra({
   agents: { myAgent },
@@ -56,9 +56,11 @@ export const mastra = new Mastra({
 Use the `.generate()` method to have your agent produce text responses:
 
 ```ts showLineNumbers filename="src/mastra/index.ts" copy
-const response = await myAgent.generate([{ role: 'user', content: 'Hello, how can you assist me today?' }]);
+const response = await myAgent.generate([
+  { role: "user", content: "Hello, how can you assist me today?" },
+]);
 
-console.log('Agent:', response.text);
+console.log("Agent:", response.text);
 ```
 
 For more details about the generate method and its options, see the [generate reference documentation](/reference/agents/generate).
@@ -68,9 +70,11 @@ For more details about the generate method and its options, see the [generate re
 For more real-time responses, you can stream the agent's response:
 
 ```ts showLineNumbers filename="src/mastra/index.ts" copy
-const stream = await myAgent.stream([{ role: 'user', content: 'Tell me a story.' }]);
+const stream = await myAgent.stream([
+  { role: "user", content: "Tell me a story." },
+]);
 
-console.log('Agent:');
+console.log("Agent:");
 
 for await (const chunk of stream.textStream) {
   process.stdout.write(chunk);
@@ -87,20 +91,21 @@ Agents can return structured data by providing a JSON Schema or using a Zod sche
 
 ```typescript
 const schema = {
-  type: 'object',
+  type: "object",
   properties: {
-    summary: { type: 'string' },
-    keywords: { type: 'array', items: { type: 'string' } },
+    summary: { type: "string" },
+    keywords: { type: "array", items: { type: "string" } },
   },
   additionalProperties: false,
-  required: ['summary', 'keywords'],
+  required: ["summary", "keywords"],
 };
 
 const response = await myAgent.generate(
   [
     {
-      role: 'user',
-      content: 'Please provide a summary and keywords for the following text: ...',
+      role: "user",
+      content:
+        "Please provide a summary and keywords for the following text: ...",
     },
   ],
   {
@@ -108,7 +113,7 @@ const response = await myAgent.generate(
   },
 );
 
-console.log('Structured Output:', response.object);
+console.log("Structured Output:", response.object);
 ```
 
 ### Using Zod
@@ -124,7 +129,7 @@ npm install zod
 Then, define a Zod schema and use it with the agent:
 
 ```ts showLineNumbers filename="src/mastra/index.ts" copy
-import { z } from 'zod';
+import { z } from "zod";
 
 // Define the Zod schema
 const schema = z.object({
@@ -136,8 +141,9 @@ const schema = z.object({
 const response = await myAgent.generate(
   [
     {
-      role: 'user',
-      content: 'Please provide a summary and keywords for the following text: ...',
+      role: "user",
+      content:
+        "Please provide a summary and keywords for the following text: ...",
     },
   ],
   {
@@ -145,7 +151,7 @@ const response = await myAgent.generate(
   },
 );
 
-console.log('Structured Output:', response.object);
+console.log("Structured Output:", response.object);
 ```
 
 ### Using Tools
@@ -161,8 +167,9 @@ const schema = z.object({
 const response = await myAgent.generate(
   [
     {
-      role: 'user',
-      content: 'Please analyze this repository and provide a summary and keywords...',
+      role: "user",
+      content:
+        "Please analyze this repository and provide a summary and keywords...",
     },
   ],
   {
@@ -171,7 +178,7 @@ const response = await myAgent.generate(
   },
 );
 
-console.log('Structured Output:', response.object);
+console.log("Structured Output:", response.object);
 ```
 
 <br />
@@ -187,18 +194,18 @@ Agents can be enhanced with tools - functions that extend their capabilities bey
 The `maxSteps` parameter controls the maximum number of sequential LLM calls an agent can make, particularly important when using tool calls. By default, it is set to 1 to prevent infinite loops in case of misconfigured tools. You can increase this limit based on your use case:
 
 ```ts showLineNumbers filename="src/mastra/agents/index.ts" copy
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
-import * as mathjs from 'mathjs';
-import { z } from 'zod';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
+import * as mathjs from "mathjs";
+import { z } from "zod";
 
 export const myAgent = new Agent({
-  name: 'My Agent',
-  instructions: 'You are a helpful assistant that can solve math problems.',
-  model: openai('gpt-4o-mini'),
+  name: "My Agent",
+  instructions: "You are a helpful assistant that can solve math problems.",
+  model: openai("gpt-4o-mini"),
   tools: {
     calculate: {
-      description: 'Calculator for mathematical expressions',
+      description: "Calculator for mathematical expressions",
       schema: z.object({ expression: z.string() }),
       execute: async ({ expression }) => mathjs.evaluate(expression),
     },
@@ -208,8 +215,9 @@ export const myAgent = new Agent({
 const response = await myAgent.generate(
   [
     {
-      role: 'user',
-      content: 'If a taxi driver earns $9461 per hour and works 12 hours a day, how much do they earn in one day?',
+      role: "user",
+      content:
+        "If a taxi driver earns $9461 per hour and works 12 hours a day, how much do they earn in one day?",
     },
   ],
   {
@@ -224,12 +232,15 @@ You can monitor the progress of multi-step operations using the `onStepFinish` c
 `onStepFinish` is only available when streaming or generating text without structured output.
 
 ```ts showLineNumbers filename="src/mastra/agents/index.ts" copy
-const response = await myAgent.generate([{ role: 'user', content: "Calculate the taxi driver's daily earnings." }], {
-  maxSteps: 5,
-  onStepFinish: ({ text, toolCalls, toolResults }) => {
-    console.log('Step completed:', { text, toolCalls, toolResults });
+const response = await myAgent.generate(
+  [{ role: "user", content: "Calculate the taxi driver's daily earnings." }],
+  {
+    maxSteps: 5,
+    onStepFinish: ({ text, toolCalls, toolResults }) => {
+      console.log("Step completed:", { text, toolCalls, toolResults });
+    },
   },
-});
+);
 ```
 
 ### Using onFinish
@@ -238,22 +249,25 @@ The `onFinish` callback is available when streaming responses and provides detai
 This callback receives the final response text, execution steps, token usage statistics, and other metadata that can be useful for monitoring and logging:
 
 ```ts showLineNumbers filename="src/mastra/agents/index.ts" copy
-const stream = await myAgent.stream([{ role: 'user', content: "Calculate the taxi driver's daily earnings." }], {
-  maxSteps: 5,
-  onFinish: ({
-    steps,
-    text,
-    finishReason, // 'complete', 'length', 'tool', etc.
-    usage, // token usage statistics
-    reasoningDetails, // additional context about the agent's decisions
-  }) => {
-    console.log('Stream complete:', {
-      totalSteps: steps.length,
-      finishReason,
-      usage,
-    });
+const stream = await myAgent.stream(
+  [{ role: "user", content: "Calculate the taxi driver's daily earnings." }],
+  {
+    maxSteps: 5,
+    onFinish: ({
+      steps,
+      text,
+      finishReason, // 'complete', 'length', 'tool', etc.
+      usage, // token usage statistics
+      reasoningDetails, // additional context about the agent's decisions
+    }) => {
+      console.log("Stream complete:", {
+        totalSteps: steps.length,
+        finishReason,
+        usage,
+      });
+    },
   },
-});
+);
 ```
 
 ## 5. Running Agents

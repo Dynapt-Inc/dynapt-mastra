@@ -1,6 +1,6 @@
 ---
-title: 'Reference: Snapshots | Workflow State Persistence | Mastra Docs'
-description: 'Technical reference on snapshots in Mastra - the serialized workflow state that enables suspend and resume functionality'
+title: "Reference: Snapshots | Workflow State Persistence | Mastra Docs"
+description: "Technical reference on snapshots in Mastra - the serialized workflow state that enables suspend and resume functionality"
 ---
 
 # Snapshots
@@ -42,15 +42,15 @@ export interface WorkflowRunState {
     [key: string]: Record<
       string,
       | {
-          status: 'success';
+          status: "success";
           output: any;
         }
       | {
-          status: 'failed';
+          status: "failed";
           error: string;
         }
       | {
-          status: 'suspended';
+          status: "suspended";
           payload?: any;
         }
     >;
@@ -113,13 +113,13 @@ This means that storage is shared across all workflows registered with the same 
 The default storage option is LibSQL, a SQLite-compatible database:
 
 ```typescript
-import { Mastra } from '@mastra/core/mastra';
-import { DefaultStorage } from '@mastra/core/storage/libsql';
+import { Mastra } from "@mastra/core/mastra";
+import { DefaultStorage } from "@mastra/core/storage/libsql";
 
 const mastra = new Mastra({
   storage: new DefaultStorage({
     config: {
-      url: 'file:storage.db', // Local file-based database
+      url: "file:storage.db", // Local file-based database
       // For production:
       // url: process.env.DATABASE_URL,
       // authToken: process.env.DATABASE_AUTH_TOKEN,
@@ -137,8 +137,8 @@ const mastra = new Mastra({
 For serverless environments:
 
 ```typescript
-import { Mastra } from '@mastra/core/mastra';
-import { UpstashStore } from '@mastra/upstash';
+import { Mastra } from "@mastra/core/mastra";
+import { UpstashStore } from "@mastra/upstash";
 
 const mastra = new Mastra({
   storage: new UpstashStore({
@@ -172,10 +172,10 @@ When suspending a workflow, you can include custom metadata that can help when r
 
 ```typescript
 await suspend({
-  reason: 'Waiting for customer approval',
-  requiredApprovers: ['manager', 'finance'],
+  reason: "Waiting for customer approval",
+  requiredApprovers: ["manager", "finance"],
   requestedBy: currentUser,
-  urgency: 'high',
+  urgency: "high",
   expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
 });
 ```
@@ -188,12 +188,13 @@ You can implement conditional logic based on the suspend payload when resuming:
 
 ```typescript
 run.watch(async ({ activePaths }) => {
-  const isApprovalStepSuspended = activePaths.get('approval')?.status === 'suspended';
+  const isApprovalStepSuspended =
+    activePaths.get("approval")?.status === "suspended";
   if (isApprovalStepSuspended) {
-    const payload = activePaths.get('approval')?.suspendPayload;
-    if (payload.urgency === 'high' && currentUser.role === 'manager') {
+    const payload = activePaths.get("approval")?.suspendPayload;
+    if (payload.urgency === "high" && currentUser.role === "manager") {
       await resume({
-        stepId: 'approval',
+        stepId: "approval",
         context: { approved: true, approver: currentUser.id },
       });
     }

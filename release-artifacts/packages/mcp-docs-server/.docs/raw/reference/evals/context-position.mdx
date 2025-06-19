@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Context Position | Metrics | Evals | Mastra Docs'
+title: "Reference: Context Position | Metrics | Evals | Mastra Docs"
 description: Documentation for the Context Position Metric in Mastra, which evaluates the ordering of context nodes based on their relevance to the query and output.
 ---
 
@@ -10,23 +10,23 @@ The `ContextPositionMetric` class evaluates how well context nodes are ordered b
 ## Basic Usage
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { ContextPositionMetric } from '@mastra/evals/llm';
+import { openai } from "@ai-sdk/openai";
+import { ContextPositionMetric } from "@mastra/evals/llm";
 
 // Configure the model for evaluation
-const model = openai('gpt-4o-mini');
+const model = openai("gpt-4o-mini");
 
 const metric = new ContextPositionMetric(model, {
   context: [
-    'Photosynthesis is a biological process used by plants to create energy from sunlight.',
-    'The process of photosynthesis produces oxygen as a byproduct.',
-    'Plants need water and nutrients from the soil to grow.',
+    "Photosynthesis is a biological process used by plants to create energy from sunlight.",
+    "The process of photosynthesis produces oxygen as a byproduct.",
+    "Plants need water and nutrients from the soil to grow.",
   ],
 });
 
 const result = await metric.measure(
-  'What is photosynthesis?',
-  'Photosynthesis is the process by which plants convert sunlight into energy.',
+  "What is photosynthesis?",
+  "Photosynthesis is the process by which plants convert sunlight into energy.",
 );
 
 console.log(result.score); // Position score from 0-1
@@ -38,15 +38,16 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'model',
-      type: 'ModelConfig',
-      description: 'Configuration for the model used to evaluate context positioning',
+      name: "model",
+      type: "ModelConfig",
+      description:
+        "Configuration for the model used to evaluate context positioning",
       isOptional: false,
     },
     {
-      name: 'options',
-      type: 'ContextPositionMetricOptions',
-      description: 'Configuration options for the metric',
+      name: "options",
+      type: "ContextPositionMetricOptions",
+      description: "Configuration options for the metric",
       isOptional: false,
     },
   ]}
@@ -57,16 +58,16 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'scale',
-      type: 'number',
-      description: 'Maximum score value',
+      name: "scale",
+      type: "number",
+      description: "Maximum score value",
       isOptional: true,
-      defaultValue: '1',
+      defaultValue: "1",
     },
     {
-      name: 'context',
-      type: 'string[]',
-      description: 'Array of context pieces in their retrieval order',
+      name: "context",
+      type: "string[]",
+      description: "Array of context pieces in their retrieval order",
       isOptional: false,
     },
   ]}
@@ -77,15 +78,15 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'input',
-      type: 'string',
-      description: 'The original query or prompt',
+      name: "input",
+      type: "string",
+      description: "The original query or prompt",
       isOptional: false,
     },
     {
-      name: 'output',
-      type: 'string',
-      description: 'The generated response to evaluate',
+      name: "output",
+      type: "string",
+      description: "The generated response to evaluate",
       isOptional: false,
     },
   ]}
@@ -96,22 +97,22 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'score',
-      type: 'number',
-      description: 'Position score (0 to scale, default 0-1)',
+      name: "score",
+      type: "number",
+      description: "Position score (0 to scale, default 0-1)",
     },
     {
-      name: 'info',
-      type: 'object',
-      description: 'Object containing the reason for the score',
+      name: "info",
+      type: "object",
+      description: "Object containing the reason for the score",
       properties: [
         {
-          type: 'string',
+          type: "string",
           parameters: [
             {
-              name: 'reason',
-              type: 'string',
-              description: 'Detailed explanation of the score',
+              name: "reason",
+              type: "string",
+              description: "Detailed explanation of the score",
             },
           ],
         },
@@ -152,24 +153,24 @@ Final score: `(weighted_sum / max_possible_sum) * scale`
 ## Example with Analysis
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { ContextPositionMetric } from '@mastra/evals/llm';
+import { openai } from "@ai-sdk/openai";
+import { ContextPositionMetric } from "@mastra/evals/llm";
 
 // Configure the model for evaluation
-const model = openai('gpt-4o-mini');
+const model = openai("gpt-4o-mini");
 
 const metric = new ContextPositionMetric(model, {
   context: [
-    'A balanced diet is important for health.',
-    'Exercise strengthens the heart and improves blood circulation.',
-    'Regular physical activity reduces stress and anxiety.',
-    'Exercise equipment can be expensive.',
+    "A balanced diet is important for health.",
+    "Exercise strengthens the heart and improves blood circulation.",
+    "Regular physical activity reduces stress and anxiety.",
+    "Exercise equipment can be expensive.",
   ],
 });
 
 const result = await metric.measure(
-  'What are the benefits of exercise?',
-  'Regular exercise improves cardiovascular health and mental wellbeing.',
+  "What are the benefits of exercise?",
+  "Regular exercise improves cardiovascular health and mental wellbeing.",
 );
 
 // Example output:

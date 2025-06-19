@@ -3,11 +3,11 @@ title: Storage in Mastra | Mastra Docs
 description: Overview of Mastra's storage system and data persistence capabilities.
 ---
 
-import { Tabs } from 'nextra/components';
+import { Tabs } from "nextra/components";
 
-import { PropertiesTable } from '@/components/properties-table';
-import { SchemaTable } from '@/components/schema-table';
-import { StorageOverviewImage } from '@/components/storage-overview-image';
+import { PropertiesTable } from "@/components/properties-table";
+import { SchemaTable } from "@/components/schema-table";
+import { StorageOverviewImage } from "@/components/storage-overview-image";
 
 # MastraStorage
 
@@ -31,12 +31,12 @@ Mastra provides different storage providers, but you can treat them as interchan
 Mastra can be configured with a default storage option:
 
 ```typescript copy
-import { Mastra } from '@mastra/core/mastra';
-import { LibSQLStore } from '@mastra/libsql';
+import { Mastra } from "@mastra/core/mastra";
+import { LibSQLStore } from "@mastra/libsql";
 
 const mastra = new Mastra({
   storage: new LibSQLStore({
-    url: 'file:./mastra.db',
+    url: "file:./mastra.db",
   }),
 });
 ```
@@ -47,13 +47,13 @@ configuration either on `Mastra` or directly within `new Memory()`.
 
 ## Data Schema
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component displays the database schema for different data types stored by Mastra.
 Each tab shows the table structure and column definitions for a specific data entity (Messages, Threads, Workflows, etc.).
 The tabs help users understand the data model and relationships between different storage entities.
 Each tab includes detailed column information with types, constraints, and example data structures.
 The data types include Messages, Threads, Workflows, Eval Datasets, and Traces.
-_/}
+*/}
 
 <Tabs items={['Messages', 'Threads', 'Workflows', 'Eval Datasets', 'Traces']}>
   <Tabs.Tab>
@@ -63,44 +63,49 @@ Stores conversation messages and their metadata. Each message belongs to a threa
 <SchemaTable
   columns={[
     {
-      name: 'id',
-      type: 'uuidv4',
-      description: 'Unique identifier for the message (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)',
-      constraints: [{ type: 'primaryKey' }, { type: 'nullable', value: false }],
-    },
-    {
-      name: 'thread_id',
-      type: 'uuidv4',
-      description: 'Parent thread reference',
+      name: "id",
+      type: "uuidv4",
+      description: "Unique identifier for the message (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)",
       constraints: [
-        { type: 'foreignKey', value: 'threads.id' },
-        { type: 'nullable', value: false },
-      ],
+        { type: "primaryKey" },
+        { type: "nullable", value: false }
+      ]
     },
     {
-      name: 'resourceId',
-      type: 'uuidv4',
-      description: 'ID of the resource that owns this message',
-      constraints: [{ type: 'nullable', value: true }],
+      name: "thread_id",
+      type: "uuidv4",
+      description: "Parent thread reference",
+      constraints: [
+        { type: "foreignKey", value: "threads.id" },
+        { type: "nullable", value: false }
+      ]
     },
     {
-      name: 'content',
-      type: 'text',
-      description: 'JSON of the message content in V2 format. Example: `{ format: 2, parts: [...] }`',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "resourceId",
+      type: "uuidv4",
+      description: "ID of the resource that owns this message",
+      constraints: [
+        { type: "nullable", value: true }
+      ]
     },
     {
-      name: 'role',
-      type: 'text',
-      description: 'Enum of `user | assistant`',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "content",
+      type: "text",
+      description: "JSON of the message content in V2 format. Example: `{ format: 2, parts: [...] }`",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'createdAt',
-      type: 'timestamp',
-      description: 'Used for thread message ordering',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "role",
+      type: "text",
+      description: "Enum of `user | assistant`",
+      constraints: [{ type: "nullable", value: false }]
     },
+    {
+      name: "createdAt",
+      type: "timestamp",
+      description: "Used for thread message ordering",
+      constraints: [{ type: "nullable", value: false }]
+    }
   ]}
 />
 
@@ -109,50 +114,51 @@ The message `content` column contains a JSON object conforming to the `MastraMes
 <SchemaTable
   columns={[
     {
-      name: 'format',
-      type: 'integer',
-      description: 'Message format version (currently 2)',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "format",
+      type: "integer",
+      description: "Message format version (currently 2)",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'parts',
-      type: 'array (JSON)',
-      description:
-        'Array of message parts (text, tool-invocation, file, reasoning, etc.). The structure of items in this array varies by `type`.',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "parts",
+      type: "array (JSON)",
+      description: "Array of message parts (text, tool-invocation, file, reasoning, etc.). The structure of items in this array varies by `type`.",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'experimental_attachments',
-      type: 'array (JSON)',
-      description: 'Optional array of file attachments',
-      constraints: [{ type: 'nullable', value: true }],
+      name: "experimental_attachments",
+      type: "array (JSON)",
+      description: "Optional array of file attachments",
+      constraints: [{ type: "nullable", value: true }]
     },
     {
-      name: 'content',
-      type: 'text',
-      description: 'Optional main text content of the message',
-      constraints: [{ type: 'nullable', value: true }],
+      name: "content",
+      type: "text",
+      description: "Optional main text content of the message",
+      constraints: [{ type: "nullable", value: true }]
     },
     {
-      name: 'toolInvocations',
-      type: 'array (JSON)',
-      description: 'Optional array summarizing tool calls and results',
-      constraints: [{ type: 'nullable', value: true }],
+      name: "toolInvocations",
+      type: "array (JSON)",
+      description: "Optional array summarizing tool calls and results",
+      constraints: [{ type: "nullable", value: true }]
     },
     {
-      name: 'reasoning',
-      type: 'object (JSON)',
+      name: "reasoning",
+      type: "object (JSON)",
       description: "Optional information about the reasoning process behind the assistant's response",
-      constraints: [{ type: 'nullable', value: true }],
+      constraints: [{ type: "nullable", value: true }]
     },
     {
-      name: 'annotations',
-      type: 'object (JSON)',
-      description: 'Optional additional metadata or annotations',
-      constraints: [{ type: 'nullable', value: true }],
-    },
+      name: "annotations",
+      type: "object (JSON)",
+      description: "Optional additional metadata or annotations",
+      constraints: [{ type: "nullable", value: true }]
+    }
   ]}
 />
+
+
 
 </Tabs.Tab>
 
@@ -163,44 +169,46 @@ Groups related messages together and associates them with a resource. Contains m
 <SchemaTable
   columns={[
     {
-      name: 'id',
-      type: 'uuidv4',
-      description: 'Unique identifier for the thread (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)',
-      constraints: [{ type: 'primaryKey' }, { type: 'nullable', value: false }],
+      name: "id",
+      type: "uuidv4",
+      description: "Unique identifier for the thread (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)",
+      constraints: [
+        { type: "primaryKey" },
+        { type: "nullable", value: false }
+      ]
     },
     {
-      name: 'resourceId',
-      type: 'text',
-      description:
-        'Primary identifier of the external resource this thread is associated with. Used to group and retrieve related threads.',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "resourceId",
+      type: "text",
+      description: "Primary identifier of the external resource this thread is associated with. Used to group and retrieve related threads.",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'title',
-      type: 'text',
-      description: 'Title of the conversation thread',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "title",
+      type: "text",
+      description: "Title of the conversation thread",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'metadata',
-      type: 'text',
-      description: 'Custom thread metadata as stringified JSON. Example:',
+      name: "metadata",
+      type: "text",
+      description: "Custom thread metadata as stringified JSON. Example:",
       example: {
-        category: 'support',
-        priority: 1,
-      },
+        category: "support",
+        priority: 1
+      }
     },
     {
-      name: 'createdAt',
-      type: 'timestamp',
-      constraints: [{ type: 'nullable', value: false }],
+      name: "createdAt",
+      type: "timestamp",
+      constraints: [{ type: "nullable", value: false }]
     },
     {
-      name: 'updatedAt',
-      type: 'timestamp',
-      description: 'Used for thread ordering history',
-      constraints: [{ type: 'nullable', value: false }],
-    },
+      name: "updatedAt",
+      type: "timestamp",
+      description: "Used for thread ordering history",
+      constraints: [{ type: "nullable", value: false }]
+    }
   ]}
 />
 

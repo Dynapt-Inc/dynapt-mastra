@@ -1,9 +1,9 @@
 ---
-title: 'Using with Vercel AI SDK'
-description: 'Learn how Mastra leverages the Vercel AI SDK library and how you can leverage it further with Mastra'
+title: "Using with Vercel AI SDK"
+description: "Learn how Mastra leverages the Vercel AI SDK library and how you can leverage it further with Mastra"
 ---
 
-import Image from 'next/image';
+import Image from "next/image";
 
 # Using with Vercel AI SDK
 
@@ -18,7 +18,7 @@ Mastra acts as a layer on top of AI SDK to help teams productionize their proof-
 <Image
   src="/image/mastra-ai-sdk.png"
   alt="Agent interaction trace showing spans, LLM calls, and tool executions"
-  style={{ maxWidth: '800px', width: '100%', margin: '8px 0' }}
+  style={{ maxWidth: "800px", width: "100%", margin: "8px 0" }}
   className="nextra-image rounded-md py-8"
   data-zoom
   width={800}
@@ -30,16 +30,16 @@ Mastra acts as a layer on top of AI SDK to help teams productionize their proof-
 When creating agents in Mastra, you can specify any AI SDK-supported model:
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { Agent } from '@mastra/core/agent';
+import { openai } from "@ai-sdk/openai";
+import { Agent } from "@mastra/core/agent";
 
 const agent = new Agent({
-  name: 'WeatherAgent',
-  instructions: 'Instructions for the agent...',
-  model: openai('gpt-4-turbo'), // Model comes directly from AI SDK
+  name: "WeatherAgent",
+  instructions: "Instructions for the agent...",
+  model: openai("gpt-4-turbo"), // Model comes directly from AI SDK
 });
 
-const result = await agent.generate('What is the weather like?');
+const result = await agent.generate("What is the weather like?");
 ```
 
 ## AI SDK Hooks
@@ -56,11 +56,11 @@ The `useChat` hook enables real-time chat interactions in your frontend applicat
   i.e. no structured output is defined.
 
 ```typescript filename="app/api/chat/route.ts" copy
-import { mastra } from '@/src/mastra';
+import { mastra } from "@/src/mastra";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  const myAgent = mastra.getAgent('weatherAgent');
+  const myAgent = mastra.getAgent("weatherAgent");
   const stream = await myAgent.stream(messages);
 
   return stream.toDataStreamResponse();
@@ -106,12 +106,12 @@ For single-turn completions, use the `useCompletion` hook:
   i.e. no structured output is defined.
 
 ```typescript filename="app/api/completion/route.ts" copy
-import { mastra } from '@/src/mastra';
+import { mastra } from "@/src/mastra";
 
 export async function POST(req: Request) {
   const { prompt } = await req.json();
-  const myAgent = mastra.getAgent('weatherAgent');
-  const stream = await myAgent.stream([{ role: 'user', content: prompt }]);
+  const myAgent = mastra.getAgent("weatherAgent");
+  const stream = await myAgent.stream([{ role: "user", content: prompt }]);
 
   return stream.toDataStreamResponse();
 }
@@ -154,11 +154,11 @@ For consuming text streams that represent JSON objects and parsing them into a c
   i.e. structured output is defined.
 
 ```typescript filename="app/api/use-object/route.ts" copy
-import { mastra } from '@/src/mastra';
+import { mastra } from "@/src/mastra";
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const myAgent = mastra.getAgent('weatherAgent');
+  const myAgent = mastra.getAgent("weatherAgent");
   const stream = await myAgent.stream(body, {
     output: z.object({
       weather: z.string(),
@@ -222,11 +222,11 @@ Mastra integrates well with AI SDK to make this possible
 The `createDataStream` function allows you to stream additional data to the client
 
 ```typescript copy
-import { createDataStream } from 'ai';
-import { Agent } from '@mastra/core/agent';
+import { createDataStream } from "ai";
+import { Agent } from "@mastra/core/agent";
 
 export const weatherAgent = new Agent({
-  name: 'Weather Agent',
+  name: "Weather Agent",
   instructions: `
           You are a helpful weather assistant that provides accurate weather information.
 
@@ -239,25 +239,25 @@ export const weatherAgent = new Agent({
 
           Use the weatherTool to fetch current weather data.
     `,
-  model: openai('gpt-4o'),
+  model: openai("gpt-4o"),
   tools: { weatherTool },
 });
 
 const stream = createDataStream({
   async execute(dataStream) {
     // Write data
-    dataStream.writeData({ value: 'Hello' });
+    dataStream.writeData({ value: "Hello" });
 
     // Write annotation
-    dataStream.writeMessageAnnotation({ type: 'status', value: 'processing' });
+    dataStream.writeMessageAnnotation({ type: "status", value: "processing" });
 
     //mastra agent stream
-    const agentStream = await weatherAgent.stream('What is the weather');
+    const agentStream = await weatherAgent.stream("What is the weather");
 
     // Merge agent stream
     agentStream.mergeIntoDataStream(dataStream);
   },
-  onError: error => `Custom error: ${error.message}`,
+  onError: (error) => `Custom error: ${error.message}`,
 });
 ```
 
@@ -266,34 +266,34 @@ const stream = createDataStream({
 The `createDataStreamResponse` function creates a Response object that streams data to the client
 
 ```typescript filename="app/api/chat/route.ts" copy
-import { mastra } from '@/src/mastra';
+import { mastra } from "@/src/mastra";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  const myAgent = mastra.getAgent('weatherAgent');
+  const myAgent = mastra.getAgent("weatherAgent");
   //mastra agent stream
   const agentStream = await myAgent.stream(messages);
 
   const response = createDataStreamResponse({
     status: 200,
-    statusText: 'OK',
+    statusText: "OK",
     headers: {
-      'Custom-Header': 'value',
+      "Custom-Header": "value",
     },
     async execute(dataStream) {
       // Write data
-      dataStream.writeData({ value: 'Hello' });
+      dataStream.writeData({ value: "Hello" });
 
       // Write annotation
       dataStream.writeMessageAnnotation({
-        type: 'status',
-        value: 'processing',
+        type: "status",
+        value: "processing",
       });
 
       // Merge agent stream
       agentStream.mergeIntoDataStream(dataStream);
     },
-    onError: error => `Custom error: ${error.message}`,
+    onError: (error) => `Custom error: ${error.message}`,
   });
 
   return response;

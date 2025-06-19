@@ -10,7 +10,7 @@ The Memory API provides methods to manage conversation threads and message histo
 ## Initialize Mastra Client
 
 ```typescript
-import { MastraClient } from '@mastra/client-js';
+import { MastraClient } from "@mastra/client-js";
 
 const client = new MastraClient();
 ```
@@ -23,8 +23,8 @@ Retrieve all memory threads for a specific resource:
 
 ```typescript
 const threads = await client.getMemoryThreads({
-  resourceId: 'resource-1',
-  agentId: 'agent-1',
+  resourceId: "resource-1",
+  agentId: "agent-1",
 });
 ```
 
@@ -34,10 +34,10 @@ Create a new memory thread:
 
 ```typescript
 const thread = await client.createMemoryThread({
-  title: 'New Conversation',
-  metadata: { category: 'support' },
-  resourceid: 'resource-1',
-  agentId: 'agent-1',
+  title: "New Conversation",
+  metadata: { category: "support" },
+  resourceid: "resource-1",
+  agentId: "agent-1",
 });
 ```
 
@@ -46,7 +46,7 @@ const thread = await client.createMemoryThread({
 Get an instance of a specific memory thread:
 
 ```typescript
-const thread = client.getMemoryThread('thread-id', 'agent-id');
+const thread = client.getMemoryThread("thread-id", "agent-id");
 ```
 
 ## Thread Methods
@@ -65,9 +65,9 @@ Update thread properties:
 
 ```typescript
 const updated = await thread.update({
-  title: 'Updated Title',
-  metadata: { status: 'resolved' },
-  resourceid: 'resource-1',
+  title: "Updated Title",
+  metadata: { status: "resolved" },
+  resourceid: "resource-1",
 });
 ```
 
@@ -79,6 +79,8 @@ Delete a thread and its messages:
 await thread.delete();
 ```
 
+
+
 ## Message Operations
 
 ### Save Messages
@@ -89,15 +91,15 @@ Save messages to memory:
 const savedMessages = await client.saveMessageToMemory({
   messages: [
     {
-      role: 'user',
-      content: 'Hello!',
-      id: '1',
-      threadId: 'thread-1',
+      role: "user",
+      content: "Hello!",
+      id: "1",
+      threadId: "thread-1",
       createdAt: new Date(),
-      type: 'text',
+      type: "text",
     },
   ],
-  agentId: 'agent-1',
+  agentId: "agent-1",
 });
 ```
 
@@ -118,5 +120,5 @@ const { messages } = await thread.getMessages({ limit: 10 });
 Check the status of the memory system:
 
 ```typescript
-const status = await client.getMemoryStatus('agent-id');
+const status = await client.getMemoryStatus("agent-id");
 ```

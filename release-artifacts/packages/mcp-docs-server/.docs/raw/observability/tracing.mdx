@@ -1,9 +1,9 @@
 ---
-title: 'Tracing | Mastra Observability Documentation'
-description: 'Set up OpenTelemetry tracing for Mastra applications'
+title: "Tracing | Mastra Observability Documentation"
+description: "Set up OpenTelemetry tracing for Mastra applications"
 ---
 
-import Image from 'next/image';
+import Image from "next/image";
 
 # Tracing
 
@@ -17,14 +17,14 @@ Here's a simple example of enabling telemetry:
 export const mastra = new Mastra({
   // ... other config
   telemetry: {
-    serviceName: 'my-app',
+    serviceName: "my-app",
     enabled: true,
     sampling: {
-      type: 'always_on',
+      type: "always_on",
     },
     export: {
-      type: 'otlp',
-      endpoint: 'http://localhost:4318', // SigNoz local endpoint
+      type: "otlp",
+      endpoint: "http://localhost:4318", // SigNoz local endpoint
     },
   },
 });
@@ -44,7 +44,7 @@ type OtelConfig = {
 
   // Control how many traces are sampled
   sampling?: {
-    type: 'ratio' | 'always_on' | 'always_off' | 'parent_based';
+    type: "ratio" | "always_on" | "always_off" | "parent_based";
     probability?: number; // For ratio sampling
     root?: {
       probability: number; // For parent_based sampling
@@ -53,7 +53,7 @@ type OtelConfig = {
 
   // Where to send telemetry data
   export?: {
-    type: 'otlp' | 'console';
+    type: "otlp" | "console";
     endpoint?: string;
     headers?: Record<string, string>;
   };
@@ -77,10 +77,10 @@ Then in your config:
 export const mastra = new Mastra({
   // ... other config
   telemetry: {
-    serviceName: 'my-app',
+    serviceName: "my-app",
     enabled: true,
     export: {
-      type: 'otlp',
+      type: "otlp",
       // endpoint and headers will be picked up from env vars
     },
   },
@@ -94,7 +94,7 @@ Here's what a traced agent interaction looks like in [SigNoz](https://signoz.io)
 <img
   src="/image/signoz-telemetry-demo.png"
   alt="Agent interaction trace showing spans, LLM calls, and tool executions"
-  style={{ maxWidth: '800px', width: '100%', margin: '8px 0' }}
+  style={{ maxWidth: "800px", width: "100%", margin: "8px 0" }}
   className="nextra-image rounded-md"
   data-zoom
   width={800}

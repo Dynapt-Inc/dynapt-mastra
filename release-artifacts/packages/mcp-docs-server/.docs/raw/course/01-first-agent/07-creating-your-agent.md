@@ -5,8 +5,8 @@ Let's create a simple agent that will help users analyze financial transaction d
 First, make sure you have the necessary imports at the top of your file:
 
 ```typescript
-import { Agent } from '@mastra/core';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core";
+import { openai } from "@ai-sdk/openai";
 // We'll import our tool in a later step
 ```
 
@@ -14,7 +14,7 @@ Now, let's create our agent:
 
 ```typescript
 export const financialAgent = new Agent({
-  name: 'Financial Assistant Agent',
+  name: "Financial Assistant Agent",
   instructions: `ROLE DEFINITION
 - You are a financial assistant that helps users analyze their transaction data.
 - Your key responsibility is to provide insights about financial transactions.
@@ -41,7 +41,7 @@ SUCCESS CRITERIA
 - Deliver accurate and helpful analysis of transaction data.
 - Achieve high user satisfaction through clear and helpful responses.
 - Maintain user trust by ensuring data privacy and security.`,
-  model: openai('gpt-4o'), // You can use "gpt-3.5-turbo" if you prefer
+  model: openai("gpt-4o"), // You can use "gpt-3.5-turbo" if you prefer
   tools: {}, // We'll add tools in a later step
 });
 ```

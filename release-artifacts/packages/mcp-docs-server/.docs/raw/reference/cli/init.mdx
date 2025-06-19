@@ -1,5 +1,5 @@
 ---
-title: 'mastra init | Initialize Project | Mastra CLI'
+title: "mastra init | Initialize Project | Mastra CLI"
 description: Documentation for the mastra init command, which creates a new Mastra project with interactive setup options.
 ---
 
@@ -18,57 +18,60 @@ mastra init [options]
 <PropertiesTable
   content={[
     {
-      name: '--default',
-      type: 'boolean',
-      description: 'Quick start with defaults (src, OpenAI, no examples)',
+      name: "--default",
+      type: "boolean",
+      description: "Quick start with defaults (src, OpenAI, no examples)",
       isOptional: true,
     },
     {
-      name: '--dir',
-      type: 'string',
-      description: 'Directory for Mastra files (defaults to src/)',
+      name: "--dir",
+      type: "string",
+      description: "Directory for Mastra files (defaults to src/)",
       isOptional: false,
     },
     {
-      name: '--components',
-      type: 'string',
-      description: 'Comma-separated list of components (agents, tools, workflows)',
+      name: "--components",
+      type: "string",
+      description:
+        "Comma-separated list of components (agents, tools, workflows)",
       isOptional: false,
     },
     {
-      name: '--llm',
-      type: 'string',
-      description: 'Default model provider (openai, anthropic, groq, google or cerebras)',
+      name: "--llm",
+      type: "string",
+      description:
+        "Default model provider (openai, anthropic, groq, google or cerebras)",
       isOptional: false,
     },
     {
-      name: '--llm-api-key',
-      type: 'string',
-      description: 'API key for the model provider',
+      name: "--llm-api-key",
+      type: "string",
+      description: "API key for the model provider",
       isOptional: false,
     },
     {
-      name: '--example',
-      type: 'boolean',
-      description: 'Include example code',
+      name: "--example",
+      type: "boolean",
+      description: "Include example code",
       isOptional: true,
     },
     {
-      name: '--no-example',
-      type: 'boolean',
-      description: 'Do not include example code',
+      name: "--no-example",
+      type: "boolean",
+      description: "Do not include example code",
       isOptional: true,
     },
     {
-      name: '--mcp',
-      type: 'string',
-      description: 'MCP Server for code editor (cursor, cursor-global, windsurf, vscode)',
+      name: "--mcp",
+      type: "string",
+      description:
+        "MCP Server for code editor (cursor, cursor-global, windsurf, vscode)",
       isOptional: false,
     },
     {
-      name: '--help',
-      type: 'boolean',
-      description: 'Display help for command',
+      name: "--help",
+      type: "boolean",
+      description: "Display help for command",
       isOptional: true,
     },
   ]}

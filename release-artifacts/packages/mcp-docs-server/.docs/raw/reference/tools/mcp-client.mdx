@@ -1,5 +1,5 @@
 ---
-title: 'Reference: MCPClient | Tool Management | Mastra Docs'
+title: "Reference: MCPClient | Tool Management | Mastra Docs"
 description: API Reference for MCPClient - A class for managing multiple Model Context Protocol servers and their tools.
 ---
 
@@ -27,25 +27,25 @@ constructor({
 <PropertiesTable
   content={[
     {
-      name: 'id',
-      type: 'string',
+      name: "id",
+      type: "string",
       isOptional: true,
       description:
-        'Optional unique identifier for the configuration instance. Use this to prevent memory leaks when creating multiple instances with identical configurations.',
+        "Optional unique identifier for the configuration instance. Use this to prevent memory leaks when creating multiple instances with identical configurations.",
     },
     {
-      name: 'servers',
-      type: 'Record<string, MastraMCPServerDefinition>',
+      name: "servers",
+      type: "Record<string, MastraMCPServerDefinition>",
       description:
-        'A map of server configurations, where each key is a unique server identifier and the value is the server configuration.',
+        "A map of server configurations, where each key is a unique server identifier and the value is the server configuration.",
     },
     {
-      name: 'timeout',
-      type: 'number',
+      name: "timeout",
+      type: "number",
       isOptional: true,
-      defaultValue: '60000',
+      defaultValue: "60000",
       description:
-        'Global timeout value in milliseconds for all servers unless overridden in individual server configs.',
+        "Global timeout value in milliseconds for all servers unless overridden in individual server configs.",
     },
   ]}
 />
@@ -61,66 +61,68 @@ Each server in the `servers` map is configured using the `MastraMCPServerDefinit
 <PropertiesTable
   content={[
     {
-      name: 'command',
-      type: 'string',
+      name: "command",
+      type: "string",
       isOptional: true,
-      description: 'For Stdio servers: The command to execute.',
+      description: "For Stdio servers: The command to execute.",
     },
     {
-      name: 'args',
-      type: 'string[]',
+      name: "args",
+      type: "string[]",
       isOptional: true,
-      description: 'For Stdio servers: Arguments to pass to the command.',
+      description: "For Stdio servers: Arguments to pass to the command.",
     },
     {
-      name: 'env',
-      type: 'Record<string, string>',
-      isOptional: true,
-      description: 'For Stdio servers: Environment variables to set for the command.',
-    },
-    {
-      name: 'url',
-      type: 'URL',
-      isOptional: true,
-      description: 'For HTTP servers (Streamable HTTP or SSE): The URL of the server.',
-    },
-    {
-      name: 'requestInit',
-      type: 'RequestInit',
-      isOptional: true,
-      description: 'For HTTP servers: Request configuration for the fetch API.',
-    },
-    {
-      name: 'eventSourceInit',
-      type: 'EventSourceInit',
+      name: "env",
+      type: "Record<string, string>",
       isOptional: true,
       description:
-        'For SSE fallback: Custom fetch configuration for SSE connections. Required when using custom headers with SSE.',
+        "For Stdio servers: Environment variables to set for the command.",
     },
     {
-      name: 'logger',
-      type: 'LogHandler',
+      name: "url",
+      type: "URL",
       isOptional: true,
-      description: 'Optional additional handler for logging.',
+      description:
+        "For HTTP servers (Streamable HTTP or SSE): The URL of the server.",
     },
     {
-      name: 'timeout',
-      type: 'number',
+      name: "requestInit",
+      type: "RequestInit",
       isOptional: true,
-      description: 'Server-specific timeout in milliseconds.',
+      description: "For HTTP servers: Request configuration for the fetch API.",
     },
     {
-      name: 'capabilities',
-      type: 'ClientCapabilities',
+      name: "eventSourceInit",
+      type: "EventSourceInit",
       isOptional: true,
-      description: 'Server-specific capabilities configuration.',
+      description:
+        "For SSE fallback: Custom fetch configuration for SSE connections. Required when using custom headers with SSE.",
     },
     {
-      name: 'enableServerLogs',
-      type: 'boolean',
+      name: "logger",
+      type: "LogHandler",
       isOptional: true,
-      defaultValue: 'true',
-      description: 'Whether to enable logging for this server.',
+      description: "Optional additional handler for logging.",
+    },
+    {
+      name: "timeout",
+      type: "number",
+      isOptional: true,
+      description: "Server-specific timeout in milliseconds.",
+    },
+    {
+      name: "capabilities",
+      type: "ClientCapabilities",
+      isOptional: true,
+      description: "Server-specific capabilities configuration.",
+    },
+    {
+      name: "enableServerLogs",
+      type: "boolean",
+      isOptional: true,
+      defaultValue: "true",
+      description: "Whether to enable logging for this server.",
     },
   ]}
 />
@@ -218,8 +220,11 @@ async read(serverName: string, uri: string): Promise<ReadResourceResult>
 Example:
 
 ```typescript
-const content = await mcpClient.resources.read('myWeatherServer', 'weather://current');
-console.log('Current weather:', content.contents[0].text);
+const content = await mcpClient.resources.read(
+  "myWeatherServer",
+  "weather://current",
+);
+console.log("Current weather:", content.contents[0].text);
 ```
 
 #### `resources.subscribe(serverName: string, uri: string)`
@@ -233,7 +238,7 @@ async subscribe(serverName: string, uri: string): Promise<object>
 Example:
 
 ```typescript
-await mcpClient.resources.subscribe('myWeatherServer', 'weather://current');
+await mcpClient.resources.subscribe("myWeatherServer", "weather://current");
 ```
 
 #### `resources.unsubscribe(serverName: string, uri: string)`
@@ -247,7 +252,7 @@ async unsubscribe(serverName: string, uri: string): Promise<object>
 Example:
 
 ```typescript
-await mcpClient.resources.unsubscribe('myWeatherServer', 'weather://current');
+await mcpClient.resources.unsubscribe("myWeatherServer", "weather://current");
 ```
 
 #### `resources.onUpdated(serverName: string, handler: (params: { uri: string }) => void)`
@@ -261,7 +266,7 @@ async onUpdated(serverName: string, handler: (params: { uri: string }) => void):
 Example:
 
 ```typescript
-mcpClient.resources.onUpdated('myWeatherServer', params => {
+mcpClient.resources.onUpdated("myWeatherServer", (params) => {
   console.log(`Resource updated on myWeatherServer: ${params.uri}`);
   // You might want to re-fetch the resource content here
   // await mcpClient.resources.read("myWeatherServer", params.uri);
@@ -279,8 +284,8 @@ async onListChanged(serverName: string, handler: () => void): Promise<void>
 Example:
 
 ```typescript
-mcpClient.resources.onListChanged('myWeatherServer', () => {
-  console.log('Resource list changed on myWeatherServer.');
+mcpClient.resources.onListChanged("myWeatherServer", () => {
+  console.log("Resource list changed on myWeatherServer.");
   // You should re-fetch the list of resources
   // await mcpClient.resources.list();
 });
@@ -298,8 +303,8 @@ const mcpClient = new MCPClient({
 // Access prompt methods via mcpClient.prompts
 const allPromptsByServer = await mcpClient.prompts.list();
 const { prompt, messages } = await mcpClient.prompts.get({
-  serverName: 'myWeatherServer',
-  name: 'current',
+  serverName: "myWeatherServer",
+  name: "current",
 });
 ```
 
@@ -342,9 +347,9 @@ Example:
 
 ```typescript
 const { prompt, messages } = await mcpClient.prompts.get({
-  serverName: 'myWeatherServer',
-  name: 'current',
-  args: { location: 'London' },
+  serverName: "myWeatherServer",
+  name: "current",
+  args: { location: "London" },
 });
 console.log(prompt);
 console.log(messages);
@@ -361,8 +366,8 @@ async onListChanged(serverName: string, handler: () => void): Promise<void>
 Example:
 
 ```typescript
-mcpClient.prompts.onListChanged('myWeatherServer', () => {
-  console.log('Prompt list changed on myWeatherServer.');
+mcpClient.prompts.onListChanged("myWeatherServer", () => {
+  console.log("Prompt list changed on myWeatherServer.");
   // You should re-fetch the list of prompts
   // await mcpClient.prompts.list();
 });
@@ -375,24 +380,24 @@ mcpClient.prompts.onListChanged('myWeatherServer', () => {
 For tools where you have a single connection to the MCP server for you entire app, use `getTools()` and pass the tools to your agent:
 
 ```typescript
-import { MCPClient } from '@mastra/mcp';
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
+import { MCPClient } from "@mastra/mcp";
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
 
 const mcp = new MCPClient({
   servers: {
     stockPrice: {
-      command: 'npx',
-      args: ['tsx', 'stock-price.ts'],
+      command: "npx",
+      args: ["tsx", "stock-price.ts"],
       env: {
-        API_KEY: 'your-api-key',
+        API_KEY: "your-api-key",
       },
-      log: logMessage => {
+      log: (logMessage) => {
         console.log(`[${logMessage.level}] ${logMessage.message}`);
       },
     },
     weather: {
-      url: new URL('http://localhost:8080/sse'),
+      url: new URL("http://localhost:8080/sse"),
     },
   },
   timeout: 30000, // Global 30s timeout
@@ -400,9 +405,9 @@ const mcp = new MCPClient({
 
 // Create an agent with access to all tools
 const agent = new Agent({
-  name: 'Multi-tool Agent',
-  instructions: 'You have access to multiple tool servers.',
-  model: openai('gpt-4'),
+  name: "Multi-tool Agent",
+  instructions: "You have access to multiple tool servers.",
+  model: openai("gpt-4"),
   tools: await mcp.getTools(),
 });
 
@@ -412,11 +417,14 @@ async function checkWeatherResource() {
     const weatherResources = await mcp.resources.list();
     if (weatherResources.weather && weatherResources.weather.length > 0) {
       const currentWeatherURI = weatherResources.weather[0].uri;
-      const weatherData = await mcp.resources.read('weather', currentWeatherURI);
-      console.log('Weather data:', weatherData.contents[0].text);
+      const weatherData = await mcp.resources.read(
+        "weather",
+        currentWeatherURI,
+      );
+      console.log("Weather data:", weatherData.contents[0].text);
     }
   } catch (error) {
-    console.error('Error fetching weather resource:', error);
+    console.error("Error fetching weather resource:", error);
   }
 }
 checkWeatherResource();
@@ -426,15 +434,17 @@ async function checkWeatherPrompt() {
   try {
     const weatherPrompts = await mcp.prompts.list();
     if (weatherPrompts.weather && weatherPrompts.weather.length > 0) {
-      const currentWeatherPrompt = weatherPrompts.weather.find(p => p.name === 'current');
+      const currentWeatherPrompt = weatherPrompts.weather.find(
+        (p) => p.name === "current"
+      );
       if (currentWeatherPrompt) {
-        console.log('Weather prompt:', currentWeatherPrompt);
+        console.log("Weather prompt:", currentWeatherPrompt);
       } else {
-        console.log('Current weather prompt not found');
+        console.log("Current weather prompt not found");
       }
     }
   } catch (error) {
-    console.error('Error fetching weather prompt:', error);
+    console.error("Error fetching weather prompt:", error);
   }
 }
 checkWeatherPrompt();
@@ -445,30 +455,30 @@ checkWeatherPrompt();
 When you need a new MCP connection for each user, use `getToolsets()` and add the tools when calling stream or generate:
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { MCPClient } from '@mastra/mcp';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { MCPClient } from "@mastra/mcp";
+import { openai } from "@ai-sdk/openai";
 
 // Create the agent first, without any tools
 const agent = new Agent({
-  name: 'Multi-tool Agent',
-  instructions: 'You help users check stocks and weather.',
-  model: openai('gpt-4'),
+  name: "Multi-tool Agent",
+  instructions: "You help users check stocks and weather.",
+  model: openai("gpt-4"),
 });
 
 // Later, configure MCP with user-specific settings
 const mcp = new MCPClient({
   servers: {
     stockPrice: {
-      command: 'npx',
-      args: ['tsx', 'stock-price.ts'],
+      command: "npx",
+      args: ["tsx", "stock-price.ts"],
       env: {
-        API_KEY: 'user-123-api-key',
+        API_KEY: "user-123-api-key",
       },
       timeout: 20000, // Server-specific timeout
     },
     weather: {
-      url: new URL('http://localhost:8080/sse'),
+      url: new URL("http://localhost:8080/sse"),
       requestInit: {
         headers: {
           Authorization: `Bearer user-123-token`,
@@ -479,9 +489,12 @@ const mcp = new MCPClient({
 });
 
 // Pass all toolsets to stream() or generate()
-const response = await agent.stream('How is AAPL doing and what is the weather?', {
-  toolsets: await mcp.getToolsets(),
-});
+const response = await agent.stream(
+  "How is AAPL doing and what is the weather?",
+  {
+    toolsets: await mcp.getToolsets(),
+  },
+);
 ```
 
 ## Instance Management
@@ -513,7 +526,7 @@ const mcp2 = new MCPClient({
 // To fix, either:
 // 1. Add unique IDs
 const mcp3 = new MCPClient({
-  id: 'instance-1',
+  id: "instance-1",
   servers: {
     /* ... */
   },
@@ -544,18 +557,18 @@ When using the legacy SSE MCP transport, you must configure both `requestInit` a
 const sseClient = new MCPClient({
   servers: {
     exampleServer: {
-      url: new URL('https://your-mcp-server.com/sse'),
+      url: new URL("https://your-mcp-server.com/sse"),
       // Note: requestInit alone isn't enough for SSE
       requestInit: {
         headers: {
-          Authorization: 'Bearer your-token',
+          Authorization: "Bearer your-token",
         },
       },
       // This is also required for SSE connections with custom headers
       eventSourceInit: {
         fetch(input: Request | URL | string, init?: RequestInit) {
           const headers = new Headers(init?.headers || {});
-          headers.set('Authorization', 'Bearer your-token');
+          headers.set("Authorization", "Bearer your-token");
           return fetch(input, {
             ...init,
             headers,

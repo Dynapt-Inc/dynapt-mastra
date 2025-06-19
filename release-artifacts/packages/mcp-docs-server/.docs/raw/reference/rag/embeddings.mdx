@@ -1,5 +1,5 @@
 ---
-title: 'Reference: embed() | Document Embedding | RAG | Mastra Docs'
+title: "Reference: embed() | Document Embedding | RAG | Mastra Docs"
 description: Documentation for embedding functionality in Mastra using the AI SDK.
 ---
 
@@ -12,11 +12,11 @@ Mastra uses the AI SDK's `embed` and `embedMany` functions to generate vector em
 The `embed` function generates a vector embedding for a single text input:
 
 ```typescript
-import { embed } from 'ai';
+import { embed } from "ai";
 
 const result = await embed({
-  model: openai.embedding('text-embedding-3-small'),
-  value: 'Your text to embed',
+  model: openai.embedding("text-embedding-3-small"),
+  value: "Your text to embed",
   maxRetries: 2, // optional, defaults to 2
 });
 ```
@@ -26,32 +26,35 @@ const result = await embed({
 <PropertiesTable
   content={[
     {
-      name: 'model',
-      type: 'EmbeddingModel',
-      description: "The embedding model to use (e.g. openai.embedding('text-embedding-3-small'))",
+      name: "model",
+      type: "EmbeddingModel",
+      description:
+        "The embedding model to use (e.g. openai.embedding('text-embedding-3-small'))",
     },
     {
-      name: 'value',
-      type: 'string | Record<string, any>',
-      description: 'The text content or object to embed',
+      name: "value",
+      type: "string | Record<string, any>",
+      description: "The text content or object to embed",
     },
     {
-      name: 'maxRetries',
-      type: 'number',
-      description: 'Maximum number of retries per embedding call. Set to 0 to disable retries.',
+      name: "maxRetries",
+      type: "number",
+      description:
+        "Maximum number of retries per embedding call. Set to 0 to disable retries.",
       isOptional: true,
-      defaultValue: '2',
+      defaultValue: "2",
     },
     {
-      name: 'abortSignal',
-      type: 'AbortSignal',
-      description: 'Optional abort signal to cancel the request',
+      name: "abortSignal",
+      type: "AbortSignal",
+      description: "Optional abort signal to cancel the request",
       isOptional: true,
     },
     {
-      name: 'headers',
-      type: 'Record<string, string>',
-      description: 'Additional HTTP headers for the request (only for HTTP-based providers)',
+      name: "headers",
+      type: "Record<string, string>",
+      description:
+        "Additional HTTP headers for the request (only for HTTP-based providers)",
       isOptional: true,
     },
   ]}
@@ -62,9 +65,9 @@ const result = await embed({
 <PropertiesTable
   content={[
     {
-      name: 'embedding',
-      type: 'number[]',
-      description: 'The embedding vector for the input',
+      name: "embedding",
+      type: "number[]",
+      description: "The embedding vector for the input",
     },
   ]}
 />
@@ -74,11 +77,11 @@ const result = await embed({
 For embedding multiple texts at once, use the `embedMany` function:
 
 ```typescript
-import { embedMany } from 'ai';
+import { embedMany } from "ai";
 
 const result = await embedMany({
-  model: openai.embedding('text-embedding-3-small'),
-  values: ['First text', 'Second text', 'Third text'],
+  model: openai.embedding("text-embedding-3-small"),
+  values: ["First text", "Second text", "Third text"],
   maxRetries: 2, // optional, defaults to 2
 });
 ```
@@ -88,32 +91,35 @@ const result = await embedMany({
 <PropertiesTable
   content={[
     {
-      name: 'model',
-      type: 'EmbeddingModel',
-      description: "The embedding model to use (e.g. openai.embedding('text-embedding-3-small'))",
+      name: "model",
+      type: "EmbeddingModel",
+      description:
+        "The embedding model to use (e.g. openai.embedding('text-embedding-3-small'))",
     },
     {
-      name: 'values',
-      type: 'string[] | Record<string, any>[]',
-      description: 'Array of text content or objects to embed',
+      name: "values",
+      type: "string[] | Record<string, any>[]",
+      description: "Array of text content or objects to embed",
     },
     {
-      name: 'maxRetries',
-      type: 'number',
-      description: 'Maximum number of retries per embedding call. Set to 0 to disable retries.',
+      name: "maxRetries",
+      type: "number",
+      description:
+        "Maximum number of retries per embedding call. Set to 0 to disable retries.",
       isOptional: true,
-      defaultValue: '2',
+      defaultValue: "2",
     },
     {
-      name: 'abortSignal',
-      type: 'AbortSignal',
-      description: 'Optional abort signal to cancel the request',
+      name: "abortSignal",
+      type: "AbortSignal",
+      description: "Optional abort signal to cancel the request",
       isOptional: true,
     },
     {
-      name: 'headers',
-      type: 'Record<string, string>',
-      description: 'Additional HTTP headers for the request (only for HTTP-based providers)',
+      name: "headers",
+      type: "Record<string, string>",
+      description:
+        "Additional HTTP headers for the request (only for HTTP-based providers)",
       isOptional: true,
     },
   ]}
@@ -124,9 +130,10 @@ const result = await embedMany({
 <PropertiesTable
   content={[
     {
-      name: 'embeddings',
-      type: 'number[][]',
-      description: 'Array of embedding vectors corresponding to the input values',
+      name: "embeddings",
+      type: "number[][]",
+      description:
+        "Array of embedding vectors corresponding to the input values",
     },
   ]}
 />
@@ -134,19 +141,23 @@ const result = await embedMany({
 ## Example Usage
 
 ```typescript
-import { embed, embedMany } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { embed, embedMany } from "ai";
+import { openai } from "@ai-sdk/openai";
 
 // Single embedding
 const singleResult = await embed({
-  model: openai.embedding('text-embedding-3-small'),
-  value: 'What is the meaning of life?',
+  model: openai.embedding("text-embedding-3-small"),
+  value: "What is the meaning of life?",
 });
 
 // Multiple embeddings
 const multipleResult = await embedMany({
-  model: openai.embedding('text-embedding-3-small'),
-  values: ['First question about life', 'Second question about universe', 'Third question about everything'],
+  model: openai.embedding("text-embedding-3-small"),
+  values: [
+    "First question about life",
+    "Second question about universe",
+    "Third question about everything",
+  ],
 });
 ```
 

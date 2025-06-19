@@ -3,8 +3,8 @@
 To make your agent available to the playground, you need to export it through the Mastra class in your `src/mastra/index.ts` file:
 
 ```typescript
-import { Mastra } from '@mastra/core';
-import { financialAgent } from './agents';
+import { Mastra } from "@mastra/core";
+import { financialAgent } from "./agents";
 
 export const mastra: Mastra = new Mastra({
   agents: {

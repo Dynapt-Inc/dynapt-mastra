@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Prompt Alignment | Metrics | Evals | Mastra Docs'
+title: "Reference: Prompt Alignment | Metrics | Evals | Mastra Docs"
 description: Documentation for the Prompt Alignment Metric in Mastra, which evaluates how well LLM outputs adhere to given prompt instructions.
 ---
 
@@ -10,13 +10,17 @@ The `PromptAlignmentMetric` class evaluates how strictly an LLM's output follows
 ## Basic Usage
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { PromptAlignmentMetric } from '@mastra/evals/llm';
+import { openai } from "@ai-sdk/openai";
+import { PromptAlignmentMetric } from "@mastra/evals/llm";
 
 // Configure the model for evaluation
-const model = openai('gpt-4o-mini');
+const model = openai("gpt-4o-mini");
 
-const instructions = ['Start sentences with capital letters', 'End each sentence with a period', 'Use present tense'];
+const instructions = [
+  "Start sentences with capital letters",
+  "End each sentence with a period",
+  "Use present tense",
+];
 
 const metric = new PromptAlignmentMetric(model, {
   instructions,
@@ -24,8 +28,8 @@ const metric = new PromptAlignmentMetric(model, {
 });
 
 const result = await metric.measure(
-  'describe the weather',
-  'The sun is shining. Clouds float in the sky. A gentle breeze blows.',
+  "describe the weather",
+  "The sun is shining. Clouds float in the sky. A gentle breeze blows.",
 );
 
 console.log(result.score); // Alignment score from 0-1
@@ -37,15 +41,16 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'model',
-      type: 'LanguageModel',
-      description: 'Configuration for the model used to evaluate instruction alignment',
+      name: "model",
+      type: "LanguageModel",
+      description:
+        "Configuration for the model used to evaluate instruction alignment",
       isOptional: false,
     },
     {
-      name: 'options',
-      type: 'PromptAlignmentOptions',
-      description: 'Configuration options for the metric',
+      name: "options",
+      type: "PromptAlignmentOptions",
+      description: "Configuration options for the metric",
       isOptional: false,
     },
   ]}
@@ -56,17 +61,17 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'instructions',
-      type: 'string[]',
-      description: 'Array of instructions that the output should follow',
+      name: "instructions",
+      type: "string[]",
+      description: "Array of instructions that the output should follow",
       isOptional: false,
     },
     {
-      name: 'scale',
-      type: 'number',
-      description: 'Maximum score value',
+      name: "scale",
+      type: "number",
+      description: "Maximum score value",
       isOptional: true,
-      defaultValue: '1',
+      defaultValue: "1",
     },
   ]}
 />
@@ -76,14 +81,14 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'input',
-      type: 'string',
-      description: 'The original prompt or query',
+      name: "input",
+      type: "string",
+      description: "The original prompt or query",
       isOptional: false,
     },
     {
-      name: 'output',
-      type: 'string',
+      name: "output",
+      type: "string",
       description: "The LLM's response to evaluate",
       isOptional: false,
     },
@@ -95,22 +100,24 @@ console.log(result.info.reason); // Explanation of the score
 <PropertiesTable
   content={[
     {
-      name: 'score',
-      type: 'number',
-      description: 'Alignment score (0 to scale, default 0-1)',
+      name: "score",
+      type: "number",
+      description: "Alignment score (0 to scale, default 0-1)",
     },
     {
-      name: 'info',
-      type: 'object',
-      description: 'Object containing detailed metrics about instruction compliance',
+      name: "info",
+      type: "object",
+      description:
+        "Object containing detailed metrics about instruction compliance",
       properties: [
         {
-          type: 'string',
+          type: "string",
           parameters: [
             {
-              name: 'reason',
-              type: 'string',
-              description: 'Detailed explanation of the score and instruction compliance',
+              name: "reason",
+              type: "string",
+              description:
+                "Detailed explanation of the score and instruction compliance",
             },
           ],
         },

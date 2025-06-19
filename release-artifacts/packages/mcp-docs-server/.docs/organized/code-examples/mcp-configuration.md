@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-mcp-configuration",
@@ -43,10 +42,10 @@
   "version": "0.0.1",
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -106,10 +105,10 @@ for await (const part of response.fullStream) {
       break;
   }
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -140,10 +139,10 @@ export const stockWeatherAgent = new Agent({
   model: openai('gpt-4o'),
   tools: await mcp.getTools(),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 
@@ -152,10 +151,10 @@ import { stockWeatherAgent } from './agents';
 export const mastra = new Mastra({
   agents: { stockWeatherAgent },
 });
+
 ```
 
 ### mastra\tools\sse.ts
-
 ```typescript
 import chalk from 'chalk';
 import { spawn } from 'child_process';
@@ -193,10 +192,10 @@ await new Promise(res => {
 process.on(`exit`, () => {
   sseProcess.kill(`SIGINT`);
 });
+
 ```
 
 ### mastra\tools\stock-price.ts
-
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -327,10 +326,10 @@ const transport = new StdioServerTransport();
 await server.connect(transport);
 
 export { server };
+
 ```
 
 ### mastra\tools\weather.ts
-
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
@@ -576,4 +575,5 @@ process.on('SIGINT', async () => {
 });
 
 export { server };
+
 ```

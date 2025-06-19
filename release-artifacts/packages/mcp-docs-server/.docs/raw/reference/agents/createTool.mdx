@@ -1,5 +1,5 @@
 ---
-title: 'Reference: createTool() | Tools | Agents | Mastra Docs'
+title: "Reference: createTool() | Tools | Agents | Mastra Docs"
 description: Documentation for the createTool function in Mastra, which creates custom tools for agents and workflows.
 ---
 
@@ -19,22 +19,24 @@ Tools are a fundamental building block in Mastra that allow agents to interact w
 ## Example Usage
 
 ```ts filename="src/tools/stock-tools.ts" showLineNumbers copy
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
 
 // Helper function to fetch stock data
 const getStockPrice = async (symbol: string) => {
-  const response = await fetch(`https://mastra-stock-data.vercel.app/api/stock-data?symbol=${symbol}`);
+  const response = await fetch(
+    `https://mastra-stock-data.vercel.app/api/stock-data?symbol=${symbol}`,
+  );
   const data = await response.json();
-  return data.prices['4. close'];
+  return data.prices["4. close"];
 };
 
 // Create a tool to get stock prices
 export const stockPriceTool = createTool({
-  id: 'getStockPrice',
-  description: 'Fetches the current stock price for a given ticker symbol',
+  id: "getStockPrice",
+  description: "Fetches the current stock price for a given ticker symbol",
   inputSchema: z.object({
-    symbol: z.string().describe('The stock ticker symbol (e.g., AAPL, MSFT)'),
+    symbol: z.string().describe("The stock ticker symbol (e.g., AAPL, MSFT)"),
   }),
   outputSchema: z.object({
     symbol: z.string(),
@@ -48,7 +50,7 @@ export const stockPriceTool = createTool({
     return {
       symbol: context.symbol,
       price: parseFloat(price),
-      currency: 'USD',
+      currency: "USD",
       timestamp: new Date().toISOString(),
     };
   },
@@ -56,8 +58,8 @@ export const stockPriceTool = createTool({
 
 // Create a tool that uses the thread context
 export const threadInfoTool = createTool({
-  id: 'getThreadInfo',
-  description: 'Returns information about the current conversation thread',
+  id: "getThreadInfo",
+  description: "Returns information about the current conversation thread",
   inputSchema: z.object({
     includeResource: z.boolean().optional().default(false),
   }),
@@ -80,88 +82,93 @@ export const threadInfoTool = createTool({
 <PropertiesTable
   content={[
     {
-      name: 'id',
-      type: 'string',
-      required: true,
-      description: "Unique identifier for the tool. This should be descriptive of the tool's function.",
-    },
-    {
-      name: 'description',
-      type: 'string',
+      name: "id",
+      type: "string",
       required: true,
       description:
-        'Detailed description of what the tool does, when it should be used, and what inputs it requires. This helps the AI understand how to use the tool effectively.',
+        "Unique identifier for the tool. This should be descriptive of the tool's function.",
     },
     {
-      name: 'execute',
-      type: '(context: ToolExecutionContext, options?: any) => Promise<any>',
+      name: "description",
+      type: "string",
+      required: true,
+      description:
+        "Detailed description of what the tool does, when it should be used, and what inputs it requires. This helps the AI understand how to use the tool effectively.",
+    },
+    {
+      name: "execute",
+      type: "(context: ToolExecutionContext, options?: any) => Promise<any>",
       required: false,
       description:
         "Async function that implements the tool's logic. Receives the execution context and optional configuration.",
       properties: [
         {
-          type: 'ToolExecutionContext',
+          type: "ToolExecutionContext",
           parameters: [
             {
-              name: 'context',
-              type: 'object',
-              description: 'The validated input data that matches the inputSchema',
+              name: "context",
+              type: "object",
+              description:
+                "The validated input data that matches the inputSchema",
             },
             {
-              name: 'threadId',
-              type: 'string',
+              name: "threadId",
+              type: "string",
               isOptional: true,
-              description: 'Identifier for the conversation thread, if available',
+              description:
+                "Identifier for the conversation thread, if available",
             },
             {
-              name: 'resourceId',
-              type: 'string',
+              name: "resourceId",
+              type: "string",
               isOptional: true,
-              description: 'Identifier for the user or resource interacting with the tool',
+              description:
+                "Identifier for the user or resource interacting with the tool",
             },
             {
-              name: 'mastra',
-              type: 'Mastra',
+              name: "mastra",
+              type: "Mastra",
               isOptional: true,
-              description: 'Reference to the Mastra instance, if available',
+              description: "Reference to the Mastra instance, if available",
             },
           ],
         },
         {
-          type: 'ToolOptions',
+          type: "ToolOptions",
           parameters: [
             {
-              name: 'toolCallId',
-              type: 'string',
+              name: "toolCallId",
+              type: "string",
               description:
-                'The ID of the tool call. You can use it e.g. when sending tool-call related information with stream data.',
+                "The ID of the tool call. You can use it e.g. when sending tool-call related information with stream data.",
             },
             {
-              name: 'messages',
-              type: 'CoreMessage[]',
+              name: "messages",
+              type: "CoreMessage[]",
               description:
-                'Messages that were sent to the language model to initiate the response that contained the tool call. The messages do not include the system prompt nor the assistant response that contained the tool call.',
+                "Messages that were sent to the language model to initiate the response that contained the tool call. The messages do not include the system prompt nor the assistant response that contained the tool call.",
             },
             {
-              name: 'abortSignal',
-              type: 'AbortSignal',
+              name: "abortSignal",
+              type: "AbortSignal",
               isOptional: true,
-              description: 'An optional abort signal that indicates that the overall operation should be aborted.',
+              description:
+                "An optional abort signal that indicates that the overall operation should be aborted.",
             },
           ],
         },
       ],
     },
     {
-      name: 'inputSchema',
-      type: 'ZodSchema',
+      name: "inputSchema",
+      type: "ZodSchema",
       required: false,
       description:
         "Zod schema that defines and validates the tool's input parameters. If not provided, the tool will accept any input.",
     },
     {
-      name: 'outputSchema',
-      type: 'ZodSchema',
+      name: "outputSchema",
+      type: "ZodSchema",
       required: false,
       description:
         "Zod schema that defines and validates the tool's output. Helps ensure the tool returns data in the expected format.",
@@ -174,36 +181,37 @@ export const threadInfoTool = createTool({
 <PropertiesTable
   content={[
     {
-      name: 'Tool',
-      type: 'Tool<TSchemaIn, TSchemaOut>',
-      description: 'A Tool instance that can be used with agents, workflows, or directly executed.',
+      name: "Tool",
+      type: "Tool<TSchemaIn, TSchemaOut>",
+      description:
+        "A Tool instance that can be used with agents, workflows, or directly executed.",
       properties: [
         {
-          type: 'Tool',
+          type: "Tool",
           parameters: [
             {
-              name: 'id',
-              type: 'string',
+              name: "id",
+              type: "string",
               description: "The tool's unique identifier",
             },
             {
-              name: 'description',
-              type: 'string',
+              name: "description",
+              type: "string",
               description: "Description of the tool's functionality",
             },
             {
-              name: 'inputSchema',
-              type: 'ZodSchema | undefined',
-              description: 'Schema for validating inputs',
+              name: "inputSchema",
+              type: "ZodSchema | undefined",
+              description: "Schema for validating inputs",
             },
             {
-              name: 'outputSchema',
-              type: 'ZodSchema | undefined',
-              description: 'Schema for validating outputs',
+              name: "outputSchema",
+              type: "ZodSchema | undefined",
+              description: "Schema for validating outputs",
             },
             {
-              name: 'execute',
-              type: 'Function',
+              name: "execute",
+              type: "Function",
               description: "The tool's execution function",
             },
           ],

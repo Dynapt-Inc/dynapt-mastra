@@ -1,6 +1,6 @@
 ---
-title: 'Reference: Agent.getMemory() | Agents | Mastra Docs'
-description: 'Documentation for the `.getMemory()` method in Mastra agents, which retrieves the memory system associated with the agent.'
+title: "Reference: Agent.getMemory() | Agents | Mastra Docs"
+description: "Documentation for the `.getMemory()` method in Mastra agents, which retrieves the memory system associated with the agent."
 ---
 
 # Agent.getMemory()
@@ -37,18 +37,19 @@ This method is often used in conjunction with `hasOwnMemory()` to check if an ag
 ### Basic Usage
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { Memory } from '@mastra/memory';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { Memory } from "@mastra/memory";
+import { openai } from "@ai-sdk/openai";
 
 // Create a memory system
 const memory = new Memory();
 
 // Create an agent with memory
 const agent = new Agent({
-  name: 'memory-assistant',
-  instructions: 'You are a helpful assistant that remembers previous conversations.',
-  model: openai('gpt-4o'),
+  name: "memory-assistant",
+  instructions:
+    "You are a helpful assistant that remembers previous conversations.",
+  model: openai("gpt-4o"),
   memory,
 });
 
@@ -58,25 +59,25 @@ const agentMemory = agent.getMemory();
 if (agentMemory) {
   // Use the memory system to retrieve thread messages
   const thread = await agentMemory.getThreadById({
-    resourceId: 'user-123',
-    threadId: 'conversation-1',
+    resourceId: "user-123",
+    threadId: "conversation-1",
   });
 
-  console.log('Retrieved thread:', thread);
+  console.log("Retrieved thread:", thread);
 }
 ```
 
 ### Checking for Memory Before Using
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
 
 // Create an agent without memory
 const agent = new Agent({
-  name: 'stateless-assistant',
-  instructions: 'You are a helpful assistant.',
-  model: openai('gpt-4o'),
+  name: "stateless-assistant",
+  instructions: "You are a helpful assistant.",
+  model: openai("gpt-4o"),
 });
 
 // Check if the agent has memory before using it
@@ -84,38 +85,39 @@ if (agent.hasOwnMemory()) {
   const memory = agent.getMemory();
   // Use memory...
 } else {
-  console.log('This agent does not have a memory system.');
+  console.log("This agent does not have a memory system.");
 }
 ```
 
 ### Using Memory in a Conversation
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { Memory } from '@mastra/memory';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { Memory } from "@mastra/memory";
+import { openai } from "@ai-sdk/openai";
 
 // Create a memory system
 const memory = new Memory();
 
 // Create an agent with memory
 const agent = new Agent({
-  name: 'memory-assistant',
-  instructions: 'You are a helpful assistant that remembers previous conversations.',
-  model: openai('gpt-4o'),
+  name: "memory-assistant",
+  instructions:
+    "You are a helpful assistant that remembers previous conversations.",
+  model: openai("gpt-4o"),
   memory,
 });
 
 // First interaction - store information
-await agent.generate('My name is Alice.', {
-  resourceId: 'user-123',
-  threadId: 'conversation-1',
+await agent.generate("My name is Alice.", {
+  resourceId: "user-123",
+  threadId: "conversation-1",
 });
 
 // Later interaction - retrieve information
 const result = await agent.generate("What's my name?", {
-  resourceId: 'user-123',
-  threadId: 'conversation-1',
+  resourceId: "user-123",
+  threadId: "conversation-1",
 });
 
 console.log(result.text); // Should mention "Alice"
@@ -125,13 +127,13 @@ const agentMemory = agent.getMemory();
 if (agentMemory) {
   // Retrieve messages from the thread
   const { messages } = await agentMemory.query({
-    resourceId: 'user-123',
-    threadId: 'conversation-1',
+    resourceId: "user-123",
+    threadId: "conversation-1",
     selectBy: {
       last: 10, // Get the last 10 messages
     },
   });
 
-  console.log('Retrieved messages:', messages);
+  console.log("Retrieved messages:", messages);
 }
 ```

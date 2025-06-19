@@ -1,5 +1,5 @@
 ---
-title: 'Dynamic Agents'
+title: "Dynamic Agents"
 description: Dynamically configure your agent's instruction, model and tools using runtime context.
 ---
 
@@ -17,37 +17,39 @@ Here's an example of a dynamic support agent that adjusts its behavior based on 
 
 ```typescript
 const supportAgent = new Agent({
-  name: 'Dynamic Support Agent',
+  name: "Dynamic Support Agent",
 
   instructions: async ({ runtimeContext }) => {
-    const userTier = runtimeContext.get('user-tier');
-    const language = runtimeContext.get('language');
+    const userTier = runtimeContext.get("user-tier");
+    const language = runtimeContext.get("language");
 
     return `You are a customer support agent for our SaaS platform.
     The current user is on the ${userTier} tier and prefers ${language} language.
     
     For ${userTier} tier users:
-    ${userTier === 'free' ? '- Provide basic support and documentation links' : ''}
-    ${userTier === 'pro' ? '- Offer detailed technical support and best practices' : ''}
-    ${userTier === 'enterprise' ? '- Provide priority support with custom solutions' : ''}
+    ${userTier === "free" ? "- Provide basic support and documentation links" : ""}
+    ${userTier === "pro" ? "- Offer detailed technical support and best practices" : ""}
+    ${userTier === "enterprise" ? "- Provide priority support with custom solutions" : ""}
     
     Always respond in ${language} language.`;
   },
 
   model: ({ runtimeContext }) => {
-    const userTier = runtimeContext.get('user-tier');
-    return userTier === 'enterprise' ? openai('gpt-4') : openai('gpt-3.5-turbo');
+    const userTier = runtimeContext.get("user-tier");
+    return userTier === "enterprise"
+      ? openai("gpt-4")
+      : openai("gpt-3.5-turbo");
   },
 
   tools: ({ runtimeContext }) => {
-    const userTier = runtimeContext.get('user-tier');
+    const userTier = runtimeContext.get("user-tier");
     const baseTools = [knowledgeBase, ticketSystem];
 
-    if (userTier === 'pro' || userTier === 'enterprise') {
+    if (userTier === "pro" || userTier === "enterprise") {
       baseTools.push(advancedAnalytics);
     }
 
-    if (userTier === 'enterprise') {
+    if (userTier === "enterprise") {
       baseTools.push(customIntegration);
     }
 

@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Bias | Output Metrics | Evals | Mastra Docs'
+title: "Reference: Bias | Output Metrics | Evals | Mastra Docs"
 description: Documentation for the Bias Metric in Mastra, which evaluates LLM outputs for various forms of bias, including gender, political, racial/ethnic, or geographical bias.
 ---
 
@@ -10,19 +10,19 @@ The `BiasMetric` class evaluates whether an LLM's output contains various forms 
 ## Basic Usage
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { BiasMetric } from '@mastra/evals/llm';
+import { openai } from "@ai-sdk/openai";
+import { BiasMetric } from "@mastra/evals/llm";
 
 // Configure the model for evaluation
-const model = openai('gpt-4o-mini');
+const model = openai("gpt-4o-mini");
 
 const metric = new BiasMetric(model, {
   scale: 1,
 });
 
 const result = await metric.measure(
-  'Describe leadership qualities in the workplace',
-  'Strong leaders are typically men who can make tough decisions...',
+  "Describe leadership qualities in the workplace",
+  "Strong leaders are typically men who can make tough decisions...",
 );
 
 console.log(result.score); // Score from 0-1, higher means more biased
@@ -33,17 +33,17 @@ console.log(result.score); // Score from 0-1, higher means more biased
 <PropertiesTable
   content={[
     {
-      name: 'model',
-      type: 'LanguageModel',
-      description: 'Configuration for the model used to evaluate bias',
+      name: "model",
+      type: "LanguageModel",
+      description: "Configuration for the model used to evaluate bias",
       isOptional: false,
     },
     {
-      name: 'options',
-      type: 'BiasMetricOptions',
-      description: 'Configuration options for the metric',
+      name: "options",
+      type: "BiasMetricOptions",
+      description: "Configuration options for the metric",
       isOptional: true,
-      defaultValue: '{ scale: 1 }',
+      defaultValue: "{ scale: 1 }",
     },
   ]}
 />
@@ -53,11 +53,11 @@ console.log(result.score); // Score from 0-1, higher means more biased
 <PropertiesTable
   content={[
     {
-      name: 'scale',
-      type: 'number',
-      description: 'Maximum score value',
+      name: "scale",
+      type: "number",
+      description: "Maximum score value",
       isOptional: true,
-      defaultValue: '1',
+      defaultValue: "1",
     },
   ]}
 />
@@ -67,14 +67,14 @@ console.log(result.score); // Score from 0-1, higher means more biased
 <PropertiesTable
   content={[
     {
-      name: 'input',
-      type: 'string',
-      description: 'The original query or prompt',
+      name: "input",
+      type: "string",
+      description: "The original query or prompt",
       isOptional: false,
     },
     {
-      name: 'output',
-      type: 'string',
+      name: "output",
+      type: "string",
       description: "The LLM's response to evaluate",
       isOptional: false,
     },
@@ -86,22 +86,23 @@ console.log(result.score); // Score from 0-1, higher means more biased
 <PropertiesTable
   content={[
     {
-      name: 'score',
-      type: 'number',
-      description: 'Bias score (0 to scale, default 0-1). Higher scores indicate more bias',
+      name: "score",
+      type: "number",
+      description:
+        "Bias score (0 to scale, default 0-1). Higher scores indicate more bias",
     },
     {
-      name: 'info',
-      type: 'object',
-      description: 'Object containing the reason for the score',
+      name: "info",
+      type: "object",
+      description: "Object containing the reason for the score",
       properties: [
         {
-          type: 'string',
+          type: "string",
           parameters: [
             {
-              name: 'reason',
-              type: 'string',
-              description: 'Explanation of the score',
+              name: "reason",
+              type: "string",
+              description: "Explanation of the score",
             },
           ],
         },
@@ -157,21 +158,24 @@ Final score: `(biased_opinions / total_opinions) * scale`
 ## Example with Different Types of Bias
 
 ```typescript
-import { openai } from '@ai-sdk/openai';
-import { BiasMetric } from '@mastra/evals/llm';
+import { openai } from "@ai-sdk/openai";
+import { BiasMetric } from "@mastra/evals/llm";
 
 // Configure the model for evaluation
-const model = openai('gpt-4o-mini');
+const model = openai("gpt-4o-mini");
 
 const metric = new BiasMetric(model);
 
 // Testing for different types of bias
 const results = await Promise.all([
   metric.measure(
-    'Describe voting patterns',
-    'These radical right-wing voters consistently vote against their interests...',
+    "Describe voting patterns",
+    "These radical right-wing voters consistently vote against their interests...",
   ),
-  metric.measure('Describe workplace dynamics', 'Modern offices have diverse teams working together based on merit...'),
+  metric.measure(
+    "Describe workplace dynamics",
+    "Modern offices have diverse teams working together based on merit...",
+  ),
 ]);
 
 // Example outputs:

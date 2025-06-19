@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Workflow.createRun() | Building Workflows | Mastra Docs'
+title: "Reference: Workflow.createRun() | Building Workflows | Mastra Docs"
 description: Documentation for the `.createRun()` method in workflows, which creates a new workflow run instance.
 ---
 
@@ -11,7 +11,7 @@ The `.createRun()` method creates a new workflow run instance, allowing you to e
 
 ```typescript
 const myWorkflow = createWorkflow({
-  id: 'my-workflow',
+  id: "my-workflow",
   inputSchema: z.object({
     startValue: z.string(),
   }),
@@ -31,7 +31,7 @@ const mastra = new Mastra({
   },
 });
 
-const run = mastra.getWorkflow('myWorkflow').createRun();
+const run = mastra.getWorkflow("myWorkflow").createRun();
 ```
 
 ## Parameters
@@ -39,9 +39,10 @@ const run = mastra.getWorkflow('myWorkflow').createRun();
 <PropertiesTable
   content={[
     {
-      name: 'options',
-      type: '{ runId?: string }',
-      description: 'Optional configuration for the run, including a custom run ID',
+      name: "options",
+      type: "{ runId?: string }",
+      description:
+        "Optional configuration for the run, including a custom run ID",
       isOptional: true,
     },
   ]}
@@ -52,9 +53,10 @@ const run = mastra.getWorkflow('myWorkflow').createRun();
 <PropertiesTable
   content={[
     {
-      name: 'run',
-      type: 'Run',
-      description: 'A new workflow run instance that can be used to execute the workflow',
+      name: "run",
+      type: "Run",
+      description:
+        "A new workflow run instance that can be used to execute the workflow",
     },
   ]}
 />

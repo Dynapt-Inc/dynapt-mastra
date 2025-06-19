@@ -1,5 +1,5 @@
 ---
-title: 'Reference: run.resume() | Running Workflows (Legacy) | Mastra Docs'
+title: "Reference: run.resume() | Running Workflows (Legacy) | Mastra Docs"
 description: Documentation for the `.resume()` method in workflows, which continues execution of a suspended workflow step.
 ---
 
@@ -11,8 +11,8 @@ The `.resume()` method continues execution of a suspended workflow step, optiona
 
 ```typescript copy showLineNumbers
 await run.resume({
-  runId: 'abc-123',
-  stepId: 'stepTwo',
+  runId: "abc-123",
+  stepId: "stepTwo",
   context: {
     secondValue: 100,
   },
@@ -24,9 +24,9 @@ await run.resume({
 <PropertiesTable
   content={[
     {
-      name: 'config',
-      type: 'object',
-      description: 'Configuration for resuming the workflow',
+      name: "config",
+      type: "object",
+      description: "Configuration for resuming the workflow",
       isOptional: false,
     },
   ]}
@@ -37,21 +37,22 @@ await run.resume({
 <PropertiesTable
   content={[
     {
-      name: 'runId',
-      type: 'string',
-      description: 'Unique identifier of the workflow run to resume',
+      name: "runId",
+      type: "string",
+      description: "Unique identifier of the workflow run to resume",
       isOptional: false,
     },
     {
-      name: 'stepId',
-      type: 'string',
-      description: 'ID of the suspended step to resume',
+      name: "stepId",
+      type: "string",
+      description: "ID of the suspended step to resume",
       isOptional: false,
     },
     {
-      name: 'context',
-      type: 'Record<string, any>',
-      description: "New context data to inject into the step's inputData property",
+      name: "context",
+      type: "Record<string, any>",
+      description:
+        "New context data to inject into the step's inputData property",
       isOptional: true,
     },
   ]}
@@ -62,9 +63,9 @@ await run.resume({
 <PropertiesTable
   content={[
     {
-      name: 'Promise<LegacyWorkflowResult>',
-      type: 'object',
-      description: 'Result of the resumed workflow execution',
+      name: "Promise<LegacyWorkflowResult>",
+      type: "object",
+      description: "Result of the resumed workflow execution",
     },
   ]}
 />
@@ -76,7 +77,7 @@ When a workflow is resumed, execution continues from the point immediately after
 ```typescript
 // Step definition with suspend point
 const reviewStep = new LegacyStep({
-  id: 'review',
+  id: "review",
   execute: async ({ context, suspend }) => {
     // First part of execution
     const initialAnalysis = analyzeData(context.inputData.data);
@@ -88,7 +89,10 @@ const reviewStep = new LegacyStep({
       // This code runs after resume() is called
       // context.inputData now contains any data provided during resume
       return {
-        reviewedData: enhanceWithFeedback(initialAnalysis, context.inputData.feedback),
+        reviewedData: enhanceWithFeedback(
+          initialAnalysis,
+          context.inputData.feedback,
+        ),
       };
     }
 
@@ -100,17 +104,17 @@ const { runId, resume, start } = workflow.createRun();
 
 await start({
   inputData: {
-    data: 'some data',
+    data: "some data",
   },
 });
 
 // Later, resume the workflow
 const result = await resume({
-  runId: 'workflow-123',
-  stepId: 'review',
+  runId: "workflow-123",
+  stepId: "review",
   context: {
     // This data will be available in `context.inputData`
-    feedback: 'Looks good, but improve section 3',
+    feedback: "Looks good, but improve section 3",
   },
 });
 ```
@@ -133,14 +137,14 @@ The resume function may throw several types of errors:
 try {
   await run.resume({
     runId,
-    stepId: 'stepTwo',
+    stepId: "stepTwo",
     context: newData,
   });
 } catch (error) {
-  if (error.message === 'No snapshot found for workflow run') {
+  if (error.message === "No snapshot found for workflow run") {
     // Handle missing workflow state
   }
-  if (error.message === 'Failed to parse workflow snapshot') {
+  if (error.message === "Failed to parse workflow snapshot") {
     // Handle corrupted workflow state
   }
 }

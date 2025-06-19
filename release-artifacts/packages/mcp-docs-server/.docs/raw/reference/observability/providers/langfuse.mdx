@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Langfuse Integration | Mastra Observability Docs'
+title: "Reference: Langfuse Integration | Mastra Observability Docs"
 description: Documentation for integrating Langfuse with Mastra, an open-source observability platform for LLM applications.
 ---
 
@@ -26,16 +26,16 @@ LANGFUSE_BASEURL=https://cloud.langfuse.com  # Optional - defaults to cloud.lang
 Here's how to configure Mastra to use Langfuse:
 
 ```typescript
-import { Mastra } from '@mastra/core';
-import { LangfuseExporter } from 'langfuse-vercel';
+import { Mastra } from "@mastra/core";
+import { LangfuseExporter } from "langfuse-vercel";
 
 export const mastra = new Mastra({
   // ... other config
   telemetry: {
-    serviceName: 'ai', // this must be set to "ai" so that the LangfuseExporter thinks it's an AI SDK trace
+    serviceName: "ai", // this must be set to "ai" so that the LangfuseExporter thinks it's an AI SDK trace
     enabled: true,
     export: {
-      type: 'custom',
+      type: "custom",
       exporter: new LangfuseExporter({
         publicKey: process.env.LANGFUSE_PUBLIC_KEY,
         secretKey: process.env.LANGFUSE_SECRET_KEY,

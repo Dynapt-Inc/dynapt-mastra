@@ -1,6 +1,6 @@
 ---
-title: 'MastraClient'
-description: 'Learn how to set up and use the Mastra Client SDK'
+title: "MastraClient"
+description: "Learn how to set up and use the Mastra Client SDK"
 ---
 
 # Mastra Client SDK
@@ -18,20 +18,32 @@ To ensure smooth local development, make sure you have:
 
 ## Installation
 
-import { Tabs } from 'nextra/components';
+import { Tabs } from "nextra/components";
 
-{/_
+{/*
 LLM CONTEXT:
 This Tabs component shows installation commands for the Mastra Client SDK using different package managers.
 Each tab displays the installation command for that specific package manager (npm, yarn, pnpm).
 This helps users install the client SDK with their preferred package manager.
 All commands install the same @mastra/client-js package but use different package manager syntax.
-_/}
+*/}
 
-<Tabs items={['npm', 'yarn', 'pnpm']}>
-  <Tabs.Tab>```bash copy npm install @mastra/client-js@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy yarn add @mastra/client-js@latest ```</Tabs.Tab>
-  <Tabs.Tab>```bash copy pnpm add @mastra/client-js@latest ```</Tabs.Tab>
+<Tabs items={["npm", "yarn", "pnpm"]}>
+  <Tabs.Tab>
+    ```bash copy
+    npm install @mastra/client-js@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn add @mastra/client-js@latest
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm add @mastra/client-js@latest
+    ```
+  </Tabs.Tab>
 </Tabs>
 
 ## Initialize Mastra Client
@@ -39,10 +51,10 @@ _/}
 To get started you'll need to initialize your MastraClient with necessary parameters:
 
 ```typescript
-import { MastraClient } from '@mastra/client-js';
+import { MastraClient } from "@mastra/client-js";
 
 const client = new MastraClient({
-  baseUrl: 'http://localhost:4111', // Default Mastra development server port
+  baseUrl: "http://localhost:4111", // Default Mastra development server port
 });
 ```
 
@@ -53,7 +65,7 @@ You can customize the client with various options:
 ```typescript
 const client = new MastraClient({
   // Required
-  baseUrl: 'http://localhost:4111',
+  baseUrl: "http://localhost:4111",
 
   // Optional configurations for development
   retries: 3, // Number of retry attempts
@@ -61,7 +73,7 @@ const client = new MastraClient({
   maxBackoffMs: 5000, // Maximum retry backoff time
   headers: {
     // Custom headers for development
-    'X-Development': 'true',
+    "X-Development": "true",
   },
 });
 ```
@@ -73,13 +85,13 @@ interface
 
 ```typescript
 // Get a reference to your local agent
-const agent = client.getAgent('dev-agent-id');
+const agent = client.getAgent("dev-agent-id");
 
 // Generate responses
 const response = await agent.generate({
   messages: [
     {
-      role: 'user',
+      role: "user",
       content: "Hello, I'm testing the local development setup!",
     },
   ],
@@ -105,13 +117,13 @@ Mastra client exposes all resources served by the Mastra Server
 ```typescript
 // Example with error handling and logging
 try {
-  const agent = client.getAgent('dev-agent-id');
+  const agent = client.getAgent("dev-agent-id");
   const response = await agent.generate({
-    messages: [{ role: 'user', content: 'Test message' }],
+    messages: [{ role: "user", content: "Test message" }],
   });
-  console.log('Response:', response);
+  console.log("Response:", response);
 } catch (error) {
-  console.error('Development error:', error);
+  console.error("Development error:", error);
 }
 ```
 

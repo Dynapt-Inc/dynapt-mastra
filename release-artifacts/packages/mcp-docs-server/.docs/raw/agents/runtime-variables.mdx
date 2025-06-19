@@ -1,5 +1,5 @@
 ---
-title: 'Runtime context | Agents | Mastra Docs'
+title: "Runtime context | Agents | Mastra Docs"
 description: Learn how to use Mastra's dependency injection system to provide runtime configuration to agents and tools.
 ---
 
@@ -19,15 +19,15 @@ The dependency injection system allows you to:
 ## Basic Usage
 
 ```typescript
-const agent = mastra.getAgent('weatherAgent');
+const agent = mastra.getAgent("weatherAgent");
 
 // Define your runtimeContext's type structure
 type WeatherRuntimeContext = {
-  'temperature-scale': 'celsius' | 'fahrenheit'; // Fixed typo in "fahrenheit"
+  "temperature-scale": "celsius" | "fahrenheit"; // Fixed typo in "fahrenheit"
 };
 
 const runtimeContext = new RuntimeContext<WeatherRuntimeContext>();
-runtimeContext.set('temperature-scale', 'celsius');
+runtimeContext.set("temperature-scale", "celsius");
 
 const response = await agent.generate("What's the weather like today?", {
   runtimeContext,
@@ -41,13 +41,13 @@ console.log(response.text);
 Here's how to dynamically set temperature units based on a user's location using the Cloudflare `CF-IPCountry` header:
 
 ```typescript filename="src/index.ts"
-import { Mastra } from '@mastra/core';
-import { RuntimeContext } from '@mastra/core/di';
-import { agent as weatherAgent } from './agents/weather';
+import { Mastra } from "@mastra/core";
+import { RuntimeContext } from "@mastra/core/di";
+import { agent as weatherAgent } from "./agents/weather";
 
 // Define RuntimeContext type with clear, descriptive types
 type WeatherRuntimeContext = {
-  'temperature-scale': 'celsius' | 'fahrenheit';
+  "temperature-scale": "celsius" | "fahrenheit";
 };
 
 export const mastra = new Mastra({
@@ -57,11 +57,14 @@ export const mastra = new Mastra({
   server: {
     middleware: [
       async (c, next) => {
-        const country = c.req.header('CF-IPCountry');
-        const runtimeContext = c.get<WeatherRuntimeContext>('runtimeContext');
+        const country = c.req.header("CF-IPCountry");
+        const runtimeContext = c.get<WeatherRuntimeContext>("runtimeContext");
 
         // Set temperature scale based on country
-        runtimeContext.set('temperature-scale', country === 'US' ? 'fahrenheit' : 'celsius');
+        runtimeContext.set(
+          "temperature-scale",
+          country === "US" ? "fahrenheit" : "celsius",
+        );
 
         await next(); // Don't forget to call next()
       },
@@ -75,18 +78,18 @@ export const mastra = new Mastra({
 Tools can access runtimeContext variables and must conform to the agent's runtimeContext type:
 
 ```typescript
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
+import { createTool } from "@mastra/core/tools";
+import { z } from "zod";
 
 export const weatherTool = createTool({
-  id: 'getWeather',
-  description: 'Get the current weather for a location',
+  id: "getWeather",
+  description: "Get the current weather for a location",
   inputSchema: z.object({
-    location: z.string().describe('The location to get weather for'),
+    location: z.string().describe("The location to get weather for"),
   }),
   execute: async ({ context, runtimeContext }) => {
     // Type-safe access to runtimeContext variables
-    const temperatureUnit = runtimeContext.get('temperature-scale');
+    const temperatureUnit = runtimeContext.get("temperature-scale");
 
     const weather = await fetchWeather(context.location, {
       temperatureUnit,
@@ -98,15 +101,15 @@ export const weatherTool = createTool({
 
 async function fetchWeather(
   location: string,
-  { temperatureUnit }: { temperatureUnit: 'celsius' | 'fahrenheit' },
+  { temperatureUnit }: { temperatureUnit: "celsius" | "fahrenheit" },
 ): Promise<WeatherResponse> {
   // Implementation of weather API call
   const response = await weatherApi.fetch(location, temperatureUnit);
 
   return {
     location,
-    temperature: '72°F',
-    conditions: 'Sunny',
+    temperature: "72°F",
+    conditions: "Sunny",
     unit: temperatureUnit,
   };
 }

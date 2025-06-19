@@ -1,25 +1,25 @@
 ---
-title: 'Model Providers | Getting Started | Mastra Docs'
-description: 'Learn how to configure and use different model providers with Mastra.'
+title: "Model Providers | Getting Started | Mastra Docs"
+description: "Learn how to configure and use different model providers with Mastra."
 ---
 
-import { Callout, Tabs } from 'nextra/components';
+import { Callout, Tabs } from 'nextra/components'
 
 # Model Providers
 
 Model providers are used to interact with different language models. Mastra uses [Vercel's AI SDK](https://sdk.vercel.ai) as a model routing layer to provide a similar syntax for many models:
 
 ```typescript showLineNumbers copy {1,7} filename="src/mastra/agents/weather-agent.ts"
-import { openai } from '@ai-sdk/openai';
-import { Agent } from '@mastra/core/agent';
+import { openai } from "@ai-sdk/openai";
+import { Agent } from "@mastra/core/agent";
 
 const agent = new Agent({
-  name: 'WeatherAgent',
-  instructions: 'Instructions for the agent...',
-  model: openai('gpt-4-turbo'),
+  name: "WeatherAgent",
+  instructions: "Instructions for the agent...",
+  model: openai("gpt-4-turbo"),
 });
 
-const result = await agent.generate('What is the weather like?');
+const result = await agent.generate("What is the weather like?");
 ```
 
 ## Types of AI SDK model providers
@@ -37,7 +37,6 @@ AI SDK model providers are packages that need to be installed in your Mastra pro
 The default model provider selected during the installation process is installed in the project.
 
 If you want to use a different model provider, you need to install it in your project as well.
-
 </Callout>
 
 Here are some examples of how Mastra agents can be configured to use the different types of model providers:
@@ -81,7 +80,6 @@ Here are some examples of how Mastra agents can be configured to use the differe
     ```
 
     Different AI providers may have different options for configuration. Please refer to the [AI SDK documentation](https://ai-sdk.dev/providers/ai-sdk-providers) for more information.
-
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -115,7 +113,7 @@ Here are some examples of how Mastra agents can be configured to use the differe
     ```
 
     For more information on the OpenAI-compatible provider, please refer to the [AI SDK documentation](https://ai-sdk.dev/providers/openai-compatible-providers).
-
+    
   </Tabs.Tab>
 
   <Tabs.Tab>
@@ -163,6 +161,5 @@ Here are some examples of how Mastra agents can be configured to use the differe
     <Callout>
     While this example shows how to use the Ollama provider, other providers like `openrouter`, `azure`, etc. may also be used.
     </Callout>
-
   </Tabs.Tab>
 </Tabs>

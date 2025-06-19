@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Chroma Vector Store | Vector Databases | RAG | Mastra Docs'
+title: "Reference: Chroma Vector Store | Vector Databases | RAG | Mastra Docs"
 description: Documentation for the ChromaVector class in Mastra, which provides vector search using ChromaDB.
 ---
 
@@ -13,15 +13,15 @@ It offers efficient vector search with metadata filtering and hybrid search capa
 <PropertiesTable
   content={[
     {
-      name: 'path',
-      type: 'string',
-      description: 'URL path to ChromaDB instance',
+      name: "path",
+      type: "string",
+      description: "URL path to ChromaDB instance",
     },
     {
-      name: 'auth',
-      type: 'object',
+      name: "auth",
+      type: "object",
       isOptional: true,
-      description: 'Authentication configuration',
+      description: "Authentication configuration",
     },
   ]}
 />
@@ -31,14 +31,14 @@ It offers efficient vector search with metadata filtering and hybrid search capa
 <PropertiesTable
   content={[
     {
-      name: 'provider',
-      type: 'string',
-      description: 'Authentication provider',
+      name: "provider",
+      type: "string",
+      description: "Authentication provider",
     },
     {
-      name: 'credentials',
-      type: 'string',
-      description: 'Authentication credentials',
+      name: "credentials",
+      type: "string",
+      description: "Authentication credentials",
     },
   ]}
 />
@@ -50,21 +50,21 @@ It offers efficient vector search with metadata filtering and hybrid search capa
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to create',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to create",
     },
     {
-      name: 'dimension',
-      type: 'number',
-      description: 'Vector dimension (must match your embedding model)',
+      name: "dimension",
+      type: "number",
+      description: "Vector dimension (must match your embedding model)",
     },
     {
-      name: 'metric',
+      name: "metric",
       type: "'cosine' | 'euclidean' | 'dotproduct'",
       isOptional: true,
-      defaultValue: 'cosine',
-      description: 'Distance metric for similarity search',
+      defaultValue: "cosine",
+      description: "Distance metric for similarity search",
     },
   ]}
 />
@@ -74,32 +74,33 @@ It offers efficient vector search with metadata filtering and hybrid search capa
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to upsert into',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to upsert into",
     },
     {
-      name: 'vectors',
-      type: 'number[][]',
-      description: 'Array of embedding vectors',
+      name: "vectors",
+      type: "number[][]",
+      description: "Array of embedding vectors",
     },
     {
-      name: 'metadata',
-      type: 'Record<string, any>[]',
+      name: "metadata",
+      type: "Record<string, any>[]",
       isOptional: true,
-      description: 'Metadata for each vector',
+      description: "Metadata for each vector",
     },
     {
-      name: 'ids',
-      type: 'string[]',
+      name: "ids",
+      type: "string[]",
       isOptional: true,
-      description: 'Optional vector IDs (auto-generated if not provided)',
+      description: "Optional vector IDs (auto-generated if not provided)",
     },
     {
-      name: 'documents',
-      type: 'string[]',
+      name: "documents",
+      type: "string[]",
       isOptional: true,
-      description: 'Chroma-specific: Original text documents associated with the vectors',
+      description:
+        "Chroma-specific: Original text documents associated with the vectors",
     },
   ]}
 />
@@ -109,40 +110,40 @@ It offers efficient vector search with metadata filtering and hybrid search capa
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to query',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to query",
     },
     {
-      name: 'queryVector',
-      type: 'number[]',
-      description: 'Query vector to find similar vectors',
+      name: "queryVector",
+      type: "number[]",
+      description: "Query vector to find similar vectors",
     },
     {
-      name: 'topK',
-      type: 'number',
+      name: "topK",
+      type: "number",
       isOptional: true,
-      defaultValue: '10',
-      description: 'Number of results to return',
+      defaultValue: "10",
+      description: "Number of results to return",
     },
     {
-      name: 'filter',
-      type: 'Record<string, any>',
+      name: "filter",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'Metadata filters for the query',
+      description: "Metadata filters for the query",
     },
     {
-      name: 'includeVector',
-      type: 'boolean',
+      name: "includeVector",
+      type: "boolean",
       isOptional: true,
-      defaultValue: 'false',
-      description: 'Whether to include vectors in the results',
+      defaultValue: "false",
+      description: "Whether to include vectors in the results",
     },
     {
-      name: 'documentFilter',
-      type: 'Record<string, any>',
+      name: "documentFilter",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'Chroma-specific: Filter to apply on the document content',
+      description: "Chroma-specific: Filter to apply on the document content",
     },
   ]}
 />
@@ -156,9 +157,9 @@ Returns an array of index names as strings.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to describe',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to describe",
     },
   ]}
 />
@@ -169,7 +170,7 @@ Returns:
 interface IndexStats {
   dimension: number;
   count: number;
-  metric: 'cosine' | 'euclidean' | 'dotproduct';
+  metric: "cosine" | "euclidean" | "dotproduct";
 }
 ```
 
@@ -178,9 +179,9 @@ interface IndexStats {
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to delete',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to delete",
     },
   ]}
 />
@@ -190,19 +191,19 @@ interface IndexStats {
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index containing the vector to update',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index containing the vector to update",
     },
     {
-      name: 'id',
-      type: 'string',
-      description: 'ID of the vector to update',
+      name: "id",
+      type: "string",
+      description: "ID of the vector to update",
     },
     {
-      name: 'update',
-      type: 'object',
-      description: 'Update parameters',
+      name: "update",
+      type: "object",
+      description: "Update parameters",
     },
   ]}
 />
@@ -212,16 +213,16 @@ The `update` object can contain:
 <PropertiesTable
   content={[
     {
-      name: 'vector',
-      type: 'number[]',
+      name: "vector",
+      type: "number[]",
       isOptional: true,
-      description: 'New vector to replace the existing one',
+      description: "New vector to replace the existing one",
     },
     {
-      name: 'metadata',
-      type: 'Record<string, any>',
+      name: "metadata",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'New metadata to replace the existing metadata',
+      description: "New metadata to replace the existing metadata",
     },
   ]}
 />
@@ -231,14 +232,14 @@ The `update` object can contain:
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index containing the vector to delete',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index containing the vector to delete",
     },
     {
-      name: 'id',
-      type: 'string',
-      description: 'ID of the vector to delete',
+      name: "id",
+      type: "string",
+      description: "ID of the vector to delete",
     },
   ]}
 />
@@ -264,7 +265,7 @@ The store throws typed errors that can be caught:
 ```typescript copy
 try {
   await store.query({
-    indexName: 'index_name',
+    indexName: "index_name",
     queryVector: queryVector,
   });
 } catch (error) {

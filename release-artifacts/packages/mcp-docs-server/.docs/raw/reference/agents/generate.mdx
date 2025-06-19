@@ -1,6 +1,6 @@
 ---
-title: 'Reference: Agent.generate() | Agents | Mastra Docs'
-description: 'Documentation for the `.generate()` method in Mastra agents, which produces text or structured responses.'
+title: "Reference: Agent.generate() | Agents | Mastra Docs"
+description: "Documentation for the `.generate()` method in Mastra agents, which produces text or structured responses."
 ---
 
 # Agent.generate()
@@ -21,7 +21,7 @@ The message object structure:
 
 ```typescript
 interface Message {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 }
 ```
@@ -33,149 +33,144 @@ An optional object that can include configuration for output structure, memory m
 <PropertiesTable
   content={[
     {
-      name: 'abortSignal',
-      type: 'AbortSignal',
+      name: "abortSignal",
+      type: "AbortSignal",
       isOptional: true,
       description:
         "Signal object that allows you to abort the agent's execution. When the signal is aborted, all ongoing operations will be terminated.",
     },
     {
-      name: 'context',
-      type: 'CoreMessage[]',
+      name: "context",
+      type: "CoreMessage[]",
       isOptional: true,
-      description: 'Additional context messages to provide to the agent.',
+      description: "Additional context messages to provide to the agent.",
     },
     {
-      name: 'experimental_output',
-      type: 'Zod schema | JsonSchema7',
+      name: "experimental_output",
+      type: "Zod schema | JsonSchema7",
       isOptional: true,
       description:
-        'Enables structured output generation alongside text generation and tool calls. The model will generate responses that conform to the provided schema.',
+        "Enables structured output generation alongside text generation and tool calls. The model will generate responses that conform to the provided schema.",
     },
     {
-      name: 'instructions',
-      type: 'string',
+      name: "instructions",
+      type: "string",
       isOptional: true,
       description:
         "Custom instructions that override the agent's default instructions for this specific generation. Useful for dynamically modifying agent behavior without creating a new agent instance.",
     },
     {
-      name: 'output',
-      type: 'Zod schema | JsonSchema7',
+      name: "output",
+      type: "Zod schema | JsonSchema7",
       isOptional: true,
-      description: 'Defines the expected structure of the output. Can be a JSON Schema object or a Zod schema.',
+      description:
+        "Defines the expected structure of the output. Can be a JSON Schema object or a Zod schema.",
     },
     {
-      name: 'memory',
-      type: 'object',
+      name: "memory",
+      type: "object",
       isOptional: true,
-      description: 'Configuration for memory. This is the preferred way to manage memory.',
+      description: "Configuration for memory. This is the preferred way to manage memory.",
       properties: [
         {
-          parameters: [
-            {
-              name: 'thread',
-              type: 'string | { id: string; metadata?: Record<string, any>, title?: string }',
+          parameters: [{
+              name: "thread",
+              type: "string | { id: string; metadata?: Record<string, any>, title?: string }",
               isOptional: false,
-              description: 'The conversation thread, as a string ID or an object with an `id` and optional `metadata`.',
-            },
-          ],
+              description: "The conversation thread, as a string ID or an object with an `id` and optional `metadata`."
+          }]
         },
         {
-          parameters: [
-            {
-              name: 'resource',
-              type: 'string',
+          parameters: [{
+              name: "resource",
+              type: "string",
               isOptional: false,
-              description: 'Identifier for the user or resource associated with the thread.',
-            },
-          ],
+              description: "Identifier for the user or resource associated with the thread."
+          }]
         },
         {
-          parameters: [
-            {
-              name: 'options',
-              type: 'MemoryConfig',
+          parameters: [{
+              name: "options",
+              type: "MemoryConfig",
               isOptional: true,
-              description:
-                'Configuration for memory behavior, like message history and semantic recall. See `MemoryConfig` below.',
-            },
-          ],
-        },
-      ],
+              description: "Configuration for memory behavior, like message history and semantic recall. See `MemoryConfig` below."
+          }]
+        }
+      ]
     },
     {
-      name: 'maxSteps',
-      type: 'number',
+      name: "maxSteps",
+      type: "number",
       isOptional: true,
-      defaultValue: '5',
-      description: 'Maximum number of execution steps allowed.',
+      defaultValue: "5",
+      description: "Maximum number of execution steps allowed.",
     },
     {
-      name: 'maxRetries',
-      type: 'number',
+      name: "maxRetries",
+      type: "number",
       isOptional: true,
-      defaultValue: '2',
-      description: 'Maximum number of retries. Set to 0 to disable retries.',
+      defaultValue: "2",
+      description: "Maximum number of retries. Set to 0 to disable retries.",
     },
     {
-      name: 'memoryOptions',
-      type: 'MemoryConfig',
+      name: "memoryOptions",
+      type: "MemoryConfig",
       isOptional: true,
       description:
-        '**Deprecated.** Use `memory.options` instead. Configuration options for memory management. See MemoryConfig section below for details.',
+        "**Deprecated.** Use `memory.options` instead. Configuration options for memory management. See MemoryConfig section below for details.",
     },
     {
-      name: 'onStepFinish',
-      type: 'GenerateTextOnStepFinishCallback<any> | never',
+      name: "onStepFinish",
+      type: "GenerateTextOnStepFinishCallback<any> | never",
       isOptional: true,
       description:
-        'Callback function called after each execution step. Receives step details as a JSON string. Unavailable for structured output',
+        "Callback function called after each execution step. Receives step details as a JSON string. Unavailable for structured output",
     },
     {
-      name: 'resourceId',
-      type: 'string',
+      name: "resourceId",
+      type: "string",
       isOptional: true,
       description:
-        '**Deprecated.** Use `memory.resource` instead. Identifier for the user or resource interacting with the agent. Must be provided if threadId is provided.',
+        "**Deprecated.** Use `memory.resource` instead. Identifier for the user or resource interacting with the agent. Must be provided if threadId is provided.",
     },
     {
-      name: 'telemetry',
-      type: 'TelemetrySettings',
+      name: "telemetry",
+      type: "TelemetrySettings",
       isOptional: true,
       description:
-        'Settings for telemetry collection during generation. See TelemetrySettings section below for details.',
+        "Settings for telemetry collection during generation. See TelemetrySettings section below for details.",
     },
     {
-      name: 'temperature',
-      type: 'number',
+      name: "temperature",
+      type: "number",
       isOptional: true,
       description:
         "Controls randomness in the model's output. Higher values (e.g., 0.8) make the output more random, lower values (e.g., 0.2) make it more focused and deterministic.",
     },
     {
-      name: 'threadId',
-      type: 'string',
+      name: "threadId",
+      type: "string",
       isOptional: true,
       description:
-        '**Deprecated.** Use `memory.thread` instead. Identifier for the conversation thread. Allows for maintaining context across multiple interactions. Must be provided if resourceId is provided.',
+        "**Deprecated.** Use `memory.thread` instead. Identifier for the conversation thread. Allows for maintaining context across multiple interactions. Must be provided if resourceId is provided.",
     },
     {
-      name: 'toolChoice',
+      name: "toolChoice",
       type: "'auto' | 'none' | 'required' | { type: 'tool'; toolName: string }",
       isOptional: true,
       defaultValue: "'auto'",
-      description: 'Controls how the agent uses tools during generation.',
+      description: "Controls how the agent uses tools during generation.",
     },
     {
-      name: 'toolsets',
-      type: 'ToolsetsInput',
+      name: "toolsets",
+      type: "ToolsetsInput",
       isOptional: true,
-      description: 'Additional toolsets to make available to the agent during generation.',
+      description:
+        "Additional toolsets to make available to the agent during generation.",
     },
     {
-      name: 'clientTools',
-      type: 'ToolsInput',
+      name: "clientTools",
+      type: "ToolsInput",
       isOptional: true,
       description:
         "Tools that are executed on the 'client' side of the request. These tools do not have execute functions in the definition.",
@@ -190,86 +185,90 @@ Configuration options for memory management:
 <PropertiesTable
   content={[
     {
-      name: 'lastMessages',
-      type: 'number | false',
+      name: "lastMessages",
+      type: "number | false",
       isOptional: true,
-      description: 'Number of most recent messages to include in context. Set to false to disable.',
+      description:
+        "Number of most recent messages to include in context. Set to false to disable.",
     },
     {
-      name: 'semanticRecall',
-      type: 'boolean | object',
+      name: "semanticRecall",
+      type: "boolean | object",
       isOptional: true,
-      description: 'Configuration for semantic memory recall. Can be boolean or detailed config.',
+      description:
+        "Configuration for semantic memory recall. Can be boolean or detailed config.",
       properties: [
         {
-          type: 'number',
+          type: "number",
           parameters: [
             {
-              name: 'topK',
-              type: 'number',
-              isOptional: true,
-              description: 'Number of most semantically similar messages to retrieve.',
-            },
-          ],
-        },
-        {
-          type: 'number | object',
-          parameters: [
-            {
-              name: 'messageRange',
-              type: 'number | { before: number; after: number }',
+              name: "topK",
+              type: "number",
               isOptional: true,
               description:
-                'Range of messages to consider for semantic search. Can be a single number or before/after configuration.',
+                "Number of most semantically similar messages to retrieve.",
+            },
+          ],
+        },
+        {
+          type: "number | object",
+          parameters: [
+            {
+              name: "messageRange",
+              type: "number | { before: number; after: number }",
+              isOptional: true,
+              description:
+                "Range of messages to consider for semantic search. Can be a single number or before/after configuration.",
             },
           ],
         },
       ],
     },
     {
-      name: 'workingMemory',
-      type: 'object',
+      name: "workingMemory",
+      type: "object",
       isOptional: true,
-      description: 'Configuration for working memory.',
+      description: "Configuration for working memory.",
       properties: [
         {
-          type: 'boolean',
+          type: "boolean",
           parameters: [
             {
-              name: 'enabled',
-              type: 'boolean',
+              name: "enabled",
+              type: "boolean",
               isOptional: true,
-              description: 'Whether to enable working memory.',
+              description: "Whether to enable working memory.",
             },
           ],
         },
         {
-          type: 'string',
+          type: "string",
           parameters: [
             {
-              name: 'template',
-              type: 'string',
+              name: "template",
+              type: "string",
               isOptional: true,
-              description: 'Template to use for working memory.',
+              description: "Template to use for working memory.",
             },
           ],
         },
       ],
     },
     {
-      name: 'threads',
-      type: 'object',
+      name: "threads",
+      type: "object",
       isOptional: true,
-      description: 'Thread-specific memory configuration.',
+      description: "Thread-specific memory configuration.",
       properties: [
         {
-          type: 'boolean',
+          type: "boolean",
           parameters: [
             {
-              name: 'generateTitle',
-              type: 'boolean',
+              name: "generateTitle",
+              type: "boolean",
               isOptional: true,
-              description: 'Whether to automatically generate titles for new threads.',
+              description:
+                "Whether to automatically generate titles for new threads.",
             },
           ],
         },
@@ -285,47 +284,49 @@ Settings for telemetry collection during generation:
 <PropertiesTable
   content={[
     {
-      name: 'isEnabled',
-      type: 'boolean',
+      name: "isEnabled",
+      type: "boolean",
       isOptional: true,
-      defaultValue: 'false',
-      description: 'Enable or disable telemetry. Disabled by default while experimental.',
-    },
-    {
-      name: 'recordInputs',
-      type: 'boolean',
-      isOptional: true,
-      defaultValue: 'true',
+      defaultValue: "false",
       description:
-        'Enable or disable input recording. You might want to disable this to avoid recording sensitive information, reduce data transfers, or increase performance.',
+        "Enable or disable telemetry. Disabled by default while experimental.",
     },
     {
-      name: 'recordOutputs',
-      type: 'boolean',
+      name: "recordInputs",
+      type: "boolean",
       isOptional: true,
-      defaultValue: 'true',
+      defaultValue: "true",
       description:
-        'Enable or disable output recording. You might want to disable this to avoid recording sensitive information, reduce data transfers, or increase performance.',
+        "Enable or disable input recording. You might want to disable this to avoid recording sensitive information, reduce data transfers, or increase performance.",
     },
     {
-      name: 'functionId',
-      type: 'string',
+      name: "recordOutputs",
+      type: "boolean",
       isOptional: true,
-      description: 'Identifier for this function. Used to group telemetry data by function.',
+      defaultValue: "true",
+      description:
+        "Enable or disable output recording. You might want to disable this to avoid recording sensitive information, reduce data transfers, or increase performance.",
     },
     {
-      name: 'metadata',
-      type: 'Record<string, AttributeValue>',
+      name: "functionId",
+      type: "string",
       isOptional: true,
       description:
-        'Additional information to include in the telemetry data. AttributeValue can be string, number, boolean, array of these types, or null.',
+        "Identifier for this function. Used to group telemetry data by function.",
     },
     {
-      name: 'tracer',
-      type: 'Tracer',
+      name: "metadata",
+      type: "Record<string, AttributeValue>",
       isOptional: true,
       description:
-        'A custom OpenTelemetry tracer instance to use for the telemetry data. See OpenTelemetry documentation for details.',
+        "Additional information to include in the telemetry data. AttributeValue can be string, number, boolean, array of these types, or null.",
+    },
+    {
+      name: "tracer",
+      type: "Tracer",
+      isOptional: true,
+      description:
+        "A custom OpenTelemetry tracer instance to use for the telemetry data. See OpenTelemetry documentation for details.",
     },
   ]}
 />
@@ -339,23 +340,25 @@ The return value of the `generate()` method depends on the options provided, spe
 <PropertiesTable
   content={[
     {
-      name: 'text',
-      type: 'string',
-      isOptional: true,
-      description: "The generated text response. Present when output is 'text' (no schema provided).",
-    },
-    {
-      name: 'object',
-      type: 'object',
+      name: "text",
+      type: "string",
       isOptional: true,
       description:
-        'The generated structured response. Present when a schema is provided via `output` or `experimental_output`.',
+        "The generated text response. Present when output is 'text' (no schema provided).",
     },
     {
-      name: 'toolCalls',
-      type: 'Array<ToolCall>',
+      name: "object",
+      type: "object",
       isOptional: true,
-      description: 'The tool calls made during the generation process. Present in both text and object modes.',
+      description:
+        "The generated structured response. Present when a schema is provided via `output` or `experimental_output`.",
+    },
+    {
+      name: "toolCalls",
+      type: "Array<ToolCall>",
+      isOptional: true,
+      description:
+        "The tool calls made during the generation process. Present in both text and object modes.",
     },
   ]}
 />
@@ -365,16 +368,16 @@ The return value of the `generate()` method depends on the options provided, spe
 <PropertiesTable
   content={[
     {
-      name: 'toolName',
-      type: 'string',
+      name: "toolName",
+      type: "string",
       required: true,
-      description: 'The name of the tool invoked.',
+      description: "The name of the tool invoked.",
     },
     {
-      name: 'args',
-      type: 'any',
+      name: "args",
+      type: "any",
       required: true,
-      description: 'The arguments passed to the tool.',
+      description: "The arguments passed to the tool.",
     },
   ]}
 />

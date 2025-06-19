@@ -10,7 +10,7 @@ The Logs API provides methods to access and query system logs and debugging info
 ## Initialize Mastra Client
 
 ```typescript
-import { MastraClient } from '@mastra/client-js';
+import { MastraClient } from "@mastra/client-js";
 
 const client = new MastraClient();
 ```
@@ -21,7 +21,7 @@ Retrieve system logs with optional filtering:
 
 ```typescript
 const logs = await client.getLogs({
-  transportId: 'transport-1',
+  transportId: "transport-1",
 });
 ```
 
@@ -31,7 +31,7 @@ Retrieve logs for a specific execution run:
 
 ```typescript
 const runLogs = await client.getLogForRun({
-  runId: 'run-1',
-  transportId: 'transport-1',
+  runId: "run-1",
+  transportId: "transport-1",
 });
 ```

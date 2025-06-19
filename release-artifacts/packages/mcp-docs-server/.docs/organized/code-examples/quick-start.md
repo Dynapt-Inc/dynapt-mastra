@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-quick-start",
@@ -38,10 +37,10 @@
   "version": "0.0.1",
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### index.ts
-
 ```typescript
 import { z } from 'zod';
 
@@ -72,10 +71,10 @@ const main = async () => {
 };
 
 main();
+
 ```
 
 ### mastra\agents\agent.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core';
@@ -86,10 +85,10 @@ export const catOne = new Agent({
     'You are a feline expert with comprehensive knowledge of all cat species, from domestic breeds to wild big cats. As a lifelong cat specialist, you understand their behavior, biology, social structures, and evolutionary history in great depth. If you are asked for a specie name, do not return a paragraph, a succint two or three letter name of the species will suffice.',
   model: openai('gpt-4o'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 import { PinoLogger } from '@mastra/loggers';
@@ -110,10 +109,10 @@ export const mastra = new Mastra({
     level: 'debug',
   }),
 });
+
 ```
 
 ### mastra\legacy-workflows\index.ts
-
 ```typescript
 import { LegacyWorkflow as Workflow, LegacyStep as Step } from '@mastra/core/workflows/legacy';
 import { z } from 'zod';
@@ -138,10 +137,10 @@ export const logCatWorkflow = new Workflow({
 });
 
 logCatWorkflow.step(logCatName).commit();
+
 ```
 
 ### mastra\workflows\index.ts
-
 ```typescript
 import { createWorkflow, createStep } from '@mastra/core/workflows';
 import { z } from 'zod';
@@ -172,4 +171,5 @@ export const logCatWorkflow = createWorkflow({
 })
   .then(logCatName)
   .commit();
+
 ```

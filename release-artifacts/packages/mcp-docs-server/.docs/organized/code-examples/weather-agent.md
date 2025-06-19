@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-weather-agent",
@@ -28,10 +27,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -62,10 +61,10 @@ export const weatherReporterAgent = new Agent({
   The tool uses agents to plan the activities, you just need to provide the city. Explain the weather report like a weather reporter.
   `,
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 import { LibSQLStore } from '@mastra/libsql';
@@ -82,10 +81,10 @@ export const mastra = new Mastra({
   legacy_workflows: { legacyWeatherWorkflow },
   workflows: { weatherWorkflow, weatherWorkflow2 },
 });
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -182,10 +181,10 @@ function getWeatherCondition(code: number): string {
   };
   return conditions[code] || 'Unknown';
 }
+
 ```
 
 ### mastra\workflows\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -351,10 +350,10 @@ const weatherWorkflow = new LegacyWorkflow({
 weatherWorkflow.commit();
 
 export { weatherWorkflow };
+
 ```
 
 ### mastra\workflows\new-workflow.ts
-
 ```typescript
 import { Agent } from '@mastra/core/agent';
 import { createStep, createWorkflow } from '@mastra/core/workflows';
@@ -571,4 +570,5 @@ const weatherWorkflow2 = createWorkflow({
 weatherWorkflow2.commit();
 
 export { weatherWorkflow, weatherWorkflow2 };
+
 ```

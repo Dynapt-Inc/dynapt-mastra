@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Workflow.start() | Building Workflows | Mastra Docs'
+title: "Reference: Workflow.start() | Building Workflows | Mastra Docs"
 description: Documentation for the `.start()` method in workflows, which starts a workflow run with input data.
 ---
 
@@ -15,7 +15,7 @@ const run = myWorkflow.createRun();
 // Start the workflow with input data
 const result = await run.start({
   inputData: {
-    startValue: 'initial data',
+    startValue: "initial data",
   },
 });
 ```
@@ -25,21 +25,21 @@ const result = await run.start({
 <PropertiesTable
   content={[
     {
-      name: 'params',
-      type: 'object',
-      description: 'Configuration object for starting the workflow run',
+      name: "params",
+      type: "object",
+      description: "Configuration object for starting the workflow run",
       isOptional: false,
       properties: [
         {
-          name: 'inputData',
-          type: 'z.infer<TInput>',
+          name: "inputData",
+          type: "z.infer<TInput>",
           description: "Input data matching the workflow's input schema",
           isOptional: true,
         },
         {
-          name: 'runtimeContext',
-          type: 'RuntimeContext',
-          description: 'Runtime context data to use when starting the workflow',
+          name: "runtimeContext",
+          type: "RuntimeContext",
+          description: "Runtime context data to use when starting the workflow",
           isOptional: true,
         },
       ],
@@ -52,9 +52,9 @@ const result = await run.start({
 <PropertiesTable
   content={[
     {
-      name: 'result',
-      type: 'Promise<WorkflowResult<TOutput, TSteps>>',
-      description: 'A promise that resolves to the result of the workflow run',
+      name: "result",
+      type: "Promise<WorkflowResult<TOutput, TSteps>>",
+      description: "A promise that resolves to the result of the workflow run",
     },
   ]}
 />

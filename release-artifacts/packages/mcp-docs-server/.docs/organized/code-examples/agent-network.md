@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-agent-network",
@@ -30,10 +29,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### agent-workflow.ts
-
 ```typescript
 import { mastra } from './mastra';
 
@@ -52,10 +51,10 @@ async function main() {
 }
 
 main().catch(console.error);
+
 ```
 
 ### index.ts
-
 ```typescript
 import { mastra } from './mastra';
 
@@ -105,10 +104,10 @@ main().catch(error => {
   console.error('❌ Error:', error);
   process.exit(1);
 });
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -192,10 +191,10 @@ export const dataAnalysisAgent = new Agent({
   `,
   model: openai('gpt-4o'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 import { PinoLogger } from '@mastra/loggers';
@@ -223,10 +222,10 @@ export const mastra = new Mastra({
     },
   ],
 });
+
 ```
 
 ### mastra\network\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { AgentNetwork } from '@mastra/core/network';
@@ -261,10 +260,10 @@ export const researchNetwork = new AgentNetwork({
       Always maintain a chain of evidence and proper attribution between agents.
     `,
 });
+
 ```
 
 ### mastra\workflows\index.ts
-
 ```typescript
 import { Workflow } from '@mastra/core/workflows';
 import { z } from 'zod';
@@ -288,4 +287,5 @@ agentWorkflow
     },
   })
   .commit();
+
 ```

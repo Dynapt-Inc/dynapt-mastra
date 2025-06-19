@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Pinecone Vector Store | Vector DBs | RAG | Mastra Docs'
+title: "Reference: Pinecone Vector Store | Vector DBs | RAG | Mastra Docs"
 description: Documentation for the PineconeVector class in Mastra, which provides an interface to Pinecone's vector database.
 ---
 
@@ -13,13 +13,13 @@ It provides real-time vector search, with features like hybrid search, metadata 
 <PropertiesTable
   content={[
     {
-      name: 'apiKey',
-      type: 'string',
-      description: 'Pinecone API key',
+      name: "apiKey",
+      type: "string",
+      description: "Pinecone API key",
     },
     {
-      name: 'environment',
-      type: 'string',
+      name: "environment",
+      type: "string",
       description: 'Pinecone environment (e.g., "us-west1-gcp")',
     },
   ]}
@@ -32,21 +32,22 @@ It provides real-time vector search, with features like hybrid search, metadata 
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to create',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to create",
     },
     {
-      name: 'dimension',
-      type: 'number',
-      description: 'Vector dimension (must match your embedding model)',
+      name: "dimension",
+      type: "number",
+      description: "Vector dimension (must match your embedding model)",
     },
     {
-      name: 'metric',
+      name: "metric",
       type: "'cosine' | 'euclidean' | 'dotproduct'",
       isOptional: true,
-      defaultValue: 'cosine',
-      description: "Distance metric for similarity search. Use 'dotproduct' if you plan to use hybrid search.",
+      defaultValue: "cosine",
+      description:
+        "Distance metric for similarity search. Use 'dotproduct' if you plan to use hybrid search.",
     },
   ]}
 />
@@ -56,40 +57,40 @@ It provides real-time vector search, with features like hybrid search, metadata 
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of your Pinecone index',
+      name: "indexName",
+      type: "string",
+      description: "Name of your Pinecone index",
     },
     {
-      name: 'vectors',
-      type: 'number[][]',
-      description: 'Array of dense embedding vectors',
+      name: "vectors",
+      type: "number[][]",
+      description: "Array of dense embedding vectors",
     },
     {
-      name: 'sparseVectors',
-      type: '{ indices: number[], values: number[] }[]',
+      name: "sparseVectors",
+      type: "{ indices: number[], values: number[] }[]",
       isOptional: true,
       description:
-        'Array of sparse vectors for hybrid search. Each vector must have matching indices and values arrays.',
+        "Array of sparse vectors for hybrid search. Each vector must have matching indices and values arrays.",
     },
     {
-      name: 'metadata',
-      type: 'Record<string, any>[]',
+      name: "metadata",
+      type: "Record<string, any>[]",
       isOptional: true,
-      description: 'Metadata for each vector',
+      description: "Metadata for each vector",
     },
     {
-      name: 'ids',
-      type: 'string[]',
+      name: "ids",
+      type: "string[]",
       isOptional: true,
-      description: 'Optional vector IDs (auto-generated if not provided)',
+      description: "Optional vector IDs (auto-generated if not provided)",
     },
     {
-      name: 'namespace',
-      type: 'string',
+      name: "namespace",
+      type: "string",
       isOptional: true,
       description:
-        'Optional namespace to store vectors in. Vectors in different namespaces are isolated from each other.',
+        "Optional namespace to store vectors in. Vectors in different namespaces are isolated from each other.",
     },
   ]}
 />
@@ -99,46 +100,48 @@ It provides real-time vector search, with features like hybrid search, metadata 
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to query',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to query",
     },
     {
-      name: 'vector',
-      type: 'number[]',
-      description: 'Dense query vector to find similar vectors',
+      name: "vector",
+      type: "number[]",
+      description: "Dense query vector to find similar vectors",
     },
     {
-      name: 'sparseVector',
-      type: '{ indices: number[], values: number[] }',
+      name: "sparseVector",
+      type: "{ indices: number[], values: number[] }",
       isOptional: true,
-      description: 'Optional sparse vector for hybrid search. Must have matching indices and values arrays.',
+      description:
+        "Optional sparse vector for hybrid search. Must have matching indices and values arrays.",
     },
     {
-      name: 'topK',
-      type: 'number',
+      name: "topK",
+      type: "number",
       isOptional: true,
-      defaultValue: '10',
-      description: 'Number of results to return',
+      defaultValue: "10",
+      description: "Number of results to return",
     },
     {
-      name: 'filter',
-      type: 'Record<string, any>',
+      name: "filter",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'Metadata filters for the query',
+      description: "Metadata filters for the query",
     },
     {
-      name: 'includeVector',
-      type: 'boolean',
+      name: "includeVector",
+      type: "boolean",
       isOptional: true,
-      defaultValue: 'false',
-      description: 'Whether to include the vector in the result',
+      defaultValue: "false",
+      description: "Whether to include the vector in the result",
     },
     {
-      name: 'namespace',
-      type: 'string',
+      name: "namespace",
+      type: "string",
       isOptional: true,
-      description: 'Optional namespace to query vectors from. Only returns results from the specified namespace.',
+      description:
+        "Optional namespace to query vectors from. Only returns results from the specified namespace.",
     },
   ]}
 />
@@ -152,9 +155,9 @@ Returns an array of index names as strings.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to describe',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to describe",
     },
   ]}
 />
@@ -165,7 +168,7 @@ Returns:
 interface IndexStats {
   dimension: number;
   count: number;
-  metric: 'cosine' | 'euclidean' | 'dotproduct';
+  metric: "cosine" | "euclidean" | "dotproduct";
 }
 ```
 
@@ -174,9 +177,9 @@ interface IndexStats {
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index to delete',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index to delete",
     },
   ]}
 />
@@ -186,31 +189,31 @@ interface IndexStats {
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index containing the vector',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index containing the vector",
     },
     {
-      name: 'id',
-      type: 'string',
-      description: 'ID of the vector to update',
+      name: "id",
+      type: "string",
+      description: "ID of the vector to update",
     },
     {
-      name: 'update',
-      type: 'object',
-      description: 'Update parameters',
+      name: "update",
+      type: "object",
+      description: "Update parameters",
     },
     {
-      name: 'update.vector',
-      type: 'number[]',
+      name: "update.vector",
+      type: "number[]",
       isOptional: true,
-      description: 'New vector values to update',
+      description: "New vector values to update",
     },
     {
-      name: 'update.metadata',
-      type: 'Record<string, any>',
+      name: "update.metadata",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'New metadata to update',
+      description: "New metadata to update",
     },
   ]}
 />
@@ -220,14 +223,14 @@ interface IndexStats {
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'Name of the index containing the vector',
+      name: "indexName",
+      type: "string",
+      description: "Name of the index containing the vector",
     },
     {
-      name: 'id',
-      type: 'string',
-      description: 'ID of the vector to delete',
+      name: "id",
+      type: "string",
+      description: "ID of the vector to delete",
     },
   ]}
 />
@@ -252,7 +255,7 @@ The store throws typed errors that can be caught:
 ```typescript copy
 try {
   await store.query({
-    indexName: 'index_name',
+    indexName: "index_name",
     queryVector: queryVector,
   });
 } catch (error) {

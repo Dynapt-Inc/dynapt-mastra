@@ -1,5 +1,5 @@
 ---
-title: 'Reference: OpenSearch Vector Store | Vector Databases | RAG | Mastra Docs'
+title: "Reference: OpenSearch Vector Store | Vector Databases | RAG | Mastra Docs"
 description: Documentation for the OpenSearchVector class in Mastra, which provides vector search using OpenSearch.
 ---
 
@@ -12,8 +12,8 @@ The OpenSearchVector class provides vector search using [OpenSearch](https://ope
 <PropertiesTable
   content={[
     {
-      name: 'url',
-      type: 'string',
+      name: "url",
+      type: "string",
       description: "OpenSearch connection URL (e.g., 'http://localhost:9200')",
     },
   ]}
@@ -28,19 +28,19 @@ Creates a new index with the specified configuration.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to create',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to create",
     },
     {
-      name: 'dimension',
-      type: 'number',
-      description: 'The dimension of the vectors to be stored in the index',
+      name: "dimension",
+      type: "number",
+      description: "The dimension of the vectors to be stored in the index",
     },
     {
-      name: 'metric',
+      name: "metric",
       type: "'cosine' | 'euclidean' | 'dotproduct'",
-      description: 'The distance metric to use for vector similarity',
+      description: "The distance metric to use for vector similarity",
       defaultValue: "'cosine'",
       isOptional: true,
     },
@@ -60,9 +60,9 @@ Gets information about an index.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to describe',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to describe",
     },
   ]}
 />
@@ -72,9 +72,9 @@ Gets information about an index.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to delete',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to delete",
     },
   ]}
 />
@@ -84,25 +84,26 @@ Gets information about an index.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to upsert vectors into',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to upsert vectors into",
     },
     {
-      name: 'vectors',
-      type: 'number[][]',
-      description: 'Array of vector embeddings to insert',
+      name: "vectors",
+      type: "number[][]",
+      description: "Array of vector embeddings to insert",
     },
     {
-      name: 'metadata',
-      type: 'Record<string, any>[]',
-      description: 'Array of metadata objects corresponding to each vector',
+      name: "metadata",
+      type: "Record<string, any>[]",
+      description: "Array of metadata objects corresponding to each vector",
       isOptional: true,
     },
     {
-      name: 'ids',
-      type: 'string[]',
-      description: 'Optional array of IDs for the vectors. If not provided, random IDs will be generated',
+      name: "ids",
+      type: "string[]",
+      description:
+        "Optional array of IDs for the vectors. If not provided, random IDs will be generated",
       isOptional: true,
     },
   ]}
@@ -113,26 +114,27 @@ Gets information about an index.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to query',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to query",
     },
     {
-      name: 'queryVector',
-      type: 'number[]',
-      description: 'The query vector to find similar vectors for',
+      name: "queryVector",
+      type: "number[]",
+      description: "The query vector to find similar vectors for",
     },
     {
-      name: 'topK',
-      type: 'number',
-      description: 'The number of results to return',
-      defaultValue: '10',
+      name: "topK",
+      type: "number",
+      description: "The number of results to return",
+      defaultValue: "10",
       isOptional: true,
     },
     {
-      name: 'filter',
-      type: 'VectorFilter',
-      description: 'Optional filter to apply to the query (MongoDB-style query syntax)',
+      name: "filter",
+      type: "VectorFilter",
+      description:
+        "Optional filter to apply to the query (MongoDB-style query syntax)",
       isOptional: true,
     },
   ]}
@@ -145,30 +147,30 @@ Updates a specific vector entry by its ID with new vector data and/or metadata.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to update vectors in',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to update vectors in",
     },
     {
-      name: 'id',
-      type: 'string',
-      description: 'The ID of the vector to update',
+      name: "id",
+      type: "string",
+      description: "The ID of the vector to update",
     },
     {
-      name: 'update',
-      type: 'object',
-      description: 'Update data containing vector and/or metadata',
+      name: "update",
+      type: "object",
+      description: "Update data containing vector and/or metadata",
     },
     {
-      name: 'update.vector',
-      type: 'number[]',
-      description: 'The new vector embedding',
+      name: "update.vector",
+      type: "number[]",
+      description: "The new vector embedding",
       isOptional: true,
     },
     {
-      name: 'update.metadata',
-      type: 'Record<string, any>',
-      description: 'The new metadata',
+      name: "update.metadata",
+      type: "Record<string, any>",
+      description: "The new metadata",
       isOptional: true,
     },
   ]}
@@ -181,14 +183,14 @@ Deletes specific vector entries by their IDs from the index.
 <PropertiesTable
   content={[
     {
-      name: 'indexName',
-      type: 'string',
-      description: 'The name of the index to delete vectors from',
+      name: "indexName",
+      type: "string",
+      description: "The name of the index to delete vectors from",
     },
     {
-      name: 'ids',
-      type: 'string[]',
-      description: 'Array of vector IDs to delete',
+      name: "ids",
+      type: "string[]",
+      description: "Array of vector IDs to delete",
     },
   ]}
 />

@@ -3,8 +3,8 @@ title: Voice in Mastra | Mastra Docs
 description: Overview of voice capabilities in Mastra, including text-to-speech, speech-to-text, and real-time speech-to-speech interactions.
 ---
 
-import { Tabs } from 'nextra/components';
-import { AudioPlayback } from '@/components/audio-playback';
+import { Tabs } from "nextra/components";
+import { AudioPlayback } from "@/components/audio-playback";
 
 # Voice in Mastra
 
@@ -15,16 +15,17 @@ Mastra's Voice system provides a unified interface for voice interactions, enabl
 To learn how to integrate voice capabilities into your agents, check out the [Adding Voice to Agents](../agents/adding-voice.mdx) documentation. This section covers how to use both single and multiple voice providers, as well as real-time interactions.
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { openai } from '@ai-sdk/openai';
-import { OpenAIVoice } from '@mastra/voice-openai';
+import { Agent } from "@mastra/core/agent";
+import { openai } from "@ai-sdk/openai";
+import { OpenAIVoice } from "@mastra/voice-openai";
 
 // Initialize OpenAI voice for TTS
 
 const voiceAgent = new Agent({
-  name: 'Voice Agent',
-  instructions: 'You are a voice assistant that can help users with their tasks.',
-  model: openai('gpt-4o'),
+  name: "Voice Agent",
+  instructions:
+    "You are a voice assistant that can help users with their tasks.",
+  model: openai("gpt-4o"),
   voice: new OpenAIVoice(),
 });
 ```
@@ -38,13 +39,13 @@ Choose from multiple providers like OpenAI, ElevenLabs, and more.
 
 For detailed configuration options and advanced features, check out our [Text-to-Speech guide](./text-to-speech).
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component demonstrates Text-to-Speech (TTS) implementation across different voice providers.
 Each tab shows how to set up and use a specific TTS provider (OpenAI, Azure, ElevenLabs, etc.) with Mastra agents.
 The tabs help users compare different TTS providers and choose the one that best fits their needs.
 Each tab includes complete code examples showing agent setup, text generation, and audio playback.
 The providers include OpenAI, Azure, ElevenLabs, PlayAI, Google, Cloudflare, Deepgram, Speechify, Sarvam, and Murf.
-_/}
+*/}
 
 <Tabs items={["OpenAI", "Azure", "ElevenLabs", "PlayAI", "Google", "Cloudflare", "Deepgram", "Speechify", "Sarvam", "Murf"]}>
   <Tabs.Tab>
@@ -329,12 +330,12 @@ You can download a sample audio file from [here](https://github.com/mastra-ai/re
 <br />
 <AudioPlayback audio="https://github.com/mastra-ai/realtime-voice-demo/raw/refs/heads/main/how_can_i_help_you.mp3" />
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component demonstrates Speech-to-Text (STT) implementation across different voice providers.
 Each tab shows how to set up and use a specific STT provider for transcribing audio to text.
 The tabs help users understand how to implement speech recognition with different providers.
 Each tab includes code examples showing audio file handling, transcription, and response generation.
-_/}
+*/}
 
 <Tabs items={["OpenAI", "Azure", "ElevenLabs", "Google", "Cloudflare", "Deepgram", "Sarvam"]}>
   <Tabs.Tab>
@@ -584,12 +585,12 @@ Visit the [OpenAI Voice Reference](/reference/voice/openai-realtime) for more in
 
 Each voice provider can be configured with different models and options. Below are the detailed configuration options for all supported providers:
 
-{/_
+{/*
 LLM CONTEXT: This Tabs component shows detailed configuration options for all supported voice providers.
 Each tab demonstrates how to configure a specific voice provider with all available options and settings.
 The tabs help users understand the full configuration capabilities of each provider including models, languages, and advanced settings.
 Each tab shows both speech and listening model configurations where applicable.
-_/}
+*/}
 
 <Tabs items={["OpenAI", "Azure", "ElevenLabs", "PlayAI", "Google", "Cloudflare", "Deepgram", "Speechify", "Sarvam", "Murf", "OpenAI Realtime"]}>
   <Tabs.Tab>
@@ -818,15 +819,15 @@ This example demonstrates how to create and use two different voice providers in
 Start by creating instances of the voice providers with any necessary configuration.
 
 ```typescript
-import { OpenAIVoice } from '@mastra/voice-openai';
-import { PlayAIVoice } from '@mastra/voice-playai';
-import { CompositeVoice } from '@mastra/core/voice';
-import { playAudio, getMicrophoneStream } from '@mastra/node-audio';
+import { OpenAIVoice } from "@mastra/voice-openai";
+import { PlayAIVoice } from "@mastra/voice-playai";
+import { CompositeVoice } from "@mastra/core/voice";
+import { playAudio, getMicrophoneStream } from "@mastra/node-audio";
 
 // Initialize OpenAI voice for STT
 const input = new OpenAIVoice({
   listeningModel: {
-    name: 'whisper-1',
+    name: "whisper-1",
     apiKey: process.env.OPENAI_API_KEY,
   },
 });
@@ -834,7 +835,7 @@ const input = new OpenAIVoice({
 // Initialize PlayAI voice for TTS
 const output = new PlayAIVoice({
   speechModel: {
-    name: 'playai-voice',
+    name: "playai-voice",
     apiKey: process.env.PLAYAI_API_KEY,
   },
 });
@@ -850,12 +851,12 @@ const audioStream = getMicrophoneStream(); // Assume this function gets audio in
 const transcript = await voice.listen(audioStream);
 
 // Log the transcribed text
-console.log('Transcribed text:', transcript);
+console.log("Transcribed text:", transcript);
 
 // Convert text to speech
 const responseAudio = await voice.speak(`You said: ${transcript}`, {
-  speaker: 'default', // Optional: specify a speaker,
-  responseFormat: 'wav', // Optional: specify a response format
+  speaker: "default", // Optional: specify a speaker,
+  responseFormat: "wav", // Optional: specify a response format
 });
 
 // Play the audio response

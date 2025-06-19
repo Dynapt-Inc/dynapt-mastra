@@ -1,6 +1,6 @@
 ---
-title: 'Reference: start() | Running Workflows (Legacy) | Mastra Docs'
-description: 'Documentation for the `start()` method in workflows, which begins execution of a workflow run.'
+title: "Reference: start() | Running Workflows (Legacy) | Mastra Docs"
+description: "Documentation for the `start()` method in workflows, which begins execution of a workflow run."
 ---
 
 # start()
@@ -21,9 +21,9 @@ const result = await start({
 <PropertiesTable
   content={[
     {
-      name: 'config',
-      type: 'object',
-      description: 'Configuration for starting the workflow run',
+      name: "config",
+      type: "object",
+      description: "Configuration for starting the workflow run",
       isOptional: true,
     },
   ]}
@@ -34,8 +34,8 @@ const result = await start({
 <PropertiesTable
   content={[
     {
-      name: 'triggerData',
-      type: 'Record<string, any>',
+      name: "triggerData",
+      type: "Record<string, any>",
       description: "Initial data that matches the workflow's triggerSchema",
       isOptional: false,
     },
@@ -47,14 +47,14 @@ const result = await start({
 <PropertiesTable
   content={[
     {
-      name: 'results',
-      type: 'Record<string, any>',
-      description: 'Combined output from all completed workflow steps',
+      name: "results",
+      type: "Record<string, any>",
+      description: "Combined output from all completed workflow steps",
     },
     {
-      name: 'status',
+      name: "status",
       type: "'completed' | 'error' | 'suspended'",
-      description: 'Final status of the workflow run',
+      description: "Final status of the workflow run",
     },
   ]}
 />

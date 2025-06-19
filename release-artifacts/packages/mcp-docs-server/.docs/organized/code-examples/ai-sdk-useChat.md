@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "mastra-ai-sdk-use-chat-example",
@@ -38,10 +37,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { anthropic } from '@ai-sdk/anthropic';
 import { Agent } from '@mastra/core/agent';
@@ -65,10 +64,10 @@ export const weatherAgent = new Agent({
   model: anthropic('claude-3-5-sonnet-20241022'),
   tools: { weatherTool },
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { PinoLogger } from '@mastra/loggers';
 import { Mastra } from '@mastra/core/mastra';
@@ -84,10 +83,10 @@ export const mastra = new Mastra({
     level: 'info',
   }),
 });
+
 ```
 
 ### mastra\tools\index.ts
-
 ```typescript
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
@@ -191,10 +190,10 @@ function getWeatherCondition(code: number): string {
   };
   return conditions[code] || 'Unknown';
 }
+
 ```
 
 ### mastra\workflows\index.ts
-
 ```typescript
 import { anthropic } from '@ai-sdk/anthropic';
 import { Agent } from '@mastra/core/agent';
@@ -381,4 +380,5 @@ const weatherWorkflow = new Workflow({
 weatherWorkflow.commit();
 
 export { weatherWorkflow };
+
 ```

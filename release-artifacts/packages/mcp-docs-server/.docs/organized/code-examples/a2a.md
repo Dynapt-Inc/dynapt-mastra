@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-a2a",
@@ -14,7 +13,12 @@
     "build": "tsc",
     "dev": "tsx watch src/index.ts"
   },
-  "keywords": ["mastra", "a2a", "agent-to-agent", "example"],
+  "keywords": [
+    "mastra",
+    "a2a",
+    "agent-to-agent",
+    "example"
+  ],
   "author": "Mastra Team",
   "license": "MIT",
   "dependencies": {
@@ -40,10 +44,10 @@
   },
   "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
 }
+
 ```
 
 ### index.ts
-
 ```typescript
 import { MastraClient } from '@mastra/client-js';
 
@@ -170,10 +174,10 @@ async function main() {
 
 // Run the example
 main();
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { Agent } from '@mastra/core/agent';
 import { openai } from '@ai-sdk/openai';
@@ -183,10 +187,10 @@ export const myAgent = new Agent({
   instructions: 'My Agent Instructions',
   model: openai('gpt-4o'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core/mastra';
 import { myAgent } from './agents';
@@ -196,4 +200,5 @@ export const mastra = new Mastra({
     myAgent,
   },
 });
+
 ```

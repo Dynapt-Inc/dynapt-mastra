@@ -1,5 +1,5 @@
 ---
-title: 'Reference: MastraMCPClient | Tool Discovery | Mastra Docs'
+title: "Reference: MastraMCPClient | Tool Discovery | Mastra Docs"
 description: API Reference for MastraMCPClient - A client implementation for the Model Context Protocol.
 ---
 
@@ -37,36 +37,37 @@ constructor({
 <PropertiesTable
   content={[
     {
-      name: 'name',
-      type: 'string',
-      description: 'The name identifier for this client instance.',
+      name: "name",
+      type: "string",
+      description: "The name identifier for this client instance.",
     },
     {
-      name: 'version',
-      type: 'string',
+      name: "version",
+      type: "string",
       isOptional: true,
-      defaultValue: '1.0.0',
-      description: 'The version of the client.',
+      defaultValue: "1.0.0",
+      description: "The version of the client.",
     },
     {
-      name: 'server',
-      type: 'MastraMCPServerDefinition',
+      name: "server",
+      type: "MastraMCPServerDefinition",
       description:
-        'Configuration parameters for either a stdio server connection or an SSE server connection. Can include log handler and server logs configuration.',
+        "Configuration parameters for either a stdio server connection or an SSE server connection. Can include log handler and server logs configuration.",
     },
     {
-      name: 'capabilities',
-      type: 'ClientCapabilities',
+      name: "capabilities",
+      type: "ClientCapabilities",
       isOptional: true,
-      defaultValue: '{}',
-      description: 'Optional capabilities configuration for the client.',
+      defaultValue: "{}",
+      description: "Optional capabilities configuration for the client.",
     },
     {
-      name: 'timeout',
-      type: 'number',
+      name: "timeout",
+      type: "number",
       isOptional: true,
       defaultValue: 60000,
-      description: 'The timeout duration, in milliseconds, for client tool calls.',
+      description:
+        "The timeout duration, in milliseconds, for client tool calls.",
     },
   ]}
 />
@@ -82,66 +83,68 @@ MCP servers can be configured using this definition. The client automatically de
 <PropertiesTable
   content={[
     {
-      name: 'command',
-      type: 'string',
+      name: "command",
+      type: "string",
       isOptional: true,
-      description: 'For Stdio servers: The command to execute.',
+      description: "For Stdio servers: The command to execute.",
     },
     {
-      name: 'args',
-      type: 'string[]',
+      name: "args",
+      type: "string[]",
       isOptional: true,
-      description: 'For Stdio servers: Arguments to pass to the command.',
+      description: "For Stdio servers: Arguments to pass to the command.",
     },
     {
-      name: 'env',
-      type: 'Record<string, string>',
-      isOptional: true,
-      description: 'For Stdio servers: Environment variables to set for the command.',
-    },
-    {
-      name: 'url',
-      type: 'URL',
-      isOptional: true,
-      description: 'For HTTP servers (Streamable HTTP or SSE): The URL of the server.',
-    },
-    {
-      name: 'requestInit',
-      type: 'RequestInit',
-      isOptional: true,
-      description: 'For HTTP servers: Request configuration for the fetch API.',
-    },
-    {
-      name: 'eventSourceInit',
-      type: 'EventSourceInit',
+      name: "env",
+      type: "Record<string, string>",
       isOptional: true,
       description:
-        'For SSE fallback: Custom fetch configuration for SSE connections. Required when using custom headers with SSE.',
+        "For Stdio servers: Environment variables to set for the command.",
     },
     {
-      name: 'logger',
-      type: 'LogHandler',
+      name: "url",
+      type: "URL",
       isOptional: true,
-      description: 'Optional additional handler for logging.',
+      description:
+        "For HTTP servers (Streamable HTTP or SSE): The URL of the server.",
     },
     {
-      name: 'timeout',
-      type: 'number',
+      name: "requestInit",
+      type: "RequestInit",
       isOptional: true,
-      description: 'Server-specific timeout in milliseconds.',
+      description: "For HTTP servers: Request configuration for the fetch API.",
     },
     {
-      name: 'capabilities',
-      type: 'ClientCapabilities',
+      name: "eventSourceInit",
+      type: "EventSourceInit",
       isOptional: true,
-      description: 'Server-specific capabilities configuration.',
+      description:
+        "For SSE fallback: Custom fetch configuration for SSE connections. Required when using custom headers with SSE.",
     },
     {
-      name: 'enableServerLogs',
-      type: 'boolean',
+      name: "logger",
+      type: "LogHandler",
       isOptional: true,
-      defaultValue: 'true',
-      description: 'Whether to enable logging for this server.',
+      description: "Optional additional handler for logging.",
+    },
+    {
+      name: "timeout",
+      type: "number",
+      isOptional: true,
+      description: "Server-specific timeout in milliseconds.",
+    },
+    {
+      name: "capabilities",
+      type: "ClientCapabilities",
+      isOptional: true,
+      description: "Server-specific capabilities configuration.",
+    },
+    {
+      name: "enableServerLogs",
+      type: "boolean",
+      isOptional: true,
+      defaultValue: "true",
+      description: "Whether to enable logging for this server.",
     },
   ]}
 />
@@ -154,30 +157,30 @@ The `LogHandler` function takes a `LogMessage` object as its parameter and retur
 <PropertiesTable
   content={[
     {
-      name: 'level',
-      type: 'LoggingLevel',
-      description: 'Log level (debug, info, warn, error)',
+      name: "level",
+      type: "LoggingLevel",
+      description: "Log level (debug, info, warn, error)",
     },
     {
-      name: 'message',
-      type: 'string',
-      description: 'Log message content',
+      name: "message",
+      type: "string",
+      description: "Log message content",
     },
     {
-      name: 'timestamp',
-      type: 'Date',
-      description: 'When the log was generated',
+      name: "timestamp",
+      type: "Date",
+      description: "When the log was generated",
     },
     {
-      name: 'serverName',
-      type: 'string',
-      description: 'Name of the server that generated the log',
+      name: "serverName",
+      type: "string",
+      description: "Name of the server that generated the log",
     },
     {
-      name: 'details',
-      type: 'Record<string, any>',
+      name: "details",
+      type: "Record<string, any>",
       isOptional: true,
-      description: 'Optional additional log details',
+      description: "Optional additional log details",
     },
   ]}
 />
@@ -225,18 +228,18 @@ Returns an object mapping tool names to their corresponding Mastra tool implemen
 #### Example with Stdio Server
 
 ```typescript
-import { Agent } from '@mastra/core/agent';
-import { MastraMCPClient } from '@mastra/mcp';
-import { openai } from '@ai-sdk/openai';
+import { Agent } from "@mastra/core/agent";
+import { MastraMCPClient } from "@mastra/mcp";
+import { openai } from "@ai-sdk/openai";
 
 // Initialize the MCP client using mcp/fetch as an example https://hub.docker.com/r/mcp/fetch
 // Visit https://github.com/docker/mcp-servers for other reference docker mcp servers
 const fetchClient = new MastraMCPClient({
-  name: 'fetch',
+  name: "fetch",
   server: {
-    command: 'docker',
-    args: ['run', '-i', '--rm', 'mcp/fetch'],
-    logger: logMessage => {
+    command: "docker",
+    args: ["run", "-i", "--rm", "mcp/fetch"],
+    logger: (logMessage) => {
       console.log(`[${logMessage.level}] ${logMessage.message}`);
     },
   },
@@ -244,9 +247,10 @@ const fetchClient = new MastraMCPClient({
 
 // Create a Mastra Agent
 const agent = new Agent({
-  name: 'Fetch agent',
-  instructions: 'You are able to fetch data from URLs on demand and discuss the response data with the user.',
-  model: openai('gpt-4o-mini'),
+  name: "Fetch agent",
+  instructions:
+    "You are able to fetch data from URLs on demand and discuss the response data with the user.",
+  model: openai("gpt-4o-mini"),
 });
 
 try {
@@ -254,7 +258,7 @@ try {
   await fetchClient.connect();
 
   // Gracefully handle process exits so the docker subprocess is cleaned up
-  process.on('exit', () => {
+  process.on("exit", () => {
     fetchClient.disconnect();
   });
 
@@ -263,7 +267,7 @@ try {
 
   // Use the agent with the MCP tools
   const response = await agent.generate(
-    'Tell me about mastra.ai/docs. Tell me generally what this page is and the content it includes.',
+    "Tell me about mastra.ai/docs. Tell me generally what this page is and the content it includes.",
     {
       toolsets: {
         fetch: tools,
@@ -271,9 +275,9 @@ try {
     },
   );
 
-  console.log('\n\n' + response.text);
+  console.log("\n\n" + response.text);
 } catch (error) {
-  console.error('Error:', error);
+  console.error("Error:", error);
 } finally {
   // Always disconnect when done
   await fetchClient.disconnect();
@@ -285,20 +289,20 @@ try {
 ```typescript
 // Initialize the MCP client using an SSE server
 const sseClient = new MastraMCPClient({
-  name: 'sse-client',
+  name: "sse-client",
   server: {
-    url: new URL('https://your-mcp-server.com/sse'),
+    url: new URL("https://your-mcp-server.com/sse"),
     // Optional fetch request configuration - Note: requestInit alone isn't enough for SSE
     requestInit: {
       headers: {
-        Authorization: 'Bearer your-token',
+        Authorization: "Bearer your-token",
       },
     },
     // Required for SSE connections with custom headers
     eventSourceInit: {
       fetch(input: Request | URL | string, init?: RequestInit) {
         const headers = new Headers(init?.headers || {});
-        headers.set('Authorization', 'Bearer your-token');
+        headers.set("Authorization", "Bearer your-token");
         return fetch(input, {
           ...init,
           headers,
@@ -306,8 +310,10 @@ const sseClient = new MastraMCPClient({
       },
     },
     // Optional additional logging configuration
-    logger: logMessage => {
-      console.log(`[${logMessage.level}] ${logMessage.serverName}: ${logMessage.message}`);
+    logger: (logMessage) => {
+      console.log(
+        `[${logMessage.level}] ${logMessage.serverName}: ${logMessage.message}`,
+      );
     },
     // Disable server logs
     enableServerLogs: false,

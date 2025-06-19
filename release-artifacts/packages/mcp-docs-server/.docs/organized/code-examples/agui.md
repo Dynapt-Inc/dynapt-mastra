@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "examples-agui",
@@ -54,10 +53,10 @@
     "vite": "^6.3.5"
   }
 }
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
@@ -91,10 +90,10 @@ export const weatherAgent = new Agent({
     },
   }),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
@@ -142,10 +141,10 @@ export const mastra = new Mastra({
     ],
   },
 });
+
 ```
 
 ### mastra\network\index.ts
-
 ```typescript
 import { AgentNetwork } from '@mastra/core/network';
 import { weatherAgent } from '../agents';
@@ -159,10 +158,10 @@ export const myNetwork = new AgentNetwork({
         You are a helpful supervisor agent that can help users with a variety of tasks.
     `,
 });
+
 ```
 
 ### vite-env.d.ts
-
 ```typescript
 /// <reference types="vite/client" />
 
@@ -192,4 +191,5 @@ declare module '*.gif' {
   const content: string;
   export default content;
 }
+
 ```

@@ -10,7 +10,7 @@ The Workflows API provides methods to interact with and execute automated workfl
 ## Initialize Mastra Client
 
 ```typescript
-import { MastraClient } from '@mastra/client-js';
+import { MastraClient } from "@mastra/client-js";
 
 const client = new MastraClient();
 ```
@@ -29,12 +29,12 @@ Get an instance of a specific workflow as defined by the const name:
 
 ```typescript filename="src/mastra/workflows/test-workflow.ts"
 export const testWorkflow = createWorkflow({
-  id: 'city-workflow',
-});
+  id: 'city-workflow'
+})
 ```
 
 ```typescript
-const workflow = client.getWorkflow('testWorkflow');
+const workflow = client.getWorkflow("testWorkflow");
 ```
 
 ## Workflow Methods
@@ -57,7 +57,7 @@ const run = await workflow.createRun();
 const result = await workflow.startAsync({
   runId: run.runId,
   inputData: {
-    city: 'New York',
+    city: "New York",
   },
 });
 ```
@@ -71,8 +71,8 @@ const run = await workflow.createRun();
 
 const result = await workflow.resumeAsync({
   runId: run.runId,
-  step: 'step-id',
-  resumeData: { key: 'value' },
+  step: "step-id",
+  resumeData: { key: "value" },
 });
 ```
 
@@ -82,18 +82,18 @@ Watch workflow transitions:
 
 ```typescript
 try {
-  const workflow = client.getWorkflow('testWorkflow');
+  const workflow = client.getWorkflow("testWorkflow");
 
   const run = await workflow.createRun();
 
-  workflow.watch({ runId: run.runId }, record => {
+  workflow.watch({ runId: run.runId }, (record) => {
     console.log(record);
   });
 
   const result = await workflow.start({
     runId: run.runId,
     inputData: {
-      city: 'New York',
+      city: "New York",
     },
   });
 } catch (e) {
@@ -107,18 +107,18 @@ Resume workflow run and watch workflow step transitions:
 
 ```typescript
 try {
-  const workflow = client.getWorkflow('testWorkflow');
+  const workflow = client.getWorkflow("testWorkflow");
 
   const run = await workflow.createRun({ runId: prevRunId });
 
-  workflow.watch({ runId: run.runId }, record => {
+  workflow.watch({ runId: run.runId }, (record) => {
     console.log(record);
   });
 
   workflow.resume({
     runId: run.runId,
-    step: 'step-id',
-    resumeData: { key: 'value' },
+    step: "step-id",
+    resumeData: { key: "value" },
   });
 } catch (e) {
   console.error(e);
@@ -130,8 +130,8 @@ try {
 Get the result of a workflow run:
 
 ```typescript
-try {
-  const workflow = client.getWorkflow('testWorkflow');
+try  {
+  const workflow = client.getWorkflow("testWorkflow");
 
   const run = await workflow.createRun();
 
@@ -139,7 +139,7 @@ try {
   const startResult = await workflow.start({
     runId: run.runId,
     inputData: {
-      city: 'New York',
+      city: "New York",
     },
   });
 

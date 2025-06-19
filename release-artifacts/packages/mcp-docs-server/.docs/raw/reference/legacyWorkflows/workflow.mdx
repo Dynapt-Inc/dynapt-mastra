@@ -1,5 +1,5 @@
 ---
-title: 'Reference: Workflow Class | Building Workflows (Legacy) | Mastra Docs'
+title: "Reference: Workflow Class | Building Workflows (Legacy) | Mastra Docs"
 description: Documentation for the Workflow class in Mastra, which enables you to create state machines for complex sequences of operations with conditional branching and data validation.
 ---
 
@@ -8,9 +8,9 @@ description: Documentation for the Workflow class in Mastra, which enables you t
 The Workflow class enables you to create state machines for complex sequences of operations with conditional branching and data validation.
 
 ```ts copy
-import { LegacyWorkflow } from '@mastra/core/workflows/legacy';
+import { LegacyWorkflow } from "@mastra/core/workflows/legacy";
 
-const workflow = new LegacyWorkflow({ name: 'my-workflow' });
+const workflow = new LegacyWorkflow({ name: "my-workflow" });
 ```
 
 ## API Reference
@@ -20,25 +20,25 @@ const workflow = new LegacyWorkflow({ name: 'my-workflow' });
 <PropertiesTable
   content={[
     {
-      name: 'name',
-      type: 'string',
-      description: 'Identifier for the workflow',
+      name: "name",
+      type: "string",
+      description: "Identifier for the workflow",
     },
     {
-      name: 'logger',
-      type: 'Logger<WorkflowLogMessage>',
+      name: "logger",
+      type: "Logger<WorkflowLogMessage>",
       isOptional: true,
-      description: 'Optional logger instance for workflow execution details',
+      description: "Optional logger instance for workflow execution details",
     },
     {
-      name: 'steps',
-      type: 'Step[]',
-      description: 'Array of steps to include in the workflow',
+      name: "steps",
+      type: "Step[]",
+      description: "Array of steps to include in the workflow",
     },
     {
-      name: 'triggerSchema',
-      type: 'z.Schema',
-      description: 'Optional schema for validating workflow trigger data',
+      name: "triggerSchema",
+      type: "z.Schema",
+      description: "Optional schema for validating workflow trigger data",
     },
   ]}
 />
@@ -63,7 +63,7 @@ Trigger schemas validate the initial data passed to a workflow using Zod.
 
 ```ts showLineNumbers copy
 const workflow = new LegacyWorkflow({
-  name: 'order-process',
+  name: "order-process",
   triggerSchema: z.object({
     orderId: z.string(),
     customer: z.object({
@@ -110,10 +110,10 @@ const { runId, start } = workflow.createRun();
 // Validates trigger data against schema
 await start({
   triggerData: {
-    orderId: '123',
+    orderId: "123",
     customer: {
-      id: 'cust_123',
-      email: 'invalid-email', // Will fail validation
+      id: "cust_123",
+      email: "invalid-email", // Will fail validation
     },
   },
 });
@@ -131,29 +131,29 @@ A workflow's status indicates its current execution state. The possible values a
 <PropertiesTable
   content={[
     {
-      name: 'CREATED',
-      type: 'string',
-      description: 'Workflow instance has been created but not started',
+      name: "CREATED",
+      type: "string",
+      description: "Workflow instance has been created but not started",
     },
     {
-      name: 'RUNNING',
-      type: 'string',
-      description: 'Workflow is actively executing steps',
+      name: "RUNNING",
+      type: "string",
+      description: "Workflow is actively executing steps",
     },
     {
-      name: 'SUSPENDED',
-      type: 'string',
-      description: 'Workflow execution is paused waiting for resume',
+      name: "SUSPENDED",
+      type: "string",
+      description: "Workflow execution is paused waiting for resume",
     },
     {
-      name: 'COMPLETED',
-      type: 'string',
-      description: 'All steps finished executing successfully',
+      name: "COMPLETED",
+      type: "string",
+      description: "All steps finished executing successfully",
     },
     {
-      name: 'FAILED',
-      type: 'string',
-      description: 'Workflow encountered an error during execution',
+      name: "FAILED",
+      type: "string",
+      description: "Workflow encountered an error during execution",
     },
   ]}
 />
@@ -165,13 +165,13 @@ const { runId, start, watch } = workflow.createRun();
 
 watch(async ({ status }) => {
   switch (status) {
-    case 'SUSPENDED':
+    case "SUSPENDED":
       // Handle suspended state
       break;
-    case 'COMPLETED':
+    case "COMPLETED":
       // Process results
       break;
-    case 'FAILED':
+    case "FAILED":
       // Handle error state
       break;
   }
@@ -202,15 +202,15 @@ Steps can access data from previous steps in the workflow through the context ob
 ```typescript showLineNumbers copy
 workflow
   .step({
-    id: 'getData',
+    id: "getData",
     execute: async ({ context }) => {
       return {
-        data: { id: '123', value: 'example' },
+        data: { id: "123", value: "example" },
       };
     },
   })
   .step({
-    id: 'processData',
+    id: "processData",
     execute: async ({ context }) => {
       // Access data from previous step through context.steps
       const previousData = context.steps.getData.output.data;

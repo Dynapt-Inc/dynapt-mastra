@@ -1,5 +1,4 @@
 ### package.json
-
 ```json
 {
   "name": "memory-with-upstash",
@@ -37,10 +36,10 @@
   },
   "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
+
 ```
 
 ### bubble.ts
-
 ```typescript
 type BubbleStyle = 'simple' | 'rounded';
 
@@ -155,10 +154,10 @@ class MessageBubble {
 
 // Example usage:
 export const bubble = new MessageBubble();
+
 ```
 
 ### index.ts
-
 ```typescript
 import { randomUUID } from 'crypto';
 
@@ -221,10 +220,10 @@ async function main() {
 }
 
 main();
+
 ```
 
 ### mastra\agents\index.ts
-
 ```typescript
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core';
@@ -262,10 +261,10 @@ export const memoryAgent = new Agent({
     "You are an AI agent with the ability to automatically recall memories from previous interactions. You may have conversations that last hours, days, months, or years. If you don't know it already you should ask for the users name and some info about them.",
   model: openai('gpt-4o'),
 });
+
 ```
 
 ### mastra\index.ts
-
 ```typescript
 import { Mastra } from '@mastra/core';
 
@@ -274,4 +273,5 @@ import { chefAgent, memoryAgent } from './agents';
 export const mastra = new Mastra({
   agents: { chefAgent, memoryAgent },
 });
+
 ```
