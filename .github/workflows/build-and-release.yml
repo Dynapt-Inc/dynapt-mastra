@@ -75,16 +75,16 @@ jobs:
             echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           fi
 
-              - name: Prepare packages for GitHub release
-          run: |
-            node scripts/prepare-github-release.js
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add .
-            git diff --staged --quiet || git commit -m "chore: prepare packages for release ${{ steps.get_version.outputs.version }}"
+      - name: Prepare packages for GitHub release
+        run: |
+          node scripts/prepare-github-release.js
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git diff --staged --quiet || git commit -m "chore: prepare packages for release ${{ steps.get_version.outputs.version }}"
 
-        - name: Update lockfile after package changes
-          run: pnpm install
+      - name: Update lockfile after package changes
+        run: pnpm install
 
       - name: Create release archive
         run: |
