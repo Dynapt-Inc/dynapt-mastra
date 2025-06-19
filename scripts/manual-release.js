@@ -77,7 +77,6 @@ function buildAllPackages() {
     'pnpm run build:deployers',
     'pnpm run build:auth',
     'pnpm run build:clients',
-    'pnpm run build:speech',
   ];
 
   for (const command of buildCommands) {
