@@ -51,7 +51,7 @@ export class MastraBase {
   /* 
     get experimental_telemetry config
     */
-  get experimental_telemetry(): { tracer: any; isEnabled: boolean } | undefined {
+  get experimental_telemetry() {
     return this.telemetry
       ? {
           // tracer: this.telemetry.tracer,
