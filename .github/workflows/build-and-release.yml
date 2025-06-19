@@ -1,0 +1,322 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to create (e.g., v1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
+        type: boolean
+        default: false
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build-and-release:
+    name: Build All Packages and Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.1
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build all packages
+        run: pnpm run build:packages
+
+      - name: Build integrations
+        run: pnpm run build:integrations
+
+      - name: Build combined stores
+        run: pnpm run build:combined-stores
+
+      - name: Build deployers
+        run: pnpm run build:deployers
+
+      - name: Build auth
+        run: pnpm run build:auth
+
+      - name: Build clients
+        run: pnpm run build:clients
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Get version from tag or input
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag_name=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+            echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Prepare packages for GitHub release
+        run: |
+          node scripts/prepare-github-release.js
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git diff --staged --quiet || git commit -m "chore: prepare packages for release ${{ steps.get_version.outputs.version }}"
+
+      - name: Update lockfile after package changes
+        run: pnpm install
+
+      - name: Create release archive
+        run: |
+          # Create a release directory
+          mkdir -p release-artifacts
+
+          # Copy built packages
+          cp -r packages release-artifacts/
+          cp -r integrations release-artifacts/
+          cp -r stores release-artifacts/
+          cp -r deployers release-artifacts/
+          cp -r auth release-artifacts/
+          cp -r client-sdks release-artifacts/
+          cp -r voice release-artifacts/
+
+          # Copy root files
+          cp package.json release-artifacts/
+          cp pnpm-lock.yaml release-artifacts/
+          cp turbo.json release-artifacts/
+          cp README.md release-artifacts/
+          cp LICENSE release-artifacts/ 2>/dev/null || echo "No LICENSE file found"
+
+          # Create tarball
+          tar -czf release-artifacts.tar.gz -C release-artifacts .
+
+          # Create individual package archives
+          cd packages
+          for package in */; do
+            if [ -d "$package" ] && [ "$package" != "_config/" ]; then
+              package_name=$(basename "$package")
+              tar -czf "../${package_name}-${{ steps.get_version.outputs.version }}.tar.gz" "$package"
+            fi
+          done
+          cd ..
+
+      - name: Generate release notes
+        id: generate_notes
+        run: |
+          cat > release-notes.md << EOF
+          # Release ${{ steps.get_version.outputs.version }}
+
+          This release includes all built packages and dependencies.
+
+          ## 📦 Built Packages
+
+          ### Core Packages
+          - @mastra/core
+          - @mastra/server
+          - @mastra/cli
+          - @mastra/mcp
+          - @mastra/deployer
+          - @mastra/playground-ui
+          - @mastra/rag
+          - @mastra/memory
+          - @mastra/evals
+          - @mastra/auth
+          - @mastra/cloud
+          - @mastra/agui
+          - @mastra/loggers
+          - @mastra/schema-compat
+          - @mastra/mcp-docs-server
+          - @mastra/mcp-registry-registry
+          - @mastra/create-mastra
+
+          ### Client SDKs
+          - @mastra/client-js
+
+          ### Integrations
+          - @mastra/firecrawl
+          - @mastra/github
+          - @mastra/mem0
+          - @mastra/ragie
+
+          ### Storage Solutions
+          - @mastra/astra
+          - @mastra/chroma
+          - @mastra/clickhouse
+          - @mastra/cloudflare
+          - @mastra/cloudflare-d1
+          - @mastra/couchbase
+          - @mastra/dynamodb
+          - @mastra/lance
+          - @mastra/libsql
+          - @mastra/mongodb
+          - @mastra/opensearch
+          - @mastra/pg
+          - @mastra/pinecone
+          - @mastra/qdrant
+          - @mastra/turbopuffer
+          - @mastra/upstash
+          - @mastra/vectorize
+
+          ### Authentication
+          - @mastra/auth0
+          - @mastra/clerk
+          - @mastra/firebase
+          - @mastra/supabase
+          - @mastra/workos
+
+          ### Deployers
+          - @mastra/cloudflare-deployer
+          - @mastra/netlify-deployer
+          - @mastra/vercel-deployer
+
+          ### Voice
+          - @mastra/azure-voice
+          - @mastra/cloudflare-voice
+          - @mastra/deepgram-voice
+          - @mastra/elevenlabs-voice
+          - @mastra/gladia-voice
+          - @mastra/google-voice
+          - @mastra/murf-voice
+          - @mastra/openai-voice
+          - @mastra/openai-realtime-api-voice
+          - @mastra/playai-voice
+          - @mastra/sarvam-voice
+          - @mastra/speechify-voice
+
+          ## 🚀 Usage
+
+          To use packages from this release in your project:
+
+          \`\`\`json
+          {
+            "dependencies": {
+              "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#${{ steps.get_version.outputs.tag_name }}",
+              "@mastra/server": "github:Dynapt-Inc/dynapt-mastra#${{ steps.get_version.outputs.tag_name }}"
+            }
+          }
+          \`\`\`
+
+          ## 📋 Installation
+
+          1. Download the release artifacts
+          2. Extract to your project
+          3. Run \`pnpm install\`
+          4. Reference packages using the GitHub tag
+
+          ## ✅ Verification
+
+          All packages have been built and tested successfully in this release.
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.tag_name }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body_path: release-notes.md
+          prerelease: ${{ github.event.inputs.prerelease || false }}
+          draft: false
+          files: |
+            release-artifacts.tar.gz
+            *-${{ steps.get_version.outputs.version }}.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update dependencies to use release tag
+        if: github.event_name == 'workflow_dispatch' || github.ref_type == 'tag'
+        run: |
+          # Create a script to update all package.json files to use the new tag
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          const version = '${{ steps.get_version.outputs.tag_name }}';
+          const repo = 'Dynapt-Inc/dynapt-mastra';
+
+          function updatePackageJson(filePath) {
+            if (!fs.existsSync(filePath)) return;
+            
+            const content = fs.readFileSync(filePath, 'utf8');
+            const pkg = JSON.parse(content);
+            let modified = false;
+            
+            ['dependencies', 'devDependencies', 'peerDependencies'].forEach(depType => {
+              if (pkg[depType]) {
+                Object.keys(pkg[depType]).forEach(name => {
+                  if (pkg[depType][name].includes('github:' + repo + '#main')) {
+                    pkg[depType][name] = 'github:' + repo + '#' + version;
+                    modified = true;
+                  }
+                });
+              }
+            });
+            
+            if (modified) {
+              fs.writeFileSync(filePath, JSON.stringify(pkg, null, 2) + '\n');
+              console.log('Updated:', filePath);
+            }
+          }
+
+          // Update all package.json files
+          const packages = fs.readdirSync('packages').filter(p => p !== '_config');
+          packages.forEach(pkg => {
+            updatePackageJson(path.join('packages', pkg, 'package.json'));
+          });
+
+          // Update other directories
+          ['integrations', 'stores', 'deployers', 'auth', 'client-sdks', 'voice'].forEach(dir => {
+            if (fs.existsSync(dir)) {
+              fs.readdirSync(dir).forEach(pkg => {
+                updatePackageJson(path.join(dir, pkg, 'package.json'));
+              });
+            }
+          });
+          "
+
+      - name: Commit dependency updates
+        if: github.event_name == 'workflow_dispatch' || github.ref_type == 'tag'
+        run: |
+          git add .
+          git diff --staged --quiet || {
+            git commit -m "chore: update dependencies to use release tag ${{ steps.get_version.outputs.tag_name }}"
+            git push origin HEAD:release-deps-${{ steps.get_version.outputs.tag_name }}
+            
+            # Create PR to update dependencies
+            gh pr create \
+              --title "chore: update dependencies to use release tag ${{ steps.get_version.outputs.tag_name }}" \
+              --body "This PR updates all internal dependencies to use the release tag ${{ steps.get_version.outputs.tag_name }} instead of #main." \
+              --head "release-deps-${{ steps.get_version.outputs.tag_name }}" \
+              --base main
+          }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output release information
+        run: |
+          echo "🎉 Release created successfully!"
+          echo "📦 Release: ${{ steps.get_version.outputs.version }}"
+          echo "🏷️ Tag: ${{ steps.get_version.outputs.tag_name }}"
+          echo "🔗 URL: https://github.com/${{ github.repository }}/releases/tag/${{ steps.get_version.outputs.tag_name }}"
+          echo ""
+          echo "To use packages from this release:"
+          echo "GitHub reference: github:${{ github.repository }}#${{ steps.get_version.outputs.tag_name }}"
