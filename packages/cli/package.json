@@ -51,9 +51,9 @@
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "@lukeed/uuid": "^2.0.1",
-    "@mastra/deployer": "workspace:^",
-    "@mastra/loggers": "workspace:^",
-    "@mastra/mcp": "workspace:^",
+    "@mastra/deployer": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/loggers": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/mcp": "github:Dynapt-Inc/dynapt-mastra#main",
     "@opentelemetry/instrumentation": "^0.202.0",
     "@webcontainer/env": "^1.1.1",
     "commander": "^12.1.0",
@@ -78,10 +78,9 @@
     "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
-    "@internal/lint": "workspace:*",
     "@mastra/client-js": "workspace:*",
-    "@mastra/core": "workspace:*",
-    "@mastra/playground-ui": "workspace:*",
+    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
+    "@mastra/playground-ui": "github:Dynapt-Inc/dynapt-mastra#main",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.19.0",

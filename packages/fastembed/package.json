@@ -31,7 +31,6 @@
     "fastembed": "^1.14.4"
   },
   "devDependencies": {
-    "@internal/lint": "workspace:*",
     "@types/node": "^20.19.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",

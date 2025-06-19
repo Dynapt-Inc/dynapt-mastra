@@ -31,7 +31,7 @@
   "author": "",
   "license": "Elastic-2.0",
   "dependencies": {
-    "@mastra/mcp": "workspace:^",
+    "@mastra/mcp": "github:Dynapt-Inc/dynapt-mastra#main",
     "@modelcontextprotocol/sdk": "^1.12.1",
     "date-fns": "^4.1.0",
     "exit-hook": "^4.0.0",
@@ -43,8 +43,7 @@
   },
   "devDependencies": {
     "@hono/node-server": "^1.14.4",
-    "@internal/lint": "workspace:*",
-    "@mastra/core": "workspace:*",
+    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.19.0",
     "@types/turndown": "^5.0.5",

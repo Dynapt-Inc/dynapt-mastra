@@ -34,8 +34,7 @@
     "@opentelemetry/sdk-trace-base": "^2.0.1"
   },
   "devDependencies": {
-    "@internal/lint": "workspace:*",
-    "@mastra/core": "workspace:*",
+    "@mastra/core": "github:Dynapt-Inc/dynapt-mastra#main",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/node": "^20.19.0",
     "eslint": "^9.28.0",
