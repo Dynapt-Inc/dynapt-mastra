@@ -1,0 +1,238 @@
+---
+title: "Handling Complex LLM Operations | Workflows | Mastra"
+description: "Workflows in Mastra help you orchestrate complex sequences of operations with features like branching, parallel execution, resource suspension, and more."
+---
+
+import { Steps } from "nextra/components";
+
+# Workflows Overview
+
+Workflows let you define and orchestrate complex sequences of tasks as **typed steps** connected by data flows. Each step has clearly defined inputs and outputs validated by Zod schemas.
+
+A workflow manages execution order, dependencies, branching, parallelism, and error handling — enabling you to build robust, reusable processes. Steps can be nested or cloned to compose larger workflows.
+
+You create workflows by:
+
+- Defining **steps** with `createStep`, specifying input/output schemas and business logic.
+- Composing **steps** with `createWorkflow` to define the execution flow.
+- Running **workflows** to execute the entire sequence, with built-in support for suspension, resumption, and streaming results.
+
+This structure provides full type safety and runtime validation, ensuring data integrity across the entire workflow.
+
+
+## Getting Started
+
+To use workflows, first import the necessary functions from the workflows module:
+
+```typescript filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
+import { createWorkflow, createStep } from "@mastra/core/workflows";
+import { z } from "zod";
+```
+
+### Create Step
+
+Steps are the building blocks of workflows. Create a step using `createStep`:
+
+```typescript filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
+const step1 = createStep({...});
+```
+
+> See [createStep](/reference/workflows/step) for more information.
+
+### Create Workflow
+
+Create a workflow using `createWorkflow` and complete it with `.commit()`.
+
+```typescript {6,17} filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
+import { createWorkflow, createStep } from "@mastra/core/workflows";
+import { z } from "zod";
+
+const step1 = createStep({...});
+
+export const testWorkflow = createWorkflow({
+  id: "test-workflow",
+  description: 'Test workflow',
+  inputSchema: z.object({
+    input: z.string()
+  }),
+  outputSchema: z.object({
+    output: z.string()
+  })
+})
+  .then(step1)
+  .commit();
+```
+
+> See [workflow](/reference/workflows/workflow) for more information.
+
+#### Composing Steps
+
+Workflow steps can be composed and executed sequentially using `.then()`.
+
+```typescript {17,18} filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
+import { createWorkflow, createStep } from "@mastra/core/workflows";
+import { z } from "zod";
+
+const step1 = createStep({...});
+const step2 = createStep({...});
+
+export const testWorkflow = createWorkflow({
+  id: "test-workflow",
+  description: 'Test workflow',
+  inputSchema: z.object({
+    input: z.string()
+  }),
+  outputSchema: z.object({
+    output: z.string()
+  })
+})
+  .then(step1)
+  .then(step2)
+  .commit();
+```
+
+> Steps can be composed using a number of different methods. See [Control Flow](/docs/workflows/control-flow)  for more information.
+
+
+#### Cloning Steps
+
+Workflow steps can be cloned using `cloneStep()`, and used with any workflow method.
+
+```typescript {5,19} filename="src/mastra/workflows/test-workflow.ts" showLineNumbers copy
+import { createWorkflow, createStep, cloneStep } from "@mastra/core/workflows";
+import { z } from "zod";
+
+const step1 = createStep({...});
+const clonedStep = cloneStep(step1, { id: "cloned-step" });
+const step2 = createStep({...});
+
+export const testWorkflow = createWorkflow({
+  id: "test-workflow",
+  description: 'Test workflow',
+  inputSchema: z.object({
+    input: z.string()
+  }),
+  outputSchema: z.object({
+    output: z.string()
+  })
+})
+  .then(step1)
+  .then(clonedStep)
+  .then(step2)
+  .commit();
+```
+
+### Register Workflow
+
+Register a workflow using `workflows` in the main Mastra instance:
+
+```typescript {8} filename="src/mastra/index.ts" showLineNumbers copy
+import { Mastra } from "@mastra/core/mastra";
+import { PinoLogger } from "@mastra/loggers";
+import { LibSQLStore } from "@mastra/libsql";
+
+import { testWorkflow } from "./workflows/test-workflow";
+
+export const mastra = new Mastra({
+  workflows: { testWorkflow },
+  storage: new LibSQLStore({
+    // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
+    url: ":memory:"
+  }),
+  logger: new PinoLogger({
+    name: "Mastra",
+    level: "info"
+  })
+});
+```
+
+### Run Workflow
+There are two ways to run and test workflows.
+
+<Steps>
+
+#### Mastra Playground
+
+With the Mastra Dev Server running you can run the workflow from the Mastra Playground by visiting [http://localhost:4111/workflows](http://localhost:4111/workflows) in your browser.
+
+#### Command line
+
+Create a run instance of any Mastra workflow using `createRun` and `start`:
+
+```typescript {3,5} filename="src/test-workflow.ts" showLineNumbers copy
+import { mastra } from "./mastra";
+
+const run = mastra.getWorkflow("testWorkflow").createRun();
+
+const result = await run.start({
+  inputData: {
+    city: "London"
+  }
+});
+
+console.log(JSON.stringify(result, null, 2));
+```
+> see [createRun](/reference/workflows/create-run) and [start](/reference/workflows/start) for more information.
+
+To trigger this workflow, run the following:
+
+```bash
+npx tsx src/test-workflow.ts
+```
+
+</Steps>
+
+### Stream Workflow
+
+Similar to the run method shown above, workflows can also be streamed:
+
+```typescript {5} filename="src/test-workflow.ts" showLineNumbers copy
+import { mastra } from "./mastra";
+
+const run = mastra.getWorkflow("testWorkflow").createRun();
+
+const result = await run.stream({
+  inputData: {
+    city: "London"
+  }
+});
+
+for await (const chunk of result.stream) {
+  console.log(chunk);
+}
+```
+
+> See [stream](/reference/workflows/stream) and [messages](/reference/workflows/stream#messages) for more information.
+
+### Watch Workflow
+
+A workflow can also be watched, allowing you to inspect each event that is emitted.
+
+```typescript {5} filename="src/test-workflow.ts" showLineNumbers copy
+import { mastra } from "./mastra";
+
+const run = mastra.getWorkflow("testWorkflow").createRun();
+
+run.watch((event) => {
+  console.log(event);
+});
+
+const result = await run.start({
+  inputData: {
+    city: "London"
+  }
+});
+```
+
+> See [watch](/reference/workflows/watch) for more information.
+
+## More Resources
+
+- The [Workflow Guide](../../guides/guide/ai-recruiter.mdx) in the Guides section is a tutorial that covers the main concepts.
+- [Parallel Steps workflow example](../../examples/workflows/parallel-steps.mdx)
+- [Conditional Branching workflow example](../../examples/workflows/conditional-branching.mdx)
+- [Inngest workflow example](../../examples/workflows/inngest-workflow.mdx)
+- [Suspend and Resume workflow example](../../examples/workflows/human-in-the-loop.mdx)
+
+
+

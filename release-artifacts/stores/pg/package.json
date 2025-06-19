@@ -1,0 +1,57 @@
+{
+  "name": "@mastra/pg",
+  "version": "0.11.1-alpha.0",
+  "description": "Postgres provider for Mastra - includes both vector and db storage capabilities",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --experimental-dts --clean --treeshake=smallest --splitting",
+    "build:watch": "pnpm build --watch",
+    "pretest": "docker compose up -d && (for i in $(seq 1 30); do docker compose exec -T db pg_isready -U postgres && break || (sleep 1; [ $i -eq 30 ] && exit 1); done)",
+    "test": "vitest run",
+    "pretest:perf": "docker compose -f docker-compose.perf.yaml up -d && (for i in $(seq 1 30); do docker compose -f docker-compose.perf.yaml exec -T db pg_isready -U postgres && break || (sleep 1; [ $i -eq 30 ] && exit 1); done)",
+    "test:perf": "NODE_OPTIONS='--max-old-space-size=16384' vitest run -c vitest.perf.config.ts",
+    "posttest": "docker compose down -v",
+    "posttest:perf": "docker compose -f docker-compose.perf.yaml down -v",
+    "pretest:watch": "docker compose up -d",
+    "test:watch": "vitest watch",
+    "posttest:watch": "docker compose down -v",
+    "lint": "eslint ."
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async-mutex": "^0.5.0",
+    "pg": "^8.16.0",
+    "pg-promise": "^11.14.0",
+    "xxhash-wasm": "^1.1.0"
+  },
+  "devDependencies": {
+    "@internal/lint": "workspace:*",
+    "@internal/storage-test-utils": "workspace:*",
+    "@mastra/core": "workspace:*",
+    "@microsoft/api-extractor": "^7.52.8",
+    "@types/node": "^20.19.0",
+    "@types/pg": "^8.15.4",
+    "eslint": "^9.28.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
+  },
+  "peerDependencies": {
+    "@mastra/core": ">=0.10.4-0 <0.11.0"
+  }
+}
