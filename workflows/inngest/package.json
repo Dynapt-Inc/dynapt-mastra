@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/inngest",
+  "name": "@caleblawson-mastra/inngest",
   "version": "0.10.6-alpha.0",
   "description": "Mastra Inngest integration",
   "type": "module",

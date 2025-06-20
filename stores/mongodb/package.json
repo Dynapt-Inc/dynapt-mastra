@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/mongodb",
+  "name": "@caleblawson-mastra/mongodb",
   "version": "0.11.1-alpha.0",
   "description": "MongoDB provider for Mastra - includes vector store capabilities",
   "type": "module",

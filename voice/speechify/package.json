@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/voice-speechify",
+  "name": "@caleblawson-mastra/voice-speechify",
   "version": "0.10.3",
   "description": "Mastra Speechify voice integration",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/voice-playai",
+  "name": "@caleblawson-mastra/voice-playai",
   "version": "0.10.3",
   "description": "Mastra PlayAI voice integration",
   "type": "module",

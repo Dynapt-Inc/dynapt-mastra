@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/deployer-cloudflare",
+  "name": "@caleblawson-mastra/deployer-cloudflare",
   "version": "0.10.7-alpha.0",
   "description": "",
   "type": "module",

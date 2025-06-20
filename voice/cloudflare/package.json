@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/voice-cloudflare",
+  "name": "@caleblawson-mastra/voice-cloudflare",
   "version": "0.10.3",
   "description": "Mastra Sarvam AI voice integration",
   "type": "module",

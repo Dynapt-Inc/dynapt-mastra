@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/chroma",
+  "name": "@caleblawson-mastra/chroma",
   "version": "0.10.3",
   "description": "Chroma vector store provider for Mastra",
   "type": "module",

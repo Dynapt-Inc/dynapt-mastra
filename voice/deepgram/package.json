@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/voice-deepgram",
+  "name": "@caleblawson-mastra/voice-deepgram",
   "version": "0.10.3",
   "description": "Mastra Deepgram voice integration",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/voice-google",
+  "name": "@caleblawson-mastra/voice-google",
   "version": "0.10.3",
   "description": "Mastra Google voice integration",
   "type": "module",

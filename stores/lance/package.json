@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/lance",
+  "name": "@caleblawson-mastra/lance",
   "version": "0.1.3-alpha.0",
   "description": "Lance provider for Mastra - includes both vector and db storage capabilities",
   "type": "module",

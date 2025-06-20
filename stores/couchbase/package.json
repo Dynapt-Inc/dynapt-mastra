@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/couchbase",
+  "name": "@caleblawson-mastra/couchbase",
   "version": "0.10.3",
   "description": "Couchbase vector store provider for Mastra",
   "type": "module",

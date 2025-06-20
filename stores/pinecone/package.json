@@ -1,5 +1,5 @@
 {
-  "name": "@dynapt-mastra/pinecone",
+  "name": "@caleblawson-mastra/pinecone",
   "version": "0.10.2",
   "description": "Pinecone vector store provider for Mastra",
   "type": "module",
