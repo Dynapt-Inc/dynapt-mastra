@@ -1,6 +1,6 @@
 {
   "name": "@caleblawson/mastra",
-  "version": "0.1.11",
+  "version": "0.0.1",
   "type": "module",
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
