@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/turbopuffer",
+  "name": "@caleblawson/turbopuffer",
   "version": "0.10.3",
   "description": "Turbopuffer vector store provider for Mastra",
   "type": "module",

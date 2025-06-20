@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/astra",
+  "name": "@caleblawson/astra",
   "version": "0.10.2",
   "description": "Astra DB provider for Mastra - includes vector store capabilities",
   "type": "module",

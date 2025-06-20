@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-openai-realtime",
+  "name": "@caleblawson/voice-openai-realtime",
   "version": "0.10.2",
   "description": "Mastra OpenAI Realtime API integration",
   "type": "module",

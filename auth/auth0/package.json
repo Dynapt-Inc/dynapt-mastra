@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/auth-auth0",
+  "name": "@caleblawson/auth-auth0",
   "version": "0.10.0",
   "description": "Mastra Auth0 Auth integration",
   "type": "module",

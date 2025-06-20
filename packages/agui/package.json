@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/agui",
+  "name": "@caleblawson/agui",
   "version": "1.0.3",
   "description": "AGUI protocol helpers for Mastra",
   "type": "module",

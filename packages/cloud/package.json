@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/cloud",
+  "name": "@caleblawson/cloud",
   "version": "0.1.3",
   "description": "Official Mastra Cloud integration package for telemetry",
   "type": "module",

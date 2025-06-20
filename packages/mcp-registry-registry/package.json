@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/mcp-registry-registry",
+  "name": "@caleblawson/mcp-registry-registry",
   "version": "0.10.3",
   "description": "MCP server for registry registry services.",
   "type": "module",

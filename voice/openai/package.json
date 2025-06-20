@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-openai",
+  "name": "@caleblawson/voice-openai",
   "version": "0.10.3",
   "description": "Mastra OpenAI speech integration",
   "type": "module",

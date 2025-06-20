@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-elevenlabs",
+  "name": "@caleblawson/voice-elevenlabs",
   "version": "0.10.3",
   "description": "Mastra ElevenLabs voice integration",
   "type": "module",

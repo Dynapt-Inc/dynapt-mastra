@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/github",
+  "name": "@caleblawson/github",
   "version": "1.2.3",
   "description": "",
   "main": "dist/index.js",

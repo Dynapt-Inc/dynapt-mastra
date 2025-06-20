@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/auth-supabase",
+  "name": "@caleblawson/auth-supabase",
   "version": "0.10.1",
   "description": "Mastra Supabase Auth integration",
   "type": "module",

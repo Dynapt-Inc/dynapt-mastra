@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-speechify",
+  "name": "@caleblawson/voice-speechify",
   "version": "0.10.3",
   "description": "Mastra Speechify voice integration",
   "type": "module",

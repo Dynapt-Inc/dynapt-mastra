@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/auth-firebase",
+  "name": "@caleblawson/auth-firebase",
   "version": "0.10.0",
   "description": "Mastra Firebase Auth integration",
   "type": "module",

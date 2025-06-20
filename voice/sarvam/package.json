@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-sarvam",
+  "name": "@caleblawson/voice-sarvam",
   "version": "0.10.3",
   "description": "Mastra Sarvam AI voice integration",
   "type": "module",

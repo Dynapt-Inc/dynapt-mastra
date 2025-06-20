@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/auth-clerk",
+  "name": "@caleblawson/auth-clerk",
   "version": "0.10.1",
   "description": "Mastra Clerk Auth integration",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-	"name": "@caleblawson-mastra/mcp-configuration",
+	"name": "@caleblawson/mcp-configuration",
 	"version": "1.0.0",
 	"description": "MCP Configuration Manager",
 	"type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/voice-playai",
+  "name": "@caleblawson/voice-playai",
   "version": "0.10.3",
   "description": "Mastra PlayAI voice integration",
   "type": "module",

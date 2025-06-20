@@ -1,5 +1,5 @@
 {
-  "name": "@caleblawson-mastra/vectorize",
+  "name": "@caleblawson/vectorize",
   "version": "0.10.2",
   "description": "Cloudflare Vectorize store provider for Mastra",
   "type": "module",
